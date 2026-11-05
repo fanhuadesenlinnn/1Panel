@@ -367,6 +367,8 @@ const message = {
             serviceNotStarted: '{0} servisi başlatılmadı.',
         },
         status: {
+            autoSyncEnabled: 'Otomatik eşitleme açık',
+            autoSyncDisabled: 'Otomatik eşitleme kapalı',
             running: 'Çalışıyor',
             done: 'Tamamlandı',
             scanFailed: 'Eksik',
@@ -808,7 +810,7 @@ const message = {
             nativeAgentAccessUnavailable:
                 'Mevcut kurulumda uyumlu HTTPS erişim adresi veya bağlantı noktası yok. Uygulama ayarlarını kontrol edin.',
             agent: 'Ajan',
-            account: 'Model hesabı',
+            account: 'Model hizmeti',
             batchOperation: 'Toplu işlem',
             operationType: 'İşlem türü',
             batchAction: 'Toplu {0}',
@@ -822,10 +824,10 @@ const message = {
             skillSource: 'Skill Kaynağı',
             skillKeyword: 'Skill Anahtar Kelimesi',
             clawHubSkillPlaceholder: 'Önce bir Skill arayın ve seçin',
-            noAccountHint: 'Mevcut bir model hesabını seçin veya yeni bir tane ekleyin.',
-            accountCount: '{0} model hesabı',
+            noAccountHint: 'Mevcut bir model hizmetinı seçin veya yeni bir tane ekleyin.',
+            accountCount: '{0} model hizmeti',
             syncAgents: 'İlişkili ajanları senkronize et',
-            syncAgentsHelper: 'Bu model hesabını kullanan ajanlar için openclaw.json dosyasını güncelleyin',
+            syncAgentsHelper: 'Bu model hizmetinı kullanan ajanlar için openclaw.json dosyasını güncelleyin',
             appVersion: 'Uygulama sürümü',
             webuiPort: 'WebUI portu',
             tokenOrAuth: 'Token/Kimlik Doğrulama',
@@ -866,7 +868,7 @@ const message = {
             useModelDefault: 'Model varsayılanını kullan',
             reasoning: 'Akıl yürütme modeli',
             verified: 'Doğrulandı',
-            verifySkipped: 'Doğrulama yok',
+            verifySkipped: 'Doğrulama gerekmiyor',
             skillsTab: 'Yetenekler',
             pluginsTab: 'Eklentiler',
             pluginsInstalled: 'Yüklü',
@@ -1108,7 +1110,19 @@ const message = {
             modelTokenHelper: 'İsteğe bağlı. Özel veya kısıtlı modeller için erişim yetkili bir token kullanın.',
             modelDirHelper: 'Modellerin indirildiği ve yerel model listesinin okunduğu dizin.',
             featuredModelsHelper:
-                '1Panel resmî öne çıkan model kataloğu. Elle yenileyin veya 24 saatte bir otomatik eşitlemeyi etkinleştirin. Yalnızca katalog güncellenir; model dosyaları indirilmez.',
+                '1Panel tarafından seçilen modelleri inceleyin, özellikleri, kullanım alanlarını ve indirme kaynaklarını görüntüleyerek uygun modeli indirin.',
+            featuredModelsSyncHelper:
+                'Otomatik eşitleme, model dosyalarını indirmeden öne çıkan model kataloğunu her gün sabahın erken saatlerinde günceller. İstediğiniz zaman elle de eşitleyebilirsiniz.',
+            recipeSyncHelper:
+                'Otomatik eşitleme, özel tarifleri etkilemeden eşitlenen tarifleri her gün sabahın erken saatlerinde günceller. İstediğiniz zaman elle de eşitleyebilirsiniz.',
+            readinessPreparing: 'Hazırlanıyor',
+            readinessReady: 'Hazır',
+            readinessNotReady: 'Hazır değil',
+            readinessPreparingHelper:
+                'Konteyner başlatıldı ancak henüz sağlık kontrolünü geçmedi. Model hâlâ yükleniyor olabilir. Lütfen bekleyin.',
+            readinessReadyHelper: 'Konteynerin son sağlık kontrolü başarılı oldu. Hizmet hazır.',
+            readinessNotReadyHelper:
+                'Konteyner çalışıyor ancak art arda yapılan sağlık kontrolleri başarısız oldu. Hizmet henüz hazır değil. Konteyner günlüklerini kontrol edin.',
             addInstanceHelper: 'İndirilen modelleri sunmak için bir vLLM örneği oluşturun.',
             addService: 'Ekle',
             onlineModel: 'Çevrimiçi modeller',
@@ -1125,8 +1139,10 @@ const message = {
             recipeConfig: 'Recipe yapılandırması',
             selectRecipe: 'Recipe seç',
             createRecipe: 'Recipe oluştur',
+            recipeSynced: 'Eşitlenmiş',
+            recipeCustom: 'Özel',
             recipeHelper:
-                'Recipe, bir modelin belirli bir donanımda nasıl başlatılacağını açıklar; model, donanım ve başlatma parametrelerini içerir. {link} üzerinden komut içe aktarılabilir.',
+                'Farklı donanımlar için model dağıtım tariflerini yönetin, hızlı dağıtım için başlatma argümanlarını yeniden kullanın veya {link} üzerinden komutları içe aktarın.',
             recipeFormHelper:
                 '{link} adresine gidin, önce model sağlayıcısını, ardından hedef modeli seçin. Son başlatma komutunu oluşturmak için donanımı, kuantizasyon sürümünü, dağıtım stratejisini ve diğer seçenekleri yapılandırın.',
             recipeArguments: 'Başlatma parametreleri',
@@ -1224,9 +1240,9 @@ const message = {
             notInstalled: 'Kurulu değil',
             usage: 'Kullanım',
             accountPool: 'Hesap Havuzu',
-            importModelAccount: 'Model hesabını içe aktar',
-            editModelAccount: 'Model hesabını düzenle',
-            selectModelAccount: 'Mevcut bir model hesabı seçin',
+            importModelAccount: 'Model hizmetinı içe aktar',
+            editModelAccount: 'Model hizmetinı düzenle',
+            selectModelAccount: 'Mevcut bir model hizmeti seçin',
             upstreamApiAddress: 'Yukarı Akış API Adresi',
             priority: 'Öncelik',
             healthStatus: 'Sağlık durumu',
@@ -1282,8 +1298,8 @@ const message = {
             waitingQueue: 'Mevcut bekleme kuyruğu',
             currentActiveUsers: 'Şu anda aktif kullanıcılar',
             activeStreamingRequests: 'Aktif akış istekleri',
-            modelAccountConcurrency: 'Model hesabı eşzamanlılığı',
-            accountAvailability: 'Model hesabı kullanılabilirliği',
+            modelAccountConcurrency: 'Model hizmeti eşzamanlılığı',
+            accountAvailability: 'Model hizmeti kullanılabilirliği',
             capacityFull: 'Kapasite dolu',
             groupConcurrency: 'Kullanıcı grubu eşzamanlılığı',
             apiKeyConcurrency: 'API Key eşzamanlılığı',
@@ -1337,7 +1353,7 @@ const message = {
             esLogCircuitUntil: 'ES devresi şu zamana kadar',
             serviceOperateConfirm: 'AI Ağ Geçidi servisini {0} onaylıyor musunuz?',
             deleteTargetConfirm: '{0} {1} silinsin mi?',
-            deleteBackendTitle: 'Model hesabını sil',
+            deleteBackendTitle: 'Model hizmetinı sil',
             userFallback: 'Silinen kullanıcı (ID: {0})',
             requestModel: 'İstek modeli',
             upstreamModel: 'Upstream model',
@@ -1350,7 +1366,7 @@ const message = {
             usageTrend: 'Kullanım eğilimi',
             distributionBy: '{0} dağılımı',
             unmatched: 'Eşleşmedi',
-            modelAccount: 'Model hesabı',
+            modelAccount: 'Model hizmeti',
             serviceProvider: 'Sağlayıcı',
             tokenUsage: 'Token kullanımı',
             percent: 'Yüzde',
@@ -2670,6 +2686,8 @@ const message = {
         library: {
             script: 'Script',
             syncNow: 'Hemen Senkronize Et',
+            autoSyncHelper:
+                'Otomatik eşitleme, özel betikleri etkilemeden sistem betiklerini her gün sabahın erken saatlerinde günceller. İstediğiniz zaman elle de eşitleyebilirsiniz.',
             turnOnSync: 'Otomatik Senkronizasyonu Aç',
             turnOnSyncHelper:
                 'Otomatik senkronizasyonu açmak, her gün sabahın erken saatlerinde otomatik senkronizasyon gerçekleştirecektir',
@@ -2857,7 +2875,7 @@ const message = {
         scrollSensitivity: 'Kaydırma Hassasiyeti',
         aiAssistant: 'AI Asistani',
         aiAccountHelper:
-            'Komut üretmek ve doldurmak için seçili model hesabını kullanın. Ollama ve vLLM gibi yerel modeller için özel model hesabı kullanın.',
+            'Komut üretmek ve doldurmak için seçili model hizmetinı kullanın. Ollama ve vLLM gibi yerel modeller için özel model hizmeti kullanın.',
         aiPrefix: 'Tetikleme öneki',
         aiPrefixHelper:
             '"Önek + boşluk" girip Enter tuşuna bastığınızda AI komut üretimi tetiklenir; örneğin: {0} disk bilgisini sorgulamama yardım et.',
@@ -3113,7 +3131,7 @@ const message = {
         aiSearchHint:
             'Dosya içeriğini satır satır arar. Arama satırının sağındaki düğmeleri ve alttaki "Gelişmiş koşullar"ı kullanın. AI hesabı etkinleştirilip kaydedildiğinde Markdown özeti de oluşturulabilir.',
         aiSearchAccountTitle: 'AI hesabı',
-        aiSearchAccountIntro: 'Özet için kullanılacak model hesabını seçin, ardından kaydedin.',
+        aiSearchAccountIntro: 'Özet için kullanılacak model hizmetinı seçin, ardından kaydedin.',
         aiSearchAccountEnable: 'Dosya AI aramasını etkinleştir',
         aiSearchSaveAccount: 'Hesap yapılandırmasını kaydet',
         aiSearchSectionQuery: 'Arama',
@@ -4073,12 +4091,20 @@ const message = {
             'Ticari sürüme yükselterek düğümleri manuel değiştirmeden çok düğümlü uygulama sürümlerini toplu olarak yükseltebilirsiniz.',
         nodeDashboard:
             'Ticari sürüme yükselterek çok düğümlü uygulamaları, web sitelerini, veritabanlarını ve zamanlanmış görevleri merkezi olarak yönetebilirsiniz.',
+        imageExchange:
+            'Ticari sürüme yükselterek konteyner imajlarını düğümler arasında toplu olarak aktarabilirsiniz.',
+        appExchange:
+            'Ticari sürüme yükselterek yüklü uygulamaları hedef düğümlere taşıyabilir ve gerekli kaynak bağımlılıklarını doğrulayabilirsiniz.',
+        sslSync:
+            'Ticari sürüme yükselterek kaynak düğümdeki sertifikaları bir veya daha fazla hedef düğümle eşitleyebilirsiniz.',
+        phpExtensionsSync:
+            'Ticari sürüme yükselterek PHP uzantı şablonlarını bir veya daha fazla hedef düğümle eşitleyebilirsiniz.',
         fileExchange: 'Ticari sürüme yükselterek birden fazla sunucu arasında dosyaları hızlıca aktarabilirsiniz.',
         app: 'Ticari sürüme yükselterek mobil uygulamada hizmet bilgilerini ve anormallik izlemeyi görüntüleyebilirsiniz.',
         cluster: 'Ticari sürüme yükselterek MySQL/Postgres/Redis birincil-kopya kümelerini yönetebilirsiniz.',
-        vllm: 'Ticari sürüme yükselterek vLLM hizmetlerini 1Panel içinde merkezi olarak dağıtabilir, yapılandırabilir, yaşam döngüsünü yönetebilir ve görevleri izleyebilirsiniz.',
+        vllm: 'vLLM dağıtımı, hizmet izleme, günlük görüntüleme ve günlük işlemleri tek yerden yönetmek için ticari sürüme yükseltin.',
         'model-downloader':
-            'Ticari sürüme yükselterek HuggingFace, ModelScope veya uyumlu aynalardan yerel model dosyalarını arayabilir, indirebilir ve yönetebilir; model dizinlerini ve indirme görevlerini merkezi olarak takip edebilirsiniz.',
+            'Öne çıkan modelleri incelemek, indirmeleri yönetmek, vLLM Recipes içeriklerini yeniden kullanmak ve indirme kaynakları ile erişim bilgilerini yapılandırmak için ticari sürüme yükseltin.',
     },
     clean: {
         scan: 'Taramayı başlat',
@@ -7151,6 +7177,37 @@ const message = {
             nodeContent3: 'Her düğümün çalışma durumunu gerçek zamanlı olarak izler',
             nodeTitle4: 'Hızlı Uzak Bağlantı',
             nodeContent4: 'Düğümlere tek tıkla doğrudan uzak terminal bağlantısı',
+            imageExchangeTitle1: 'Kaynak imajları seçin',
+            imageExchangeContent1: 'Kaynak düğümdeki konteyner imajlarını inceleyin ve aktarılacak imajları seçin.',
+            imageExchangeTitle2: 'İmajları dağıtın',
+            imageExchangeContent2: 'Seçilen imajları bir veya daha fazla hedef düğüme aktarın.',
+            imageExchangeTitle3: 'Aktarım günlüklerini görüntüleyin',
+            imageExchangeContent3: 'İmaj aktarımının ilerlemesini ve sonuçlarını görev günlüklerinden takip edin.',
+            appExchangeTitle1: 'Bir uygulama seçin',
+            appExchangeContent1: 'Kaynak düğümde yüklü uygulamaları inceleyin ve taşınacak uygulamayı seçin.',
+            appExchangeTitle2: 'Bağımlılıkları doğrulayın',
+            appExchangeContent2:
+                'Taşıma işleminden önce hedef düğümleri ve veritabanları gibi gerekli kaynakları doğrulayın.',
+            appExchangeTitle3: 'Uygulamaları taşıyın',
+            appExchangeContent3:
+                'Uygulama yedeklerini geri yüklemek için hedef düğümlere aktarın ve sonuçları görev günlüklerinde görüntüleyin.',
+            sslSyncTitle1: 'Sertifikaları seçin',
+            sslSyncContent1: 'Kaynak düğümdeki sertifika bilgilerini inceleyin ve eşitlenecek sertifikaları seçin.',
+            sslSyncTitle2: 'Düğümler arasında eşitleyin',
+            sslSyncContent2:
+                'Kaynak düğüm otomatik olarak hariç tutularak seçilen sertifikaları hedef düğümlerle eşitleyin.',
+            sslSyncTitle3: 'Eşitleme görevlerini onaylayın',
+            sslSyncContent3:
+                'İşlemden önce hedef düğümleri ve sertifikaları gözden geçirin, ardından sonuçları görev günlüklerinde görüntüleyin.',
+            phpExtensionsSyncTitle1: 'Bir şablon seçin',
+            phpExtensionsSyncContent1:
+                'Kaynak düğümdeki şablon adlarını ve uzantı listelerini inceleyin ve eşitlenecek şablonu seçin.',
+            phpExtensionsSyncTitle2: 'Şablonları eşitleyin',
+            phpExtensionsSyncContent2:
+                'Kaynak düğüm otomatik olarak hariç tutularak seçilen şablonu hedef düğümlerle eşitleyin.',
+            phpExtensionsSyncTitle3: 'Mevcut şablonları kontrol edin',
+            phpExtensionsSyncContent3:
+                'Adı ve içeriği aynı olan şablonlar atlanır. İçerik farklıysa üzerine yazılmadan çakışma bildirilir.',
             fileExchangeTitle1: 'Anahtar Kimlik Doğrulama İletimi',
             fileExchangeContent1: 'İletim güvenliğini sağlamak için SSH anahtarları ile kimlik doğrulaması yapar.',
             fileExchangeTitle2: 'Verimli Dosya Senkronizasyonu',
@@ -7179,30 +7236,27 @@ const message = {
             clusterTitle3: 'Çoğaltma Durumu',
             clusterContent3:
                 'Ana-çalışan çoğaltma durumunu ve gecikme bilgilerini görüntüleyerek senkronizasyon sorunlarını gidermeye yardımcı olur',
-            modelDownloaderTitle1: 'Model Keşfi',
+            modelDownloaderTitle1: 'Öne Çıkan Modeller',
             modelDownloaderContent1:
-                'HuggingFace model depolarını doğrudan arayın; indirme sayısı, beğeni, model ayrıntıları ve dosya listesini görüntüleyin.',
-            modelDownloaderTitle2: 'Hızlandırılmış İndirme',
+                'Öne çıkan modelleri inceleyin, aile ve ağırlık sağlayıcısına göre filtreleyin, model ayrıntılarını görüntüleyin ve indirmeyi başlatın.',
+            modelDownloaderTitle2: 'Model İndirme',
             modelDownloaderContent2:
-                'Resmi site, aynalar ve özel modeller için HuggingFace hızlandırma endpointi ve HuggingFace Token yapılandırın.',
-            modelDownloaderTitle3: 'Görev Takibi',
+                'Hugging Face ve ModelScope üzerinden model indirin, ilerlemeyi izleyin, görevleri iptal edin veya yeniden deneyin ve yerel dosyaları yönetin.',
+            modelDownloaderTitle3: 'vLLM Recipes',
             modelDownloaderContent3:
-                'İndirme kuyruğunu, görev durumunu, ilerlemeyi ve hataları görüntüleyin; iptal, yeniden deneme ve kayıt temizlemeyi destekler.',
-            modelDownloaderTitle4: 'Yerel Yönetim',
+                'Resmî Recipes içeriklerini inceleyip eşitleyin, özel tarifleri yönetin ve modellere uygun dağıtım parametrelerini yeniden kullanın.',
+            modelDownloaderTitle4: 'Yapılandırma',
             modelDownloaderContent4:
-                'Yerel model dizinlerini tek yerden yönetin; yolları, boyutları, zamanları görüntüleyin ve kullanılmayan model dosyalarını silin.',
-            vllmTitle1: 'Merkezi Yönetim',
+                'Model indirme dizinini, kaynak adreslerini, erişim belirteçlerini ve öne çıkan modellerin otomatik eşitlenmesini yapılandırın.',
+            vllmTitle1: 'Model Dağıtımı',
             vllmContent1:
-                "Dağıtık vLLM örneklerini 1Panel'e entegre edin ve sürümleri, çalışma durumlarını ve çalışma dizinlerini merkezi olarak yönetin.",
-            vllmTitle2: 'Hızlı Dağıtım',
+                'Model dizinini ve konteyner imajını seçin, GPU, port ve başlatma parametrelerini yapılandırın ve vLLM örnekleri oluşturun.',
+            vllmTitle2: 'Hizmet İzleme',
             vllmContent2:
-                'Görsel formlar aracılığıyla sürüm seçimi, model dizini bağlama ve başlatma parametrelerinin yapılandırılmasını tamamlayarak manuel yapılandırma karmaşıklığını azaltın.',
-            vllmTitle3: 'Operasyonel Verimlilik',
+                'Model hizmetinin performansını izlemek için örnek durumunu, istek sayısını, işlem hacmini ve gecikmeyi görüntüleyin.',
+            vllmTitle3: 'Günlük İşlemler',
             vllmContent3:
-                'Örnek oluşturma, düzenleme, başlatma, durdurma, yeniden başlatma, silme ve görev takibini tek bir arayüzden gerçekleştirerek yerel model hizmetlerinin yönetim verimliliğini artırın.',
-            vllmTitle4: 'Esnek Yapılandırma',
-            vllmContent4:
-                'Gelişmiş ayarlar aracılığıyla portları, konteynerleri, başlatma komutlarını ve Compose yapılandırmalarını merkezi olarak yönetin; standartlaştırılmış dağıtım ve sonraki ayarlamaları kolaylaştırın.',
+                'Örnekleri başlatın, durdurun, yeniden başlatın ve silin; günlükleri görüntüleyin, terminalleri açın ve işlem görevlerini takip edin.',
         },
         node: {
             master: 'Ana Düğüm',
@@ -7675,6 +7729,13 @@ const message = {
             imageBatchConfirmPrefix: '{0} imaj {1} düğüme aktarılacak, toplam {2} görev oluşturulacak.',
 
             ssl: 'Sertifika Senkronizasyonu',
+            phpExtensions: 'PHP Uzantı Şablonu Eşitleme',
+            phpExtensionsTitle: 'Uzantı Şablonu Eşitleme',
+            phpExtensionsDesc: 'PHP uzantı şablonunu hedef düğümlerle eşitlemek için bir kaynak düğüm seçin.',
+            phpExtensionsList: 'PHP uzantıları',
+            phpExtensionsConfirm: '{0} PHP uzantı şablonu {1} düğümle eşitlenecek.',
+            phpExtensionsConflictHint:
+                'Aynı şablonlar atlanır. Adı aynı ancak içeriği farklı olan şablonlar çakışma olarak bildirilir ve üzerlerine yazılmaz.',
             sslBatchDesc:
                 'Kaynak düğüm seçildikten sonra belirtilen sertifikalar mevcut panel ortamına senkronize edilebilir.',
             sslBatchConfirmPrefix: '{0} sertifika {1} düğüme senkronize edilecek, toplam {2} görev oluşturulacak.',

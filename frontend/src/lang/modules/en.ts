@@ -366,6 +366,8 @@ const message = {
             serviceNotStarted: 'The {0} service is not started.',
         },
         status: {
+            autoSyncEnabled: 'Auto-sync enabled',
+            autoSyncDisabled: 'Auto-sync disabled',
             running: 'Running',
             done: 'Done',
             scanFailed: 'Incomplete',
@@ -804,7 +806,7 @@ const message = {
             nativeAgentAccessUnavailable:
                 'The existing installation has no compatible HTTPS access address or port. Check its application settings.',
             agent: 'Agent',
-            account: 'Model Account',
+            account: 'Model Service',
             batchOperation: 'Batch Operation',
             operationType: 'Operation Type',
             batchAction: 'Batch {0}',
@@ -818,10 +820,10 @@ const message = {
             skillSource: 'Skill Source',
             skillKeyword: 'Skill Keyword',
             clawHubSkillPlaceholder: 'Search and select a Skill first',
-            noAccountHint: 'Choose an existing model account or add a new one.',
-            accountCount: '{0} model accounts',
+            noAccountHint: 'Choose an existing model service or add a new one.',
+            accountCount: '{0} model services',
             syncAgents: 'Sync related agents',
-            syncAgentsHelper: 'Update openclaw.json for agents using this model account',
+            syncAgentsHelper: 'Update openclaw.json for agents using this model service',
             appVersion: 'App Version',
             webuiPort: 'WebUI Port',
             tokenOrAuth: 'Token/Auth',
@@ -862,7 +864,7 @@ const message = {
             useModelDefault: 'Use model default',
             reasoning: 'Reasoning Model',
             verified: 'Verified',
-            verifySkipped: 'No verification',
+            verifySkipped: 'No verification required',
             skillsTab: 'Skills',
             pluginsTab: 'Plugins',
             pluginsInstalled: 'Installed',
@@ -1099,7 +1101,19 @@ const message = {
             modelTokenHelper: 'Optional. Use a token with access permissions for private or restricted models.',
             modelDirHelper: 'Directory for model downloads and the local model list.',
             featuredModelsHelper:
-                'Official 1Panel featured model catalog. Refresh manually or enable auto-sync every 24 hours. Sync updates only the catalog, without downloading model files.',
+                'Browse models curated by 1Panel, review specifications, use cases, and download sources, and choose a model to download.',
+            featuredModelsSyncHelper:
+                'When enabled, auto-sync updates the featured model catalog daily in the early morning without downloading model files. You can also sync manually at any time.',
+            recipeSyncHelper:
+                'When enabled, auto-sync updates synced recipes daily in the early morning without affecting custom recipes. You can also sync manually at any time.',
+            readinessPreparing: 'Preparing',
+            readinessReady: 'Ready',
+            readinessNotReady: 'Not ready',
+            readinessPreparingHelper:
+                'The container has started but has not passed its health check yet. The model may still be loading. Please wait.',
+            readinessReadyHelper: 'The latest container health check passed. The service is ready.',
+            readinessNotReadyHelper:
+                'The container is still running, but consecutive health checks have failed. The service is not ready. Check the container logs.',
             addInstanceHelper: 'Create a vLLM instance to serve downloaded models.',
             addService: 'Add',
             onlineModel: 'Online models',
@@ -1116,8 +1130,10 @@ const message = {
             recipeConfig: 'Recipe configuration',
             selectRecipe: 'Select Recipe',
             createRecipe: 'Create Recipe',
+            recipeSynced: 'Synced',
+            recipeCustom: 'Custom',
             recipeHelper:
-                'A Recipe describes how to launch a model on specific hardware, including the model, hardware, and launch arguments. Commands can be imported from {link}.',
+                'Manage model deployment recipes for different hardware, reuse launch arguments for quick deployment, or import commands from {link}.',
             recipeFormHelper:
                 'Go to {link}, select the model provider, then select the target model. Configure the hardware, quantization variant, deployment strategy, and other options to generate the final launch command.',
             recipeArguments: 'Launch arguments',
@@ -1214,9 +1230,9 @@ const message = {
             notInstalled: 'Not installed',
             usage: 'Usage',
             accountPool: 'Account Pool',
-            importModelAccount: 'Import Model Account',
-            editModelAccount: 'Edit Model Account',
-            selectModelAccount: 'Select an existing model account',
+            importModelAccount: 'Import Model Service',
+            editModelAccount: 'Edit Model Service',
+            selectModelAccount: 'Select an existing model service',
             upstreamApiAddress: 'Upstream API Address',
             priority: 'Priority',
             healthStatus: 'Health',
@@ -1273,8 +1289,8 @@ const message = {
             waitingQueue: 'Current Waiting Queue',
             currentActiveUsers: 'Current Active Users',
             activeStreamingRequests: 'Active Streaming Requests',
-            modelAccountConcurrency: 'Model Account Concurrency',
-            accountAvailability: 'Model Account Availability',
+            modelAccountConcurrency: 'Model Service Concurrency',
+            accountAvailability: 'Model Service Availability',
             capacityFull: 'At Capacity',
             groupConcurrency: 'User Group Concurrency',
             apiKeyConcurrency: 'API Key Concurrency',
@@ -1329,7 +1345,7 @@ const message = {
             esLogCircuitUntil: 'ES Circuit Until',
             serviceOperateConfirm: 'Confirm to {0} the AI Gateway service?',
             deleteTargetConfirm: 'Delete {0} {1}?',
-            deleteBackendTitle: 'Delete Model Account',
+            deleteBackendTitle: 'Delete Model Service',
             userFallback: 'Deleted user (ID: {0})',
             requestModel: 'Request Model',
             upstreamModel: 'Upstream Model',
@@ -1342,7 +1358,7 @@ const message = {
             usageTrend: 'Usage Trend',
             distributionBy: '{0} Distribution',
             unmatched: 'Unmatched',
-            modelAccount: 'Model Account',
+            modelAccount: 'Model Service',
             serviceProvider: 'Provider',
             tokenUsage: 'Token Usage',
             percent: 'Percent',
@@ -2644,6 +2660,8 @@ const message = {
         library: {
             script: 'Script',
             syncNow: 'Sync Now',
+            autoSyncHelper:
+                'When enabled, auto-sync updates system scripts daily in the early morning without affecting custom scripts. You can also sync manually at any time.',
             turnOnSync: 'Enable Auto Sync',
             turnOnSyncHelper:
                 'Enabling auto sync will perform automatic synchronization during early morning hours daily',
@@ -2827,7 +2845,7 @@ const message = {
         scrollSensitivity: 'Scroll Sensitivity',
         aiAssistant: 'AI Assistant',
         aiAccountHelper:
-            'Use the selected model account to generate and fill commands. For local models like Ollama and vLLM, use a custom model account.',
+            'Use the selected model service to generate and fill commands. For local models like Ollama and vLLM, use a custom model service.',
         aiPrefix: 'Trigger Prefix',
         aiPrefixHelper:
             'Enter "prefix + space" and press Enter to trigger AI command generation, for example: {0} help me check disk usage.',
@@ -4011,12 +4029,19 @@ const message = {
         nodeApp: 'Upgrade to Commercial Edition to upgrade multi-node app versions without switching nodes manually.',
         nodeDashboard:
             'Upgrade to Commercial Edition for centralized management of multi-node apps, websites, databases, and scheduled tasks.',
+        imageExchange: 'Upgrade to Commercial Edition to transfer container images between nodes in batches.',
+        appExchange:
+            'Upgrade to Commercial Edition to migrate installed applications to target nodes and confirm their resource dependencies.',
+        sslSync:
+            'Upgrade to Commercial Edition to synchronize certificates from a source node to one or more target nodes.',
+        phpExtensionsSync:
+            'Upgrade to Commercial Edition to synchronize PHP extension templates to one or more target nodes.',
         fileExchange: 'Upgrade to Commercial Edition to transfer files quickly between servers.',
         app: 'Upgrade to Commercial Edition to view service details, anomaly monitoring, and more in the mobile app.',
         cluster: 'Upgrade to Commercial Edition to manage MySQL/Postgres/Redis primary-replica clusters.',
-        vllm: 'Upgrade to Commercial Edition to manage vLLM services in 1Panel with centralized deployment, configuration, lifecycle operations, and task tracking.',
+        vllm: 'Upgrade to the commercial edition to deploy vLLM instances, monitor services, view logs, and manage daily operations in one place.',
         'model-downloader':
-            'Upgrade to Commercial Edition to search, download, and manage local model files from HuggingFace, ModelScope, or compatible mirrors with centralized model directories and download tasks.',
+            'Upgrade to the commercial edition to browse featured models, manage downloads, reuse vLLM Recipes, and configure download sources and access credentials.',
     },
     clean: {
         scan: 'Start scanning',
@@ -7038,6 +7063,35 @@ const message = {
             nodeContent3: "Real-time monitoring of each node's operational status",
             nodeTitle4: 'Quick Remote Connection',
             nodeContent4: 'One-click direct connection to node remote terminals',
+            imageExchangeTitle1: 'Select source images',
+            imageExchangeContent1: 'Browse container images on the source node and select the images to transfer.',
+            imageExchangeTitle2: 'Distribute images',
+            imageExchangeContent2: 'Transfer selected images to one or more target nodes.',
+            imageExchangeTitle3: 'View transfer logs',
+            imageExchangeContent3: 'Track image transfer progress and results in task logs.',
+            appExchangeTitle1: 'Select an application',
+            appExchangeContent1: 'Browse installed applications on the source node and select one to migrate.',
+            appExchangeTitle2: 'Confirm dependencies',
+            appExchangeContent2: 'Confirm target nodes and required resources, such as databases, before migration.',
+            appExchangeTitle3: 'Migrate applications',
+            appExchangeContent3:
+                'Transfer application backups to target nodes for restoration and view results in task logs.',
+            sslSyncTitle1: 'Select certificates',
+            sslSyncContent1: 'Browse certificate details on the source node and select certificates to synchronize.',
+            sslSyncTitle2: 'Synchronize across nodes',
+            sslSyncContent2:
+                'Synchronize selected certificates to target nodes, automatically excluding the source node.',
+            sslSyncTitle3: 'Confirm sync tasks',
+            sslSyncContent3: 'Review target nodes and certificates before execution, then view results in task logs.',
+            phpExtensionsSyncTitle1: 'Select a template',
+            phpExtensionsSyncContent1:
+                'Browse template names and extension lists on the source node and select a template to synchronize.',
+            phpExtensionsSyncTitle2: 'Synchronize templates',
+            phpExtensionsSyncContent2:
+                'Synchronize the selected template to target nodes, automatically excluding the source node.',
+            phpExtensionsSyncTitle3: 'Check existing templates',
+            phpExtensionsSyncContent3:
+                'Skip templates with identical names and content. Report conflicts without overwriting different content.',
             fileExchangeTitle1: 'Key Authentication Transmission',
             fileExchangeContent1: 'Authenticate via SSH keys to ensure transmission security.',
             fileExchangeTitle2: 'Efficient File Synchronization',
@@ -7065,30 +7119,27 @@ const message = {
             clusterTitle3: 'Replication Status',
             clusterContent3:
                 'Displays master-slave replication status and delay information, assisting in troubleshooting synchronization issues',
-            vllmTitle1: 'Centralized Management',
+            vllmTitle1: 'Model Deployment',
             vllmContent1:
-                'Bring scattered vLLM services into 1Panel for unified visibility of instances, versions, status, and runtime paths.',
-            vllmTitle2: 'Fast Deployment',
+                'Select a model directory and container image, configure GPUs, ports, and startup parameters, and create vLLM instances.',
+            vllmTitle2: 'Service Monitoring',
             vllmContent2:
-                'Use a visual form to configure version selection, model mounts, and startup parameters with less manual orchestration.',
-            vllmTitle3: 'Operational Efficiency',
+                'View instance status, request counts, throughput, and latency to monitor model service performance.',
+            vllmTitle3: 'Daily Operations',
             vllmContent3:
-                'Handle create, edit, start, stop, restart, delete, and task tracking from one page to simplify local model operations.',
-            vllmTitle4: 'Controlled Configuration',
-            vllmContent4:
-                'Standardize ports, containers, startup commands, and Compose settings through advanced options for easier delivery and later adjustments.',
-            modelDownloaderTitle1: 'Model Discovery',
+                'Start, stop, restart, and delete instances, view logs, open terminals, and track operation tasks.',
+            modelDownloaderTitle1: 'Featured Models',
             modelDownloaderContent1:
-                'Search HuggingFace model repositories directly and view downloads, likes, model details, and file lists.',
-            modelDownloaderTitle2: 'Accelerated Downloads',
+                'Browse featured models, filter by family and weight provider, view model details, and start downloads.',
+            modelDownloaderTitle2: 'Model Downloads',
             modelDownloaderContent2:
-                'Configure a HuggingFace acceleration endpoint and HuggingFace Token for the official site, mirrors, and private models.',
-            modelDownloaderTitle3: 'Task Tracking',
+                'Download models from Hugging Face and ModelScope, track progress, cancel or retry tasks, and manage local files.',
+            modelDownloaderTitle3: 'vLLM Recipes',
             modelDownloaderContent3:
-                'Review download queues, task status, progress, and errors, with support for canceling, retrying, and clearing records.',
-            modelDownloaderTitle4: 'Local Management',
+                'Browse and sync official Recipes, manage custom recipes, match models, and reuse deployment parameters.',
+            modelDownloaderTitle4: 'Configuration',
             modelDownloaderContent4:
-                'Manage local model directories in one place, including paths, sizes, timestamps, and deleting unused model files.',
+                'Configure the model download directory, source endpoints, access tokens, and automatic featured model synchronization.',
         },
         node: {
             master: 'Main Node',
@@ -7552,6 +7603,13 @@ const message = {
             imageBatchConfirmPrefix: 'About to transfer {0} images to {1} nodes, for a total of {2} tasks.',
 
             ssl: 'Certificate Sync',
+            phpExtensions: 'PHP Extension Template Sync',
+            phpExtensionsTitle: 'Extension Template Sync',
+            phpExtensionsDesc: 'Select a source node to sync its PHP extension template to target nodes.',
+            phpExtensionsList: 'PHP extensions',
+            phpExtensionsConfirm: 'Sync {0} PHP extension template(s) to {1} node(s).',
+            phpExtensionsConflictHint:
+                'Identical templates are skipped. Same-name templates with different content are reported as conflicts and will not be overwritten.',
             sslBatchDesc:
                 'After selecting a source node, sync the specified certificate into the current panel environment.',
             sslBatchConfirmPrefix: 'About to sync {0} certificates to {1} nodes, for a total of {2} tasks.',

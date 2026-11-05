@@ -366,6 +366,8 @@ const message = {
             serviceNotStarted: 'El servicio {0} no está iniciado.',
         },
         status: {
+            autoSyncEnabled: 'Sincronización automática activada',
+            autoSyncDisabled: 'Sincronización automática desactivada',
             running: 'En ejecución',
             done: 'Completado',
             scanFailed: 'Incompleto',
@@ -807,7 +809,7 @@ const message = {
             nativeAgentAccessUnavailable:
                 'La instalación existente no tiene una dirección o puerto HTTPS compatible. Revise la configuración de la aplicación.',
             agent: 'Agente',
-            account: 'Cuenta de modelo',
+            account: 'Servicio de modelo',
             batchOperation: 'Operación por lotes',
             operationType: 'Tipo de operación',
             batchAction: '{0} por lotes',
@@ -821,10 +823,10 @@ const message = {
             skillSource: 'Origen de Skill',
             skillKeyword: 'Palabra clave de Skill',
             clawHubSkillPlaceholder: 'Busque y seleccione una Skill primero',
-            noAccountHint: 'Selecciona una cuenta de modelo existente o agrega una nueva.',
-            accountCount: '{0} cuentas de modelo',
+            noAccountHint: 'Selecciona un servicio de modelo existente o agrega uno nuevo.',
+            accountCount: '{0} servicios de modelo',
             syncAgents: 'Sincronizar agentes vinculados',
-            syncAgentsHelper: 'Actualiza openclaw.json para los agentes que usan esta cuenta de modelo',
+            syncAgentsHelper: 'Actualiza openclaw.json para los agentes que usan este servicio de modelo',
             appVersion: 'Versión de la app',
             webuiPort: 'Puerto WebUI',
             tokenOrAuth: 'Token/Autenticación',
@@ -867,7 +869,7 @@ const message = {
             useModelDefault: 'Usar valor predeterminado del modelo',
             reasoning: 'Modelo de razonamiento',
             verified: 'Verificado',
-            verifySkipped: 'Sin verificación',
+            verifySkipped: 'No requiere verificación',
             skillsTab: 'Habilidades',
             pluginsTab: 'Complementos',
             pluginsInstalled: 'Instalados',
@@ -1101,7 +1103,20 @@ const message = {
             modelTokenHelper: 'Opcional. Use un token con permisos para acceder a modelos privados o restringidos.',
             modelDirHelper: 'Directorio de descarga y listado de modelos locales.',
             featuredModelsHelper:
-                'Catálogo oficial de modelos destacados de 1Panel. Actualícelo manualmente o active la sincronización automática cada 24 horas. Solo se actualiza el catálogo, sin descargar modelos.',
+                'Explora los modelos seleccionados por 1Panel, consulta sus especificaciones, casos de uso y fuentes de descarga, y elige un modelo para descargar.',
+            featuredModelsSyncHelper:
+                'La sincronización automática actualiza el catálogo de modelos destacados cada madrugada sin descargar archivos de modelos. También puedes sincronizar manualmente en cualquier momento.',
+            recipeSyncHelper:
+                'La sincronización automática actualiza las recetas sincronizadas cada madrugada sin afectar a las personalizadas. También puedes sincronizar manualmente en cualquier momento.',
+            readinessPreparing: 'Preparando',
+            readinessReady: 'Listo',
+            readinessNotReady: 'No está listo',
+            readinessPreparingHelper:
+                'El contenedor se ha iniciado, pero aún no ha superado la comprobación de estado. El modelo podría seguir cargándose. Espera un momento.',
+            readinessReadyHelper:
+                'La última comprobación de estado del contenedor se ha superado. El servicio está listo.',
+            readinessNotReadyHelper:
+                'El contenedor sigue ejecutándose, pero varias comprobaciones de estado consecutivas han fallado. El servicio no está listo. Consulta los registros del contenedor.',
             addInstanceHelper: 'Cree una instancia de vLLM para servir los modelos descargados.',
             addService: 'Añadir',
             onlineModel: 'Modelos en línea',
@@ -1118,8 +1133,10 @@ const message = {
             recipeConfig: 'Configuración de Recipe',
             selectRecipe: 'Seleccionar Recipe',
             createRecipe: 'Crear Recipe',
+            recipeSynced: 'Sincronizado',
+            recipeCustom: 'Personalizado',
             recipeHelper:
-                'Una Recipe describe cómo iniciar un modelo en un hardware específico e incluye el modelo, el hardware y los argumentos de inicio. Permite importar comandos desde {link}.',
+                'Gestiona recetas de despliegue para distintos equipos, reutiliza argumentos de inicio para desplegar rápidamente o importa comandos desde {link}.',
             recipeFormHelper:
                 'Vaya a {link}, seleccione el proveedor del modelo y luego el modelo de destino. Configure el hardware, la variante de cuantización, la estrategia de despliegue y otras opciones para generar el comando de inicio final.',
             recipeArguments: 'Argumentos de inicio',
@@ -1218,9 +1235,9 @@ const message = {
             notInstalled: 'No instalado',
             usage: 'Uso',
             accountPool: 'Grupo de cuentas',
-            importModelAccount: 'Importar cuenta de modelo',
-            editModelAccount: 'Editar cuenta de modelo',
-            selectModelAccount: 'Seleccionar una cuenta de modelo existente',
+            importModelAccount: 'Importar servicio de modelo',
+            editModelAccount: 'Editar servicio de modelo',
+            selectModelAccount: 'Seleccionar un servicio de modelo existente',
             upstreamApiAddress: 'Dirección de API ascendente',
             priority: 'Prioridad',
             healthStatus: 'Estado de salud',
@@ -1277,8 +1294,8 @@ const message = {
             waitingQueue: 'Cola de espera actual',
             currentActiveUsers: 'Usuarios activos actuales',
             activeStreamingRequests: 'Solicitudes de streaming activas',
-            modelAccountConcurrency: 'Concurrencia de cuentas de modelo',
-            accountAvailability: 'Disponibilidad de cuentas de modelo',
+            modelAccountConcurrency: 'Concurrencia de servicios de modelo',
+            accountAvailability: 'Disponibilidad de servicios de modelo',
             capacityFull: 'Capacidad completa',
             groupConcurrency: 'Concurrencia de grupos de usuarios',
             apiKeyConcurrency: 'Concurrencia de API Keys',
@@ -1334,7 +1351,7 @@ const message = {
             esLogCircuitUntil: 'Circuito ES hasta',
             serviceOperateConfirm: '¿Confirmar {0} el servicio de gateway de IA?',
             deleteTargetConfirm: '¿Eliminar {0} {1}?',
-            deleteBackendTitle: 'Eliminar cuenta de modelo',
+            deleteBackendTitle: 'Eliminar servicio de modelo',
             userFallback: 'Usuario eliminado (ID: {0})',
             requestModel: 'Modelo solicitado',
             upstreamModel: 'Modelo upstream',
@@ -1347,7 +1364,7 @@ const message = {
             usageTrend: 'Tendencia de uso',
             distributionBy: 'Distribución por {0}',
             unmatched: 'Sin coincidencia',
-            modelAccount: 'Cuenta de modelo',
+            modelAccount: 'Servicio de modelo',
             serviceProvider: 'Proveedor',
             tokenUsage: 'Uso de tokens',
             percent: 'Porcentaje',
@@ -2686,6 +2703,8 @@ const message = {
         library: {
             script: 'Script',
             syncNow: 'Sincronizar Ahora',
+            autoSyncHelper:
+                'La sincronización automática actualiza los scripts del sistema cada madrugada sin afectar a los personalizados. También puedes sincronizar manualmente en cualquier momento.',
             turnOnSync: 'Activar Sincronización Automática',
             turnOnSyncHelper:
                 'Activar la sincronización automática realizará sincronizaciones automáticas durante las primeras horas de la madrugada diariamente',
@@ -2880,7 +2899,7 @@ const message = {
         scrollSensitivity: 'Sensibilidad de scroll',
         aiAssistant: 'Asistente de IA',
         aiAccountHelper:
-            'Use la cuenta de modelo seleccionada para generar y rellenar comandos. Para modelos locales como Ollama y vLLM, use una cuenta de modelo personalizada.',
+            'Use el servicio de modelo seleccionado para generar y rellenar comandos. Para modelos locales como Ollama y vLLM, use un servicio de modelo personalizado.',
         aiPrefix: 'Prefijo de activación',
         aiPrefixHelper:
             'Introduzca "prefijo + espacio" y pulse Enter para activar la generación de comandos por IA; por ejemplo: {0} ayúdame a consultar la información del disco.',
@@ -3125,7 +3144,7 @@ const message = {
         aiSearchHint:
             'Busca el contenido del archivo línea por línea. Usa los botones a la derecha de la fila de búsqueda y las "Condiciones avanzadas" debajo. Cuando la cuenta de IA esté activada y guardada, también se podrá generar un resumen en Markdown.',
         aiSearchAccountTitle: 'Cuenta de IA',
-        aiSearchAccountIntro: 'Elige una cuenta de modelo grande para generar resúmenes y guarda los cambios.',
+        aiSearchAccountIntro: 'Elige un servicio de modelo grande para generar resúmenes y guarda los cambios.',
         aiSearchAccountEnable: 'Activar búsqueda de IA en archivos',
         aiSearchSaveAccount: 'Guardar configuración de la cuenta',
         aiSearchSectionQuery: 'Búsqueda',
@@ -4088,13 +4107,21 @@ const message = {
             'Actualizar a la edición comercial permite actualizar versiones de aplicaciones multinodo sin cambiar de nodo manualmente.',
         nodeDashboard:
             'Actualizar a la edición comercial permite la gestión centralizada de aplicaciones, sitios web, bases de datos y tareas programadas multinodo.',
+        imageExchange:
+            'Actualiza a la Edición Comercial para transferir imágenes de contenedores por lotes entre nodos.',
+        appExchange:
+            'Actualiza a la Edición Comercial para migrar aplicaciones instaladas a nodos de destino y confirmar sus dependencias de recursos.',
+        sslSync:
+            'Actualiza a la Edición Comercial para sincronizar certificados de un nodo de origen con uno o varios nodos de destino.',
+        phpExtensionsSync:
+            'Actualiza a la Edición Comercial para sincronizar plantillas de extensiones PHP con uno o varios nodos de destino.',
         fileExchange: 'La edición comercial permite transferir archivos entre varios servidores.',
         app: 'La edición comercial permite ver información de servicio, monitoreo, etc. vía app móvil.',
         cluster:
             'Actualizar a la edición comercial permite gestionar clústeres primario-réplica de MySQL/Postgres/Redis.',
-        vllm: 'Actualiza a la edición comercial para gestionar servicios vLLM en 1Panel con despliegue, configuración, operaciones del ciclo de vida y seguimiento de tareas centralizados.',
+        vllm: 'Actualiza a la edición comercial para desplegar vLLM, monitorizar servicios, consultar registros y gestionar las operaciones diarias desde un solo lugar.',
         'model-downloader':
-            'Actualiza a la edición comercial para buscar, descargar y gestionar archivos de modelos locales desde HuggingFace, ModelScope o espejos compatibles, con directorios de modelos y tareas de descarga centralizados.',
+            'Actualiza a la edición comercial para explorar modelos destacados, gestionar descargas, reutilizar vLLM Recipes y configurar los orígenes de descarga y las credenciales de acceso.',
         offLine: 'Sin conexión',
     },
     clean: {
@@ -7151,6 +7178,41 @@ const message = {
             nodeContent3: 'Supervisa en tiempo real el estado operativo de cada nodo',
             nodeTitle4: 'Conexión Remota Rápida',
             nodeContent4: 'Conecta directamente a la terminal remota de un nodo con un clic',
+            imageExchangeTitle1: 'Seleccionar imágenes de origen',
+            imageExchangeContent1:
+                'Consulta las imágenes de contenedores del nodo de origen y selecciona las que quieras transferir.',
+            imageExchangeTitle2: 'Distribuir imágenes',
+            imageExchangeContent2: 'Transfiere las imágenes seleccionadas a uno o varios nodos de destino.',
+            imageExchangeTitle3: 'Ver registros de transferencia',
+            imageExchangeContent3:
+                'Consulta el progreso y los resultados de la transferencia de imágenes en los registros de tareas.',
+            appExchangeTitle1: 'Seleccionar una aplicación',
+            appExchangeContent1:
+                'Consulta las aplicaciones instaladas en el nodo de origen y selecciona una para migrarla.',
+            appExchangeTitle2: 'Confirmar dependencias',
+            appExchangeContent2:
+                'Antes de migrar, confirma los nodos de destino y los recursos necesarios, como las bases de datos.',
+            appExchangeTitle3: 'Migrar aplicaciones',
+            appExchangeContent3:
+                'Transfiere las copias de seguridad de las aplicaciones a los nodos de destino para restaurarlas y consulta los resultados en los registros de tareas.',
+            sslSyncTitle1: 'Seleccionar certificados',
+            sslSyncContent1:
+                'Consulta los detalles de los certificados del nodo de origen y selecciona los que quieras sincronizar.',
+            sslSyncTitle2: 'Sincronizar entre nodos',
+            sslSyncContent2:
+                'Sincroniza los certificados seleccionados con los nodos de destino, excluyendo automáticamente el nodo de origen.',
+            sslSyncTitle3: 'Confirmar tareas de sincronización',
+            sslSyncContent3:
+                'Revisa los nodos de destino y los certificados antes de ejecutar la tarea y consulta los resultados en los registros de tareas.',
+            phpExtensionsSyncTitle1: 'Seleccionar una plantilla',
+            phpExtensionsSyncContent1:
+                'Consulta los nombres de las plantillas y sus listas de extensiones en el nodo de origen y selecciona una plantilla para sincronizarla.',
+            phpExtensionsSyncTitle2: 'Sincronizar plantillas',
+            phpExtensionsSyncContent2:
+                'Sincroniza la plantilla seleccionada con los nodos de destino, excluyendo automáticamente el nodo de origen.',
+            phpExtensionsSyncTitle3: 'Comprobar plantillas existentes',
+            phpExtensionsSyncContent3:
+                'Se omiten las plantillas con el mismo nombre y contenido. Si el contenido es diferente, se informa del conflicto sin sobrescribirlo.',
             fileExchangeTitle1: 'Transmisión con Autenticación por Claves',
             fileExchangeContent1: 'Autenticación vía claves SSH para garantizar seguridad en la transmisión.',
             fileExchangeTitle2: 'Sincronización de Archivos Eficiente',
@@ -7179,30 +7241,27 @@ const message = {
             clusterTitle3: 'Estado de Replicación',
             clusterContent3:
                 'Muestra estado de replicación maestro-esclavo y retrasos, ayudando a diagnosticar problemas de sincronización',
-            modelDownloaderTitle1: 'Descubrimiento de modelos',
+            modelDownloaderTitle1: 'Modelos destacados',
             modelDownloaderContent1:
-                'Busca repositorios de modelos de HuggingFace directamente y consulta descargas, me gusta, detalles y archivos.',
-            modelDownloaderTitle2: 'Descargas aceleradas',
+                'Explora modelos destacados, filtra por familia y proveedor de pesos, consulta los detalles e inicia descargas.',
+            modelDownloaderTitle2: 'Descarga de modelos',
             modelDownloaderContent2:
-                'Configura un endpoint de aceleración de HuggingFace y HuggingFace Token para el sitio oficial, espejos y modelos privados.',
-            modelDownloaderTitle3: 'Seguimiento de tareas',
+                'Descarga modelos de Hugging Face y ModelScope, consulta el progreso, cancela o reintenta tareas y gestiona los archivos locales.',
+            modelDownloaderTitle3: 'vLLM Recipes',
             modelDownloaderContent3:
-                'Consulta la cola, el estado, el progreso y los errores de descarga, con soporte para cancelar, reintentar y limpiar registros.',
-            modelDownloaderTitle4: 'Gestión local',
+                'Explora y sincroniza Recipes oficiales, gestiona recetas personalizadas y reutiliza parámetros de despliegue compatibles con cada modelo.',
+            modelDownloaderTitle4: 'Configuración',
             modelDownloaderContent4:
-                'Gestiona directorios de modelos locales en un solo lugar, incluyendo rutas, tamaños, fechas y eliminación de modelos no usados.',
-            vllmTitle1: 'Gestión centralizada',
+                'Configura el directorio de descarga, las direcciones de origen, los tokens de acceso y la sincronización automática de modelos destacados.',
+            vllmTitle1: 'Despliegue de modelos',
             vllmContent1:
-                'Centralice la gestión de instancias vLLM distribuidas y supervise versiones, estado de ejecución y directorios de trabajo desde una única plataforma.',
-            vllmTitle2: 'Despliegue rápido',
+                'Selecciona el directorio del modelo y la imagen del contenedor, configura GPU, puertos y parámetros de inicio, y crea instancias de vLLM.',
+            vllmTitle2: 'Monitorización del servicio',
             vllmContent2:
-                'Configure y despliegue servicios vLLM en minutos mediante formularios visuales, sin necesidad de complejas operaciones manuales.',
-            vllmTitle3: 'Operación eficiente',
+                'Consulta el estado de las instancias, el número de solicitudes, el rendimiento y la latencia del servicio de modelos.',
+            vllmTitle3: 'Operaciones diarias',
             vllmContent3:
-                'Realice la creación, edición, inicio, detención, reinicio y eliminación de instancias desde una sola interfaz para simplificar la operación diaria.',
-            vllmTitle4: 'Control avanzado',
-            vllmContent4:
-                'Personalice puertos, contenedores, comandos de arranque y archivos Compose con opciones avanzadas para lograr implementaciones más flexibles y estandarizadas.',
+                'Inicia, detén, reinicia y elimina instancias, consulta registros, abre terminales y realiza el seguimiento de las tareas.',
         },
         node: {
             master: 'Nodo Principal',
@@ -7669,6 +7728,14 @@ const message = {
             imageBatchConfirmPrefix: 'Se enviarán {0} imágenes a {1} nodos, creando {2} tareas.',
 
             ssl: 'Sincronización de certificados',
+            phpExtensions: 'Sincronización de plantillas de extensiones PHP',
+            phpExtensionsTitle: 'Sincronización de plantillas de extensiones',
+            phpExtensionsDesc:
+                'Selecciona un nodo de origen para sincronizar su plantilla de extensiones PHP con los nodos de destino.',
+            phpExtensionsList: 'Extensiones PHP',
+            phpExtensionsConfirm: 'Se sincronizarán {0} plantillas de extensiones PHP con {1} nodos.',
+            phpExtensionsConflictHint:
+                'Se omiten las plantillas idénticas. Las plantillas con el mismo nombre y contenido diferente se notifican como conflictos y no se sobrescriben.',
             sslBatchDesc:
                 'Después de seleccionar el nodo de origen, los certificados especificados pueden sincronizarse con el entorno actual del panel.',
             sslBatchConfirmPrefix: 'Se sincronizarán {0} certificados a {1} nodos, creando {2} tareas.',

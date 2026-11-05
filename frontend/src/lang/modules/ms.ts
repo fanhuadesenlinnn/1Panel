@@ -371,6 +371,8 @@ const message = {
             serviceNotStarted: 'Perkhidmatan {0} belum dimulakan.',
         },
         status: {
+            autoSyncEnabled: 'Penyegerakan automatik diaktifkan',
+            autoSyncDisabled: 'Penyegerakan automatik dinyahaktifkan',
             running: 'Sedang Berjalan',
             done: 'Selesai',
             scanFailed: 'Tidak Lengkap',
@@ -812,7 +814,7 @@ const message = {
             nativeAgentAccessUnavailable:
                 'Pemasangan sedia ada tiada alamat atau port HTTPS yang serasi. Semak tetapan aplikasi.',
             agent: 'Agen',
-            account: 'Akaun model',
+            account: 'Perkhidmatan model',
             batchOperation: 'Operasi pukal',
             operationType: 'Jenis operasi',
             batchAction: '{0} pukal',
@@ -826,10 +828,10 @@ const message = {
             skillSource: 'Sumber Skill',
             skillKeyword: 'Kata kunci Skill',
             clawHubSkillPlaceholder: 'Cari dan pilih Skill dahulu',
-            noAccountHint: 'Pilih akaun model sedia ada atau tambah yang baharu.',
-            accountCount: 'Akaun model {0}',
+            noAccountHint: 'Pilih perkhidmatan model sedia ada atau tambah yang baharu.',
+            accountCount: 'Perkhidmatan model {0}',
             syncAgents: 'Segerakkan agen berkaitan',
-            syncAgentsHelper: 'Kemas kini openclaw.json untuk agen yang menggunakan akaun model ini',
+            syncAgentsHelper: 'Kemas kini openclaw.json untuk agen yang menggunakan perkhidmatan model ini',
             appVersion: 'Versi aplikasi',
             webuiPort: 'Port WebUI',
             tokenOrAuth: 'Token/Pengesahan',
@@ -871,7 +873,7 @@ const message = {
             useModelDefault: 'Gunakan lalai model',
             reasoning: 'Model penaakulan',
             verified: 'Disahkan',
-            verifySkipped: 'Tanpa pengesahan',
+            verifySkipped: 'Pengesahan tidak diperlukan',
             skillsTab: 'Kemahiran',
             pluginsTab: 'Pemalam',
             pluginsInstalled: 'Dipasang',
@@ -1110,7 +1112,19 @@ const message = {
             modelTokenHelper: 'Pilihan. Gunakan token dengan kebenaran akses untuk model peribadi atau terhad.',
             modelDirHelper: 'Direktori muat turun model dan sumber senarai model setempat.',
             featuredModelsHelper:
-                'Katalog model pilihan rasmi 1Panel. Muat semula secara manual atau aktifkan penyegerakan automatik setiap 24 jam. Hanya katalog dikemas kini, tanpa memuat turun fail model.',
+                'Semak model pilihan 1Panel, lihat spesifikasi, kegunaan dan sumber muat turun, kemudian pilih model yang sesuai untuk dimuat turun.',
+            featuredModelsSyncHelper:
+                'Penyegerakan automatik mengemas kini katalog model pilihan setiap hari pada awal pagi tanpa memuat turun fail model. Anda juga boleh menyegerakkan secara manual pada bila-bila masa.',
+            recipeSyncHelper:
+                'Penyegerakan automatik mengemas kini resipi yang disegerakkan setiap hari pada awal pagi tanpa menjejaskan resipi tersuai. Anda juga boleh menyegerakkan secara manual pada bila-bila masa.',
+            readinessPreparing: 'Sedang disediakan',
+            readinessReady: 'Sedia',
+            readinessNotReady: 'Belum sedia',
+            readinessPreparingHelper:
+                'Bekas telah dimulakan tetapi belum lulus pemeriksaan kesihatan. Model mungkin masih dimuatkan. Sila tunggu.',
+            readinessReadyHelper: 'Pemeriksaan kesihatan bekas yang terkini telah lulus. Perkhidmatan sudah sedia.',
+            readinessNotReadyHelper:
+                'Bekas masih berjalan, tetapi pemeriksaan kesihatan berturut-turut telah gagal. Perkhidmatan belum sedia. Semak log bekas.',
             addInstanceHelper:
                 'Cipta instans vLLM untuk menyediakan model yang dimuat turun sebagai perkhidmatan model.',
             addService: 'Tambah',
@@ -1128,8 +1142,10 @@ const message = {
             recipeConfig: 'Konfigurasi Recipe',
             selectRecipe: 'Pilih Recipe',
             createRecipe: 'Cipta Recipe',
+            recipeSynced: 'Disegerakkan',
+            recipeCustom: 'Tersuai',
             recipeHelper:
-                'Recipe menerangkan cara melancarkan model pada perkakasan tertentu, termasuk model, perkakasan dan argumen pelancaran. Arahan boleh diimport daripada {link}.',
+                'Urus resipi penggunaan model untuk perkakasan berbeza, guna semula argumen pelancaran untuk penggunaan pantas atau import arahan daripada {link}.',
             recipeFormHelper:
                 'Pergi ke {link}, pilih penyedia model, kemudian pilih model sasaran. Konfigurasikan perkakasan, varian pengkuantuman, strategi penggunaan dan pilihan lain untuk menjana arahan pelancaran akhir.',
             recipeArguments: 'Argumen pelancaran',
@@ -1226,9 +1242,9 @@ const message = {
             notInstalled: 'Belum dipasang',
             usage: 'Penggunaan',
             accountPool: 'Kolam Akaun',
-            importModelAccount: 'Import akaun model',
-            editModelAccount: 'Edit akaun model',
-            selectModelAccount: 'Pilih akaun model sedia ada',
+            importModelAccount: 'Import perkhidmatan model',
+            editModelAccount: 'Edit perkhidmatan model',
+            selectModelAccount: 'Pilih perkhidmatan model sedia ada',
             upstreamApiAddress: 'Alamat API Hulu',
             priority: 'Keutamaan',
             healthStatus: 'Status kesihatan',
@@ -1285,8 +1301,8 @@ const message = {
             waitingQueue: 'Baris gilir menunggu semasa',
             currentActiveUsers: 'Pengguna aktif semasa',
             activeStreamingRequests: 'Permintaan penstriman aktif',
-            modelAccountConcurrency: 'Keserentakan akaun model',
-            accountAvailability: 'Ketersediaan akaun model',
+            modelAccountConcurrency: 'Keserentakan perkhidmatan model',
+            accountAvailability: 'Ketersediaan perkhidmatan model',
             capacityFull: 'Kapasiti penuh',
             groupConcurrency: 'Keserentakan kumpulan pengguna',
             apiKeyConcurrency: 'Keserentakan API Key',
@@ -1340,7 +1356,7 @@ const message = {
             esLogCircuitUntil: 'Litar ES hingga',
             serviceOperateConfirm: 'Sahkan untuk {0} perkhidmatan gateway AI?',
             deleteTargetConfirm: 'Padam {0} {1}?',
-            deleteBackendTitle: 'Padam akaun model',
+            deleteBackendTitle: 'Padam perkhidmatan model',
             userFallback: 'Pengguna dipadam (ID: {0})',
             requestModel: 'Model permintaan',
             upstreamModel: 'Model upstream',
@@ -1353,7 +1369,7 @@ const message = {
             usageTrend: 'Trend penggunaan',
             distributionBy: 'Taburan mengikut {0}',
             unmatched: 'Tidak sepadan',
-            modelAccount: 'Akaun model',
+            modelAccount: 'Perkhidmatan model',
             serviceProvider: 'Penyedia',
             tokenUsage: 'Penggunaan Token',
             percent: 'Peratus',
@@ -2671,6 +2687,8 @@ const message = {
         library: {
             script: 'Skrip',
             syncNow: 'Segerakan Sekarang',
+            autoSyncHelper:
+                'Penyegerakan automatik mengemas kini skrip sistem setiap hari pada awal pagi tanpa menjejaskan skrip tersuai. Anda juga boleh menyegerakkan secara manual pada bila-bila masa.',
             turnOnSync: 'Hidupkan Segerakan Auto',
             turnOnSyncHelper:
                 'Menghidupkan segerakan auto akan melakukan penyegerakan automatik pada waktu awal pagi setiap hari',
@@ -2864,7 +2882,7 @@ const message = {
         scrollSensitivity: 'Kepekaan skrol',
         aiAssistant: 'Pembantu AI',
         aiAccountHelper:
-            'Gunakan akaun model yang dipilih untuk menjana dan mengisi arahan. Untuk model tempatan seperti Ollama dan vLLM, gunakan akaun model tersuai.',
+            'Gunakan perkhidmatan model yang dipilih untuk menjana dan mengisi arahan. Untuk model tempatan seperti Ollama dan vLLM, gunakan perkhidmatan model tersuai.',
         aiPrefix: 'Awalan pencetus',
         aiPrefixHelper:
             'Masukkan "awalan + ruang" dan tekan Enter untuk mencetuskan penjanaan arahan AI, contohnya: {0} bantu saya semak maklumat cakera.',
@@ -3122,7 +3140,7 @@ const message = {
         aiSearchHint:
             'Cari kandungan fail baris demi baris. Gunakan butang di sebelah kanan baris carian dan "Syarat lanjutan" di bawah. Apabila akaun AI diaktifkan dan disimpan, ringkasan Markdown juga boleh dijana.',
         aiSearchAccountTitle: 'Akaun AI',
-        aiSearchAccountIntro: 'Pilih akaun model besar untuk menjana ringkasan, kemudian simpan selepas perubahan.',
+        aiSearchAccountIntro: 'Pilih perkhidmatan model besar untuk menjana ringkasan, kemudian simpan selepas perubahan.',
         aiSearchAccountEnable: 'Dayakan carian AI fail',
         aiSearchSaveAccount: 'Simpan konfigurasi akaun',
         aiSearchSectionQuery: 'Carian',
@@ -4078,12 +4096,19 @@ const message = {
             'Naik taraf ke Edisi Komersial untuk menaik taraf versi aplikasi berbilang nod tanpa menukar nod secara manual.',
         nodeDashboard:
             'Naik taraf ke Edisi Komersial untuk mengurus aplikasi, laman web, pangkalan data dan tugas berjadual berbilang nod secara berpusat.',
+        imageExchange: 'Naik taraf ke Edisi Komersial untuk memindahkan imej kontena secara kelompok antara nod.',
+        appExchange:
+            'Naik taraf ke Edisi Komersial untuk memindahkan aplikasi yang dipasang ke nod sasaran dan mengesahkan kebergantungan sumbernya.',
+        sslSync:
+            'Naik taraf ke Edisi Komersial untuk menyegerakkan sijil daripada nod sumber ke satu atau lebih nod sasaran.',
+        phpExtensionsSync:
+            'Naik taraf ke Edisi Komersial untuk menyegerakkan templat sambungan PHP ke satu atau lebih nod sasaran.',
         fileExchange: 'Naik taraf ke Edisi Komersial untuk memindahkan fail dengan pantas antara pelayan.',
         app: 'Naik taraf ke Edisi Komersial untuk melihat maklumat perkhidmatan dan pemantauan anomali dalam aplikasi mudah alih.',
         cluster: 'Naik taraf ke Edisi Komersial untuk mengurus kelompok utama-replika MySQL/Postgres/Redis.',
-        vllm: 'Naik taraf ke Edisi Komersial untuk mengurus perkhidmatan vLLM secara berpusat dalam 1Panel, termasuk penggunaan, konfigurasi, operasi kitar hayat dan penjejakan tugas.',
+        vllm: 'Naik taraf kepada edisi komersial untuk menggunakan instans vLLM, memantau perkhidmatan, melihat log dan mengurus operasi harian di satu tempat.',
         'model-downloader':
-            'Naik taraf kepada edisi komersial untuk mencari, memuat turun dan mengurus fail model tempatan daripada HuggingFace, ModelScope atau cermin serasi, dengan direktori model dan tugasan muat turun berpusat.',
+            'Naik taraf kepada edisi komersial untuk menyemak model pilihan, mengurus muat turun, menggunakan semula vLLM Recipes serta menetapkan sumber muat turun dan kelayakan akses.',
         exceptionalHelper:
             'Pengesahan penyegerakan lesen tidak normal. Klik butang sync secara manual untuk pastikan fungsi Edisi Komersial berjalan baik. butiran: ',
         tamperHelper: 'Operasi gagal, fail atau folder mempunyai perlindungan gangguan. Sila semak dan cuba lagi!',
@@ -7139,6 +7164,38 @@ const message = {
             nodeContent3: 'Memantau status operasi setiap nod secara real-time',
             nodeTitle4: 'Sambungan Jauh Pantas',
             nodeContent4: 'Sambung terus ke terminal jauh nod dengan satu klik',
+            imageExchangeTitle1: 'Pilih imej sumber',
+            imageExchangeContent1: 'Lihat imej kontena pada nod sumber dan pilih imej yang hendak dipindahkan.',
+            imageExchangeTitle2: 'Edarkan imej',
+            imageExchangeContent2: 'Pindahkan imej yang dipilih ke satu atau lebih nod sasaran.',
+            imageExchangeTitle3: 'Lihat log pemindahan',
+            imageExchangeContent3: 'Pantau kemajuan dan hasil pemindahan imej dalam log tugas.',
+            appExchangeTitle1: 'Pilih aplikasi',
+            appExchangeContent1:
+                'Lihat aplikasi yang dipasang pada nod sumber dan pilih aplikasi yang hendak dipindahkan.',
+            appExchangeTitle2: 'Sahkan kebergantungan',
+            appExchangeContent2:
+                'Sebelum pemindahan, sahkan nod sasaran dan sumber yang diperlukan, seperti pangkalan data.',
+            appExchangeTitle3: 'Pindahkan aplikasi',
+            appExchangeContent3:
+                'Pindahkan sandaran aplikasi ke nod sasaran untuk pemulihan dan lihat hasilnya dalam log tugas.',
+            sslSyncTitle1: 'Pilih sijil',
+            sslSyncContent1: 'Lihat butiran sijil pada nod sumber dan pilih sijil yang hendak disegerakkan.',
+            sslSyncTitle2: 'Segerakkan antara nod',
+            sslSyncContent2:
+                'Segerakkan sijil yang dipilih ke nod sasaran dengan mengecualikan nod sumber secara automatik.',
+            sslSyncTitle3: 'Sahkan tugas penyegerakan',
+            sslSyncContent3:
+                'Semak nod sasaran dan sijil sebelum pelaksanaan, kemudian lihat hasilnya dalam log tugas.',
+            phpExtensionsSyncTitle1: 'Pilih templat',
+            phpExtensionsSyncContent1:
+                'Lihat nama templat dan senarai sambungan pada nod sumber, kemudian pilih templat yang hendak disegerakkan.',
+            phpExtensionsSyncTitle2: 'Segerakkan templat',
+            phpExtensionsSyncContent2:
+                'Segerakkan templat yang dipilih ke nod sasaran dengan mengecualikan nod sumber secara automatik.',
+            phpExtensionsSyncTitle3: 'Semak templat sedia ada',
+            phpExtensionsSyncContent3:
+                'Templat dengan nama dan kandungan yang sama akan dilangkau. Kandungan yang berbeza dilaporkan sebagai konflik tanpa ditulis ganti.',
             fileExchangeTitle1: 'Pengangkutan Pengesahan Kunci',
             fileExchangeContent1: 'Mengesahkan melalui kunci SSH untuk memastikan keselamatan pengangkutan.',
             fileExchangeTitle2: 'Segerakan Fail Cekap',
@@ -7166,30 +7223,27 @@ const message = {
             clusterTitle3: 'Status Replikasi',
             clusterContent3:
                 'Memaparkan status replikasi utama-hamba dan maklumat kelewatan, membantu menyelesaikan masalah sinkronisasi',
-            modelDownloaderTitle1: 'Penemuan Model',
+            modelDownloaderTitle1: 'Model Pilihan',
             modelDownloaderContent1:
-                'Cari repositori model HuggingFace secara langsung dan lihat muat turun, suka, butiran model dan senarai fail.',
-            modelDownloaderTitle2: 'Muat Turun Dipercepat',
+                'Semak model pilihan, tapis mengikut keluarga dan penyedia pemberat, lihat butiran model dan mulakan muat turun.',
+            modelDownloaderTitle2: 'Muat Turun Model',
             modelDownloaderContent2:
-                'Konfigurasikan titik akhir pecutan HuggingFace dan HuggingFace Token untuk laman rasmi, cermin dan model persendirian.',
-            modelDownloaderTitle3: 'Penjejakan Tugas',
+                'Muat turun model daripada Hugging Face dan ModelScope, pantau kemajuan, batalkan atau cuba semula tugas dan urus fail setempat.',
+            modelDownloaderTitle3: 'vLLM Recipes',
             modelDownloaderContent3:
-                'Semak baris gilir muat turun, status tugas, kemajuan dan ralat, dengan sokongan batal, cuba semula dan bersihkan rekod.',
-            modelDownloaderTitle4: 'Pengurusan Tempatan',
+                'Semak dan segerakkan Recipes rasmi, urus resipi tersuai, padankan model dan guna semula parameter penggunaan.',
+            modelDownloaderTitle4: 'Konfigurasi',
             modelDownloaderContent4:
-                'Urus direktori model tempatan di satu tempat, termasuk laluan, saiz, masa dan pemadaman fail model yang tidak digunakan.',
-            vllmTitle1: 'Pengurusan Berpusat',
+                'Tetapkan direktori muat turun model, alamat sumber, token akses dan penyegerakan automatik model pilihan.',
+            vllmTitle1: 'Penggunaan Model',
             vllmContent1:
-                'Integrasikan instans vLLM yang diedarkan ke dalam 1Panel dan pantau versi, status operasi serta direktori kerja secara berpusat.',
-            vllmTitle2: 'Penerapan Pantas',
+                'Pilih direktori model dan imej kontena, tetapkan GPU, port dan parameter permulaan, kemudian cipta instans vLLM.',
+            vllmTitle2: 'Pemantauan Perkhidmatan',
             vllmContent2:
-                'Gunakan borang visual untuk memilih versi, memasang direktori model dan mengkonfigurasi parameter permulaan, sekali gus mengurangkan kerumitan konfigurasi manual.',
-            vllmTitle3: 'Operasi yang Cekap',
+                'Lihat status instans, jumlah permintaan, daya pemprosesan dan kependaman untuk memantau prestasi perkhidmatan model.',
+            vllmTitle3: 'Operasi Harian',
             vllmContent3:
-                'Urus penciptaan, penyuntingan, permulaan, pemberhentian, mulakan semula, penghapusan instans serta pemantauan tugas dalam satu antara muka bagi meningkatkan kecekapan operasi perkhidmatan model tempatan.',
-            vllmTitle4: 'Konfigurasi Fleksibel',
-            vllmContent4:
-                'Urus port, kontena, arahan permulaan dan konfigurasi Compose secara berpusat melalui tetapan lanjutan untuk memudahkan penerapan piawai serta pelarasan selepas pelaksanaan.',
+                'Mulakan, hentikan, mulakan semula dan padam instans, lihat log, buka terminal dan jejak tugas operasi.',
         },
         node: {
             master: 'Nod Utama',
@@ -7662,6 +7716,13 @@ const message = {
             imageBatchConfirmPrefix: 'Akan memindahkan {0} imej ke {1} nod, dengan jumlah {2} tugasan.',
 
             ssl: 'Penyegerakan Sijil',
+            phpExtensions: 'Penyegerakan Templat Sambungan PHP',
+            phpExtensionsTitle: 'Penyegerakan Templat Sambungan',
+            phpExtensionsDesc: 'Pilih nod sumber untuk menyegerakkan templat sambungan PHP ke nod sasaran.',
+            phpExtensionsList: 'Sambungan PHP',
+            phpExtensionsConfirm: 'Segerakkan {0} templat sambungan PHP ke {1} nod.',
+            phpExtensionsConflictHint:
+                'Templat yang sama akan dilangkau. Templat dengan nama yang sama tetapi kandungan berbeza dilaporkan sebagai konflik dan tidak akan ditulis ganti.',
             sslBatchDesc:
                 'Selepas memilih nod sumber, sijil yang ditentukan boleh disegerakkan ke persekitaran panel semasa.',
             sslBatchConfirmPrefix: 'Akan menyegerakkan {0} sijil ke {1} nod, dengan jumlah {2} tugasan.',

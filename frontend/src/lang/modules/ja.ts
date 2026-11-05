@@ -364,6 +364,8 @@ const message = {
             serviceNotStarted: '{0}サービスは開始されません。',
         },
         status: {
+            autoSyncEnabled: '自動同期は有効です',
+            autoSyncDisabled: '自動同期は無効です',
             running: 'ランニング',
             done: '終わり',
             scanFailed: '不完全',
@@ -803,7 +805,7 @@ const message = {
             nativeAgentAccessUnavailable:
                 '既存のインストールに対応する HTTPS アクセス先またはポートがありません。アプリの設定を確認してください。',
             agent: 'エージェント',
-            account: 'モデルアカウント',
+            account: 'モデルサービス',
             batchOperation: '一括操作',
             operationType: '操作タイプ',
             batchAction: '一括{0}',
@@ -817,10 +819,10 @@ const message = {
             skillSource: 'Skill ソース',
             skillKeyword: 'Skill キーワード',
             clawHubSkillPlaceholder: '先に Skill を検索して選択してください',
-            noAccountHint: '既存のモデルアカウントを選択するか、新規に追加してください。',
-            accountCount: 'モデルアカウント {0} 件',
+            noAccountHint: '既存のモデルサービスを選択するか、新規に追加してください。',
+            accountCount: 'モデルサービス {0} 件',
             syncAgents: '関連エージェントを同期',
-            syncAgentsHelper: 'このモデルアカウントを使用するエージェントの openclaw.json を更新',
+            syncAgentsHelper: 'このモデルサービスを使用するエージェントの openclaw.json を更新',
             appVersion: 'アプリバージョン',
             webuiPort: 'WebUI ポート',
             tokenOrAuth: 'Token/認証',
@@ -860,7 +862,7 @@ const message = {
             useModelDefault: 'モデルの既定値を使用',
             reasoning: '推論モデル',
             verified: '検証済み',
-            verifySkipped: '検証なし',
+            verifySkipped: '検証不要',
             skillsTab: '技能',
             pluginsTab: 'プラグイン',
             pluginsInstalled: 'インストール済み',
@@ -1087,7 +1089,19 @@ const message = {
             modelTokenHelper: '任意。非公開・制限付きモデルにはアクセス権のあるトークンが必要です。',
             modelDirHelper: 'モデルの保存先とローカルモデル一覧の読み込み先です。',
             featuredModelsHelper:
-                '1Panel 公式のおすすめモデル一覧です。手動更新または 24 時間ごとの自動同期が可能です。同期は一覧のみを更新し、モデルファイルはダウンロードしません。',
+                '1Panel が厳選したモデルの仕様、用途、ダウンロード元を確認し、適切なモデルを選んでダウンロードできます。',
+            featuredModelsSyncHelper:
+                '自動同期を有効にすると、毎日未明に厳選モデルのカタログを更新します。モデルファイルはダウンロードしません。いつでも手動で同期できます。',
+            recipeSyncHelper:
+                '自動同期を有効にすると、毎日未明に同期元のレシピを更新します。カスタムレシピには影響しません。いつでも手動で同期できます。',
+            readinessPreparing: '準備中',
+            readinessReady: '準備完了',
+            readinessNotReady: '準備未完了',
+            readinessPreparingHelper:
+                'コンテナーは起動していますが、ヘルスチェックはまだ成功していません。モデルの読み込み中の可能性があります。しばらくお待ちください。',
+            readinessReadyHelper: '直近のコンテナーヘルスチェックに成功しました。サービスの準備が完了しています。',
+            readinessNotReadyHelper:
+                'コンテナーは稼働していますが、ヘルスチェックが連続して失敗しています。サービスの準備が完了していません。コンテナーログを確認してください。',
             addInstanceHelper: 'vLLM インスタンスを作成し、ダウンロード済みモデルをモデルサービスとして公開します。',
             addService: '追加',
             onlineModel: 'オンラインモデル',
@@ -1104,8 +1118,10 @@ const message = {
             recipeConfig: 'Recipe 設定',
             selectRecipe: 'Recipe を選択',
             createRecipe: 'Recipe を作成',
+            recipeSynced: '同期済み',
+            recipeCustom: 'カスタム',
             recipeHelper:
-                'Recipe は、指定したハードウェアでモデルを起動する方法を記述し、モデル、ハードウェア、起動引数を含みます。{link} からコマンドをインポートできます。',
+                'ハードウェアごとのモデルデプロイ用レシピを管理し、起動引数を再利用してすばやくデプロイできます。{link} からのコマンドのインポートにも対応しています。',
             recipeFormHelper:
                 '{link} にアクセスし、モデルの提供元を選択してから、対象のモデルを選択します。 ハードウェア、量子化バージョン、デプロイ戦略などを設定すると、最終的な起動コマンドが生成されます。',
             recipeArguments: '起動引数',
@@ -1203,9 +1219,9 @@ const message = {
             notInstalled: '未インストール',
             usage: '使用量',
             accountPool: 'アカウントプール',
-            importModelAccount: 'モデルアカウントをインポート',
-            editModelAccount: 'モデルアカウントを編集',
-            selectModelAccount: '既存のモデルアカウントを選択',
+            importModelAccount: 'モデルサービスをインポート',
+            editModelAccount: 'モデルサービスを編集',
+            selectModelAccount: '既存のモデルサービスを選択',
             upstreamApiAddress: '上流 API アドレス',
             priority: '優先度',
             healthStatus: 'ヘルス状態',
@@ -1261,8 +1277,8 @@ const message = {
             waitingQueue: '現在の待機キュー',
             currentActiveUsers: '現在のアクティブユーザー',
             activeStreamingRequests: '実行中のストリーミングリクエスト',
-            modelAccountConcurrency: 'モデルアカウント同時実行数',
-            accountAvailability: 'モデルアカウント可用性',
+            modelAccountConcurrency: 'モデルサービス同時実行数',
+            accountAvailability: 'モデルサービス可用性',
             capacityFull: '上限到達',
             groupConcurrency: 'ユーザーグループ同時実行数',
             apiKeyConcurrency: 'API Key 同時実行数',
@@ -1316,7 +1332,7 @@ const message = {
             esLogCircuitUntil: 'ES サーキット終了時刻',
             serviceOperateConfirm: 'AI ゲートウェイサービスを {0} しますか？',
             deleteTargetConfirm: '{0} {1} を削除しますか？',
-            deleteBackendTitle: 'モデルアカウントを削除',
+            deleteBackendTitle: 'モデルサービスを削除',
             userFallback: '削除済みユーザー (ID: {0})',
             requestModel: 'リクエストモデル',
             upstreamModel: '上流モデル',
@@ -1329,7 +1345,7 @@ const message = {
             usageTrend: '使用傾向',
             distributionBy: '{0}別分布',
             unmatched: '未一致',
-            modelAccount: 'モデルアカウント',
+            modelAccount: 'モデルサービス',
             serviceProvider: 'プロバイダー',
             tokenUsage: 'Token 使用量',
             percent: '割合',
@@ -2618,6 +2634,8 @@ const message = {
         library: {
             script: 'スクリプト',
             syncNow: '今すぐ同期',
+            autoSyncHelper:
+                '自動同期を有効にすると、毎日未明にシステムスクリプトを更新します。カスタムスクリプトには影響しません。いつでも手動で同期できます。',
             turnOnSync: '自動同期を有効化',
             turnOnSyncHelper: '自動同期を有効にすると、毎日未明の時間帯に自動同期が実行されます',
             turnOffSync: '自動同期を無効化',
@@ -2813,7 +2831,7 @@ const message = {
         scrollSensitivity: 'スクロール感度',
         aiAssistant: 'AI アシスタント',
         aiAccountHelper:
-            '選択したモデルアカウントでコマンドを生成して補完します。Ollama や vLLM などのローカルモデルはカスタムモデルアカウントを使用してください。',
+            '選択したモデルサービスでコマンドを生成して補完します。Ollama や vLLM などのローカルモデルはカスタムモデルサービスを使用してください。',
         aiPrefix: 'トリガープレフィックス',
         aiPrefixHelper:
             '「プレフィックス + スペース」を入力して Enter を押すと、AI コマンド生成がトリガーされます。例: {0} ディスク情報を確認して。',
@@ -3060,7 +3078,7 @@ const message = {
         aiSearchHint:
             'ファイル内容を行ごとに検索します。検索行右側のボタンと下の「詳細条件」で検索方法を切り替えられます。AIアカウントを有効化して保存すると、Markdown要約も生成できます。',
         aiSearchAccountTitle: 'AIアカウント',
-        aiSearchAccountIntro: '要約生成に使うモデルのアカウントを選択し、変更後は保存してください。',
+        aiSearchAccountIntro: '要約生成に使うモデルサービスを選択し、変更後は保存してください。',
         aiSearchAccountEnable: 'ファイルAI検索を有効化',
         aiSearchSaveAccount: 'アカウント設定を保存',
         aiSearchSectionQuery: '検索',
@@ -3992,11 +4010,17 @@ const message = {
             '商用版にアップグレードすると、ノードを手動で切り替えずにマルチノードアプリのバージョンを一括アップグレードできます。',
         nodeDashboard:
             '商用版にアップグレードすると、マルチノードのアプリ、Web サイト、データベース、スケジュールタスクを一元管理できます。',
+        imageExchange: '商用版にアップグレードすると、ノード間でコンテナイメージを一括転送できます。',
+        appExchange:
+            '商用版にアップグレードすると、インストール済みアプリケーションを移行先ノードに移行し、必要なリソースの依存関係を確認できます。',
+        sslSync: '商用版にアップグレードすると、ソースノードの証明書を1つ以上のターゲットノードに同期できます。',
+        phpExtensionsSync:
+            '商用版にアップグレードすると、PHP 拡張機能テンプレートを1つ以上のターゲットノードに同期できます。',
         fileExchange: '商用版にアップグレードすると、複数サーバー間でファイルをすばやく転送できます。',
         cluster: '商用版にアップグレードすると、MySQL/Postgres/Redis のプライマリ/レプリカ構成を管理できます。',
-        vllm: '商用版にアップグレードすると、1Panel で vLLM サービスのデプロイ、設定、ライフサイクル操作、タスク追跡を一元管理できます。',
+        vllm: '商用版にアップグレードすると、vLLM のデプロイ、稼働監視、ログ確認、日常運用を一元管理できます。',
         'model-downloader':
-            '商用版にアップグレードすると、HuggingFace、ModelScope、または互換ミラーからローカルモデルファイルを検索、ダウンロード、管理できます。モデルディレクトリとダウンロードタスクを一元管理できます。',
+            '商用版にアップグレードすると、おすすめモデルの閲覧、ダウンロードの管理、vLLM Recipes の再利用、ダウンロード元と認証情報の設定ができます。',
         exceptionalHelper:
             'ライセンス同期検証が異常です。手動で同期して商用版機能が正常に動作していることを確認してください。詳細: ',
         tamperHelper: '操作失敗。ファイル/フォルダの改ざん保護を確認してください。',
@@ -7026,6 +7050,34 @@ const message = {
             nodeContent3: '各ノードの運用状況をリアルタイムで把握',
             nodeTitle4: '迅速なリモート接続',
             nodeContent4: 'ワンクリックでノードリモート端末に直接接続',
+            imageExchangeTitle1: '転送元のイメージを選択',
+            imageExchangeContent1: 'ソースノードのコンテナイメージを確認し、転送するイメージを選択します。',
+            imageExchangeTitle2: 'イメージを配布',
+            imageExchangeContent2: '選択したイメージを1つ以上のターゲットノードに転送します。',
+            imageExchangeTitle3: '転送ログを表示',
+            imageExchangeContent3: 'タスクログでイメージの転送状況と実行結果を確認します。',
+            appExchangeTitle1: 'アプリケーションを選択',
+            appExchangeContent1: 'ソースノードにインストールされたアプリケーションを確認し、移行するものを選択します。',
+            appExchangeTitle2: '依存関係を確認',
+            appExchangeContent2: '移行前に、移行先ノードとデータベースなどの必要なリソースを確認します。',
+            appExchangeTitle3: 'アプリケーションを移行',
+            appExchangeContent3:
+                'アプリケーションのバックアップを移行先ノードに転送して復元し、タスクログで結果を確認します。',
+            sslSyncTitle1: '証明書を選択',
+            sslSyncContent1: 'ソースノードの証明書情報を確認し、同期する証明書を選択します。',
+            sslSyncTitle2: 'ノード間で同期',
+            sslSyncContent2: 'ソースノードを自動的に除外し、選択した証明書をターゲットノードに同期します。',
+            sslSyncTitle3: '同期タスクを確認',
+            sslSyncContent3: '実行前にターゲットノードと証明書を確認し、実行後にタスクログで結果を確認します。',
+            phpExtensionsSyncTitle1: 'テンプレートを選択',
+            phpExtensionsSyncContent1:
+                'ソースノードのテンプレート名と拡張機能一覧を確認し、同期するテンプレートを選択します。',
+            phpExtensionsSyncTitle2: 'テンプレートを同期',
+            phpExtensionsSyncContent2:
+                'ソースノードを自動的に除外し、選択したテンプレートをターゲットノードに同期します。',
+            phpExtensionsSyncTitle3: '既存のテンプレートを確認',
+            phpExtensionsSyncContent3:
+                '名前と内容が一致するテンプレートはスキップします。内容が異なる場合は上書きせず、競合を報告します。',
             fileExchangeTitle1: 'キー認証伝送',
             fileExchangeContent1: 'SSHキーを介して認証し、伝送のセキュリティを確保します。',
             fileExchangeTitle2: '効率的なファイル同期',
@@ -7052,30 +7104,27 @@ const message = {
             clusterTitle3: 'レプリケーション状態',
             clusterContent3:
                 'マスタースレーブレプリケーション状態と遅延情報を表示し、同期の問題を解決するのに役立ちます',
-            modelDownloaderTitle1: 'モデル検索',
+            modelDownloaderTitle1: 'おすすめモデル',
             modelDownloaderContent1:
-                'HuggingFace のモデルリポジトリを直接検索し、ダウンロード数、いいね、モデル詳細、ファイル一覧を確認できます。',
-            modelDownloaderTitle2: '高速ダウンロード',
+                'おすすめモデルをシリーズや重みの提供元で絞り込み、詳細を確認してダウンロードできます。',
+            modelDownloaderTitle2: 'モデルのダウンロード',
             modelDownloaderContent2:
-                'HuggingFace アクセラレーションエンドポイントと HuggingFace Token を設定し、公式サイト、ミラー、プライベートモデルに対応します。',
-            modelDownloaderTitle3: 'タスク追跡',
+                'Hugging Face と ModelScope からモデルをダウンロードし、進捗の確認、キャンセル、再試行、ローカルファイルの管理ができます。',
+            modelDownloaderTitle3: 'vLLM Recipes',
             modelDownloaderContent3:
-                'ダウンロードキュー、タスク状態、進捗、エラーを一元確認し、キャンセル、再試行、記録の削除を行えます。',
-            modelDownloaderTitle4: 'ローカル管理',
+                '公式 Recipes の閲覧・同期、カスタムレシピの管理、モデルに合うレシピの検索、デプロイパラメーターの再利用ができます。',
+            modelDownloaderTitle4: '設定',
             modelDownloaderContent4:
-                'ローカルモデルディレクトリを一元管理し、パス、サイズ、日時の確認と不要なモデルファイルの削除を行えます。',
-            vllmTitle1: '一元管理',
+                'モデルの保存先、ダウンロード元の URL、アクセストークン、おすすめモデルの自動同期を設定できます。',
+            vllmTitle1: 'モデルのデプロイ',
             vllmContent1:
-                '分散した vLLM サービスを 1Panel に統合し、インスタンス、バージョン、状態、実行ディレクトリを一元的に確認できます。',
-            vllmTitle2: '高速デプロイ',
+                'モデルのディレクトリとコンテナーイメージを選び、GPU、ポート、起動パラメーターを設定して vLLM インスタンスを作成できます。',
+            vllmTitle2: '稼働監視',
             vllmContent2:
-                'ビジュアルフォームでバージョン選択、モデルディレクトリマウント、起動パラメータ設定を完了し、手動構成コストを削減します。',
-            vllmTitle3: '運用効率',
+                'インスタンスの状態、リクエスト数、スループット、レイテンシーを確認し、モデルサービスの稼働状況を把握できます。',
+            vllmTitle3: '日常運用',
             vllmContent3:
-                '同じページで作成、編集、起動、停止、再起動、削除、タスク追跡を完結し、ローカルモデルサービスの保守効率を向上させます。',
-            vllmTitle4: '設定の可控性',
-            vllmContent4:
-                '高度な設定でポート、コンテナ、起動コマンド、Compose 設定を一元管理し、標準化されたデリバリーと后续調整を容易にします。',
+                'インスタンスの起動・停止・再起動・削除、ログの確認、ターミナルへのアクセス、操作タスクの追跡ができます。',
         },
         node: {
             master: '主ノード',
@@ -7540,6 +7589,13 @@ const message = {
                 '{0} 個のイメージを {1} 個のノードへ転送します。合計 {2} 件のタスクが作成されます。',
 
             ssl: '証明書同期',
+            phpExtensions: 'PHP 拡張機能テンプレートの同期',
+            phpExtensionsTitle: '拡張機能テンプレートの同期',
+            phpExtensionsDesc: 'ソースノードを選択し、その PHP 拡張機能テンプレートをターゲットノードに同期します。',
+            phpExtensionsList: 'PHP 拡張機能',
+            phpExtensionsConfirm: '{0} 件の PHP 拡張機能テンプレートを {1} 個のノードに同期します。',
+            phpExtensionsConflictHint:
+                '同一のテンプレートはスキップします。同じ名前で内容が異なるテンプレートは競合として報告し、上書きしません。',
             sslBatchDesc: 'ソースノードを選択すると、指定した証明書を現在のパネル環境へ同期できます。',
             sslBatchConfirmPrefix: '{0} 件の証明書を {1} 個のノードへ同期します。合計 {2} 件のタスクが作成されます。',
 
