@@ -1035,6 +1035,8 @@ const message = {
             searchHelper:
                 'ModelScope または Hugging Face でモデルを検索し、ダウンロード後にモデル準備でデプロイまたは Recipe を作成できます。',
             modelScopeSearchHelper: '中国本土から安定したアクセス',
+            huggingFaceNetworkHelper:
+                'Hugging Face の検索とダウンロードにはサーバーからサイトへの接続が必要です。接続できない場合は、設定で利用可能な Hugging Face ミラー URL を指定するか、ModelScope を選択してください。オフライン環境ではモデルを手動でアップロードしてください。',
             huggingFaceSearchHelper: '豊富なモデル',
             searchPlaceholder: 'モデル名またはリポジトリ ID を入力（例：Qwen/Qwen3-8B）',
             popularSearches: '人気の検索',
@@ -1048,7 +1050,12 @@ const message = {
             ollamaNameHelper:
                 'Ollama ライブラリの完全なモデル名を入力してください。タグを省略すると latest が使用されます。',
             downloadHelper:
-                '「検索」をクリックすると、ModelScope や Hugging Face のモデルを検索してダウンロードできます。',
+                'ModelScopeやHugging Faceからモデルやトークナイザーをダウンロードするか、{requirements}に従ってローカルファイルを追加できます。',
+            localModelSizeHelper:
+                '現在のディレクトリサイズを示します。すべてのファイルのアップロード完了を意味するものではありません。',
+            localModelLayoutTitle: '例',
+            localLayoutDirect: '直接配置',
+            localLayoutGrouped: '組織別に分類（任意）',
             serviceHelper:
                 'パブリッククラウド、ローカル推論エンジン、AI ゲートウェイなどのモデルサービスを統合し、1Panel 内蔵エージェントや WorkBuddy などの外部エージェントから利用できます。',
             gpuType: 'GPU タイプ',
@@ -1087,13 +1094,20 @@ const message = {
             addInstance: 'インスタンスを追加',
             modelScopeEndpointHelper: 'ModelScope モデルの検索とダウンロードに使用します。既定は公式 URL です。',
             modelTokenHelper: '任意。非公開・制限付きモデルにはアクセス権のあるトークンが必要です。',
-            modelDirHelper: 'モデルの保存先とローカルモデル一覧の読み込み先です。',
+            tokenizerDir: 'トークナイザーディレクトリ',
+            tokenizerDirHelper:
+                'トークナイザーの保存先とローカル一覧の読み取り先です。変更しても既存ファイルは移動されません。',
+            modelDirHelper:
+                'モデルの保存先とローカルモデル一覧の読み込み先です。変更しても既存ファイルは移動されません。',
             featuredModelsHelper:
                 '1Panel が厳選したモデルの仕様、用途、ダウンロード元を確認し、適切なモデルを選んでダウンロードできます。',
             featuredModelsSyncHelper:
                 '自動同期を有効にすると、毎日未明に厳選モデルのカタログを更新します。モデルファイルはダウンロードしません。いつでも手動で同期できます。',
             recipeSyncHelper:
                 '自動同期を有効にすると、毎日未明に同期元のレシピを更新します。カスタムレシピには影響しません。いつでも手動で同期できます。',
+            serviceStatus: 'サービス状態',
+            readinessNotRunning: '未稼働',
+            readinessWaiting: '準備完了待ち',
             readinessPreparing: '準備中',
             readinessReady: '準備完了',
             readinessNotReady: '準備未完了',
@@ -1111,6 +1125,15 @@ const message = {
             ollamaManagement: 'Ollama 管理',
             vllmManagement: 'vLLM 管理',
             serviceDetails: 'サービス詳細',
+            deleteDeploymentHelper: 'このインスタンスを停止して削除します',
+            deleteDeploymentServiceHelper: 'このインスタンスを停止し、関連するモデルサービスとともに削除します',
+            connectionInfo: '接続情報',
+            deploymentInfo: 'デプロイ情報',
+            serviceAPIHelper: 'このサービスは OpenAI 互換 API を提供します。',
+            serviceAddressHelper:
+                'コンテナ内のアプリにはコンテナアドレスを、ホスト上または外部のアプリには外部アドレスを使用してください。',
+            externalAddress: '外部アクセスアドレス',
+            imageVersion: 'イメージバージョン',
             deployments: 'モデルデプロイ',
             files: 'モデル準備',
             connectExternal: '外部サービスに接続',
@@ -1134,15 +1157,23 @@ const message = {
                 '有効な起動コマンドが見つかりません。モデルを含む pip/uv または docker コマンドを貼り付けてください。',
             engineProvider: 'エンジン / プロバイダー',
             endpoint: 'エンドポイント',
+            localService: 'ローカル',
+            cloudService: 'クラウド',
             cloudAccount: 'クラウドアカウント',
             connectionStatus: '接続状態',
             verify: '検証',
             verifying: '検証中',
             verifyFailed: '検証失敗',
+            verificationInfo: '検証情報',
             verifiedAt: '検証日時',
             verifyModelChangeHelper: '検証モデルを変更すると、モデルを呼び出さずにサービスが未検証になります。',
+            reverify: '再検証',
+            verifyConfirm: '以下の設定でモデルを検証します。続行しますか？',
+            apiKeyHelper: 'サービスに API Key が不要な場合は、unused などの空でない任意の値を入力してください。',
             verifyOnChangeHelper:
-                '無効時は検証不要です。有効にすると一度検証し、その後は接続設定または検証モデルの変更時のみ検証します。',
+                '有効化時、または接続設定・検証モデルの変更時に、最小限のメッセージで API を検証します。',
+            verifyImageOnChangeHelper:
+                '有効化時、または接続設定・検証モデルの変更時に、最小の画像を生成して API を検証します。料金が発生する場合があります。',
             unverified: '未検証',
             manage: '管理',
             loadFailed: '読み込みに失敗しました。更新して再試行してください。',
@@ -1624,6 +1655,8 @@ const message = {
         },
         benchmark: {
             title: 'ベンチマーク',
+            description:
+                'モデルサービスのベンチマークを実行し、リクエストの長さや同時実行数の設定ごとに、スループット、最初のトークンまでの時間、リクエストの所要時間などの指標を評価します。',
             launchCommand: '起動コマンド',
             retest: '再テスト',
             statusRunning: '実行中',
@@ -1769,7 +1802,8 @@ const message = {
             legacyHistory: 'これらの記録には固定のデバイス ID がなく、デバイスの識別や欠損値を確認できません。',
             pcieGeneration: 'PCIe 世代（現在 / 最大）',
             pcieWidth: 'PCIe 幅（現在 / 最大）',
-            gpu: 'GPU 監視',
+            gpu: 'GPU 管理',
+            monitoringTitle: 'GPU 監視',
             gpuHelper: '対応する GPU/XPU/NPU 管理コマンドが検出されませんでした。確認して再試行してください！',
             process: 'プロセス情報',
             type: 'タイプ',
@@ -2091,6 +2125,9 @@ const message = {
         fullDescription: '長い入力と共有プレフィックスを含む、複数シナリオ・同時実行数での反復測定です。',
         customDescription: '1つのシナリオから始め、パラメーターを設定し、必要に応じて追加します。',
         scenarios: 'シナリオ',
+        scenarioCount: 'シナリオ（合計 {count} 件）',
+        scenarioHelp:
+            '各シナリオでは、入力/出力トークン数、同時実行数の段階、リクエストパラメーターを定義します。各同時実行数を順番にテストし、設定した反復回数だけ実行します。実行ごとに 1 つの測定点が生成されます。',
         builtIn: '組み込み',
         builtInHelp: '組み込みプランは編集・削除できません。テスト作成時にコピーを調整できます。',
         modified: '変更済み',
@@ -2129,6 +2166,52 @@ const message = {
         secretHelp: 'コピーに API キーとヘッダーは含まれません。必要に応じて再入力してください。',
         resultHelp:
             '要求異常のない成功した試行のみを集計し、中央値と最小・最大値を表示します。P99 は試行ごとの P99 の中央値です。キャッシュと外部トラフィックは制御されません。',
+    },
+    benchmarkSettings: {
+        imagePullHelp:
+            '{image} はサイズが大きいため、ネットワーク速度によっては取得に時間がかかります。レジストリミラーを設定すると、取得を高速化できます。タスクダイアログを閉じても取得はバックグラウンドで続行されます。進捗はタスクセンターで確認できます。',
+        settingsHelp:
+            'Benchmark イメージとテストプランを準備してください。両方の準備が完了すると、ベンチマークを作成できます。',
+        imageAvailable: 'Benchmark イメージは準備済みです（{image}）',
+        imageUnavailable: 'Benchmark イメージが見つかりません（{image}）',
+        retestServiceHelp:
+            '再テストではタスクのパラメーターを引き継ぎます。現在のモデルサービスを確認してください。認証情報は選択したサービスから読み込まれます。',
+        prepareHelp: 'ベンチマークを作成する前に、{settings} で Benchmark イメージとテストプランを準備してください。',
+        image: 'Benchmark イメージ',
+        ready: '準備完了',
+        unconfigured: '未設定',
+        checkFailed: '確認失敗',
+        imageMissing: '必要なイメージが見つかりません。イメージ管理で {image} を取得してください。',
+        imageReady: 'Benchmark イメージの準備ができました。ベンチマークを作成できます。',
+        imageHelp:
+            'Benchmark イメージは負荷テストクライアントを実行し、選択したモデルサービスにリクエストを送信します。',
+        mainNodeHelp:
+            'ベンチマークはメインノードで実行されます。イメージとトークナイザーをメインノードで準備してください。',
+        goImages: 'イメージ管理へ',
+        goModels: 'モデルダウンロードへ',
+        tokenizerHelp: 'トークナイザーディレクトリから選択し、テスト文のエンコードとトークン数の計測に使用します。',
+        tokenizerEmpty:
+            '利用できるモデルがありません。モデルダウンロードでトークナイザーファイルを含むモデルをダウンロードしてください。',
+        tokenizerEmptyWithDownload: '利用可能なトークナイザーがありません。{download}からダウンロードしてください。',
+        tokenizerInvalid: 'このトークナイザーは利用できません。別のものを選択するか、再ダウンロードしてください。',
+        schemeHelp:
+            'テストプランはリクエストパラメーター、同時実行数、実行ルールを定義します。利用できるプランを少なくとも 1 つ準備してください。',
+        schemeEmpty: '利用できるテストプランがありません。先にプランを作成してください。',
+        manageSchemes: 'テストプランの管理',
+        selectService: 'モデルサービスを選択',
+        serviceHelp: 'モデルサービスを選択し、必要に応じてリクエストURLを変更してください。',
+        noServices: '利用できるモデルサービスがありません。先にモデルサービスを追加してください。',
+        goModelServices: 'モデルサービスへ',
+        serviceUnsupported: '未対応',
+        unsupportedProtocol:
+            'この API プロトコルには対応していません: {0}。OpenAI Chat Completions を使用するモデルサービスを選択してください。',
+        unsupportedAuth: 'この認証方式には対応していません: {0}。Bearer 認証を使用するサービスを選択してください。',
+        serviceModelsMissing:
+            'このサービスにはモデルが設定されていません。モデルサービス管理でモデルを追加してください。',
+        prerequisitesTitle: '先にベンチマーク設定を完了してください',
+        prerequisitesMissing: '次の準備が完了していません: {0}。設定で準備を完了してください。',
+        precheckFailed: 'ベンチマークの前提条件を確認できませんでした。設定を開いてもう一度確認してください。',
+        goSettings: '設定へ',
     },
     benchmarkOverview: {
         comparison: 'シナリオと同時実行数の比較',
