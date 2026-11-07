@@ -1696,8 +1696,8 @@ const message = {
             running: 'ຄຳຮ້ອງຂໍທີ່ກຳລັງເຮັດວຽກ',
             waiting: 'ຄຳຮ້ອງຂໍທີ່ກຳລັງລໍຖ້າ',
             cacheUsage: 'ການໃຊ້ງານແຄດ KV',
-            promptThroughput: 'ອັດຕາຂາເຂົ້າ',
-            generationThroughput: 'ອັດຕາຂາອອກ',
+            promptThroughput: 'ອັດຕາ Token ຂາເຂົ້າ',
+            generationThroughput: 'ອັດຕາ Token ຂາອອກ',
             requestThroughput: 'ອັດຕາຄຳຮ້ອງຂໍສຳເລັດ',
             timeToFirstToken: 'ເວລາລໍຖ້າສະເລ່ຍຂອງ Token ທຳອິດ',
             timePerOutputToken: 'ເວລາລໍຖ້າສະເລ່ຍລະຫວ່າງ Token',
@@ -2285,6 +2285,12 @@ const message = {
         missing: 'ບໍ່ມີ',
     },
     container: {
+        nvidiaSupport: 'ຮອງຮັບ NVIDIA GPU',
+        nvidiaHelper:
+            'ລົງທະບຽນ NVIDIA runtime ສຳລັບຄອນເທນເນີ. ຕິດຕັ້ງ NVIDIA Container Toolkit ກ່ອນ ແລະ ຈັດສັນ GPU ໃຫ້ແຕ່ລະຄອນເທນເນີແຍກກັນ.',
+        nvidiaLocalOnly: 'ຮອງຮັບສະເພາະ Docker socket ເລີ່ມຕົ້ນໃນເຄື່ອງນີ້.',
+        nvidiaChangeHelper:
+            'ການປິດອາດເຮັດໃຫ້ຄອນເທນເນີທີ່ໃຊ້ NVIDIA runtime ເລີ່ມບໍ່ໄດ້. ສະວິດນີ້ບໍ່ໄດ້ປິດກັ້ນການເຂົ້າໃຊ້ GPU.',
         imageRemoteSearch: 'ຄົ້ນຫາທາງໄກ',
         imageRemoteSearchHelper: 'ຮອງຮັບການຄົ້ນຫາອິມເມຈໃນ Docker Hub ເທົ່ານັ້ນ',
         imageRemoteSearchProxyRequired: 'ເພື່ອຄົ້ນຫາອິມເມຈທາງໄກໃນສະພາບແວດລ້ອມປັດຈຸບັນ ກະລຸນາຕັ້ງຄ່າພຣັອກຊີເຊີບເວີກ່ອນ.',

@@ -1750,8 +1750,8 @@ const message = {
             running: 'Çalışan istekler',
             waiting: 'Bekleyen istekler',
             cacheUsage: 'KV önbellek kullanımı',
-            promptThroughput: 'Girdi hızı',
-            generationThroughput: 'Çıktı hızı',
+            promptThroughput: 'Girdi token hızı',
+            generationThroughput: 'Çıktı token hızı',
             requestThroughput: 'Tamamlanan istek hızı',
             timeToFirstToken: 'Ortalama ilk token gecikmesi',
             timePerOutputToken: 'Ortalama token arası gecikme',
@@ -2369,6 +2369,12 @@ const message = {
         missing: 'Mevcut değil',
     },
     container: {
+        nvidiaSupport: 'NVIDIA GPU desteği',
+        nvidiaHelper:
+            'NVIDIA konteyner çalışma zamanını kaydeder. Önce NVIDIA Container Toolkit kurun. GPU’ları her konteynere ayrı ayrı atayın.',
+        nvidiaLocalOnly: 'Yalnızca yerel varsayılan Docker soketi desteklenir.',
+        nvidiaChangeHelper:
+            'Devre dışı bırakmak NVIDIA çalışma zamanını kullanan konteynerlerin başlamasını engelleyebilir. Bu anahtar GPU erişimini engellemez.',
         imageRemoteSearch: 'Uzak arama',
         imageRemoteSearchHelper: 'Yalnızca Docker Hub deposu imajları aranabilir',
         imageRemoteSearchProxyRequired:

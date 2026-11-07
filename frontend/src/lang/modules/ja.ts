@@ -1726,8 +1726,8 @@ const message = {
             running: '実行中のリクエスト',
             waiting: '待機中のリクエスト',
             cacheUsage: 'KVキャッシュ使用率',
-            promptThroughput: '入力スループット',
-            generationThroughput: '出力スループット',
+            promptThroughput: '入力トークン速度',
+            generationThroughput: '出力トークン速度',
             requestThroughput: '完了リクエスト数/秒',
             timeToFirstToken: '平均初回トークン遅延',
             timePerOutputToken: '平均トークン間遅延',
@@ -2336,6 +2336,12 @@ const message = {
         missing: '存在しない',
     },
     container: {
+        nvidiaSupport: 'NVIDIA GPU サポート',
+        nvidiaHelper:
+            'NVIDIA コンテナーランタイムを登録します。先に NVIDIA Container Toolkit をインストールしてください。GPU はコンテナーごとに割り当てる必要があります。',
+        nvidiaLocalOnly: 'ローカルの既定の Docker ソケットのみ対応しています。',
+        nvidiaChangeHelper:
+            '無効にすると NVIDIA ランタイムを使用するコンテナーが起動できなくなる場合があります。このスイッチは GPU へのアクセスを遮断しません。',
         imageRemoteSearch: 'リモート検索',
         imageRemoteSearchHelper: 'Docker Hub リポジトリのイメージのみ検索できます',
         imageRemoteSearchProxyRequired:

@@ -1754,8 +1754,8 @@ const message = {
             running: 'Solicitudes en ejecución',
             waiting: 'Solicitudes en espera',
             cacheUsage: 'Uso de caché KV',
-            promptThroughput: 'Rendimiento de entrada',
-            generationThroughput: 'Rendimiento de salida',
+            promptThroughput: 'Tasa de tokens de entrada',
+            generationThroughput: 'Tasa de tokens de salida',
             requestThroughput: 'Solicitudes completadas',
             timeToFirstToken: 'Latencia media del primer token',
             timePerOutputToken: 'Latencia media entre tokens',
@@ -2383,6 +2383,12 @@ const message = {
         missing: 'No existe',
     },
     container: {
+        nvidiaSupport: 'Compatibilidad con GPU NVIDIA',
+        nvidiaHelper:
+            'Registra el entorno de ejecución de NVIDIA. Instala primero NVIDIA Container Toolkit. Asigna las GPU a cada contenedor por separado.',
+        nvidiaLocalOnly: 'Solo se admite el socket predeterminado de Docker local.',
+        nvidiaChangeHelper:
+            'Al desactivar, los contenedores que usan el entorno de NVIDIA podrían no iniciarse. Este interruptor no bloquea el acceso a la GPU.',
         imageRemoteSearch: 'Búsqueda remota',
         imageRemoteSearchHelper: 'Solo se pueden buscar imágenes de repositorios de Docker Hub',
         imageRemoteSearchProxyRequired:

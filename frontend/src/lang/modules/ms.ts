@@ -1757,8 +1757,8 @@ const message = {
             running: 'Permintaan berjalan',
             waiting: 'Permintaan menunggu',
             cacheUsage: 'Penggunaan cache KV',
-            promptThroughput: 'Daya pemprosesan input',
-            generationThroughput: 'Daya pemprosesan output',
+            promptThroughput: 'Kadar token input',
+            generationThroughput: 'Kadar token output',
             requestThroughput: 'Kadar permintaan selesai',
             timeToFirstToken: 'Purata kependaman token pertama',
             timePerOutputToken: 'Purata kependaman antara token',
@@ -2375,6 +2375,12 @@ const message = {
         missing: 'Tiada',
     },
     container: {
+        nvidiaSupport: 'Sokongan GPU NVIDIA',
+        nvidiaHelper:
+            'Daftarkan runtime kontena NVIDIA. Pasang NVIDIA Container Toolkit dahulu. Peruntukkan GPU kepada setiap kontena secara berasingan.',
+        nvidiaLocalOnly: 'Hanya soket Docker lalai setempat disokong.',
+        nvidiaChangeHelper:
+            'Melumpuhkan mungkin menghalang kontena yang menggunakan runtime NVIDIA daripada bermula. Suis ini tidak menyekat akses GPU.',
         imageRemoteSearch: 'Carian jauh',
         imageRemoteSearchHelper: 'Hanya imej repositori Docker Hub boleh dicari',
         imageRemoteSearchProxyRequired:

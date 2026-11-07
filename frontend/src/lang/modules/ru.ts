@@ -1747,8 +1747,8 @@ const message = {
             running: 'Выполняемые запросы',
             waiting: 'Ожидающие запросы',
             cacheUsage: 'Использование KV-кэша',
-            promptThroughput: 'Скорость ввода',
-            generationThroughput: 'Скорость вывода',
+            promptThroughput: 'Скорость входных токенов',
+            generationThroughput: 'Скорость выходных токенов',
             requestThroughput: 'Завершённые запросы',
             timeToFirstToken: 'Среднее время до первого токена',
             timePerOutputToken: 'Средняя задержка между токенами',
@@ -2373,6 +2373,12 @@ const message = {
         missing: 'Отсутствует',
     },
     container: {
+        nvidiaSupport: 'Поддержка GPU NVIDIA',
+        nvidiaHelper:
+            'Регистрирует среду выполнения контейнеров NVIDIA. Сначала установите NVIDIA Container Toolkit. Назначайте GPU каждому контейнеру отдельно.',
+        nvidiaLocalOnly: 'Поддерживается только стандартный локальный сокет Docker.',
+        nvidiaChangeHelper:
+            'Отключение может помешать запуску контейнеров со средой выполнения NVIDIA. Этот переключатель не блокирует доступ к GPU.',
         imageRemoteSearch: 'Удалённый поиск',
         imageRemoteSearchHelper: 'Поддерживается поиск образов только в репозиториях Docker Hub',
         imageRemoteSearchProxyRequired: 'Для поиска удалённых образов в текущей среде сначала настройте прокси-сервер.',
