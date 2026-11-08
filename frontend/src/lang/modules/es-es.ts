@@ -1150,6 +1150,24 @@ const message = {
             serviceAddressHelper:
                 'Use la dirección del contenedor para sus aplicaciones y la dirección externa para aplicaciones del host o externas.',
             externalAddress: 'Dirección externa',
+            createVllmInstance: 'Crear instancia de vLLM',
+            previewDeployment: 'Vista previa de la configuración',
+            deploymentOverview: 'Resumen del despliegue',
+            backToForm: 'Volver a editar',
+            composePreviewHelper:
+                'Añada campos que no estén en el formulario. Modifique los ajustes existentes en el formulario. Editar Compose no actualiza el formulario ni la sincronización de cuentas.',
+            envPreviewHelper:
+                'Las variables de entorno se generan a partir del formulario. Vuelva al formulario para modificarlas.',
+            generateCompose: 'Generar y previsualizar',
+            saveDeploy: 'Guardar y desplegar',
+            composeRegenerateHelper:
+                'El formulario ha cambiado. Regenerar Compose sobrescribirá los cambios manuales. ¿Continuar?',
+            deploymentNameHelper:
+                'Nombre de la instancia, usado en el directorio de instalación y fijo tras crearla. Configure un alias para cambiar el nombre mostrado.',
+            deploymentAliasHelper:
+                'Nombre opcional para la lista. Si se deja vacío, se muestra el nombre de la aplicación. Cambiar solo el alias no reinicia el contenedor.',
+            deploymentContainerNameHelper:
+                'Nombre del contenedor Docker. Por defecto coincide con la aplicación y puede configurarse por separado. Cambiarlo vuelve a crear el contenedor.',
             imageVersion: 'Versión de la imagen',
             deployments: 'Despliegue de modelos',
             files: 'Preparación de modelos',
