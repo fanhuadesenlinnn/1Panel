@@ -1817,6 +1817,22 @@ const message = {
             extraHeaders: 'Pengepala Tambahan',
         },
         vllmMonitor: {
+            peakSummaryHelp:
+                'Nombor besar menunjukkan purata dalam tempoh keserentakan tinggi yang dipilih. Nilai di bawah ialah purata bagi {0} minit berikutnya, ditetapkan melalui pilihan Selepas. Ini untuk perbandingan, bukan nilai normal.',
+            chartHelp: {
+                running:
+                    'Bilangan permintaan yang sedang diproses, tidak termasuk baris gilir. Nilai lebih tinggi bermakna lebih banyak kerja serentak, bukan semestinya prestasi lebih baik.',
+                generationThroughput:
+                    'Jumlah token output yang dijana oleh perkhidmatan sesaat. Nilai lebih tinggi bermakna daya pemprosesan keseluruhan lebih besar, bukan setiap permintaan lebih pantas.',
+                timeToFirstToken:
+                    'Purata masa menunggu dari ketibaan permintaan hingga token pertama. Nilai lebih rendah bermakna respons bermula lebih cepat.',
+                timePerOutputToken:
+                    'Purata masa menjana token seterusnya selepas token pertama. Nilai lebih rendah bermakna kandungan berikutnya dijana lebih cepat.',
+                averagePromptTokens:
+                    'Purata token input setiap permintaan. Nilai lebih tinggi bermakna input lebih panjang, bukan baik atau buruk dengan sendirinya.',
+                averageGenerationTokens:
+                    'Purata token output setiap permintaan. Nilai lebih tinggi bermakna jawapan lebih panjang, bukan penjanaan lebih pantas.',
+            },
             averagePromptTokens: 'Purata token input setiap permintaan',
             itl: 'Purata ITL',
             peakITLHelper:
@@ -2914,6 +2930,7 @@ const message = {
         default_download_path: 'Pautan muat turun lalai',
         saveLocal: 'Simpan sandaran tempatan (sama seperti bilangan salinan storan awan)',
         url: 'Alamat URL',
+        userAgentInvalid: 'User-Agent tidak boleh mengandungi pemisah baris atau aksara NUL',
         urlHelper: 'Sila masukkan alamat URL yang sah',
         targetHelper: 'Akaun sandaran diselenggara dalam tetapan panel.',
         withImageHelper: 'Sandarkan imej kedai aplikasi, tetapi ini akan meningkatkan saiz fail snapshot.',
