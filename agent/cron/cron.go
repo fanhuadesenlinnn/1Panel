@@ -50,17 +50,6 @@ func Run() {
 		}
 	}
 
-	var vllmStatus, vllmInterval model.Setting
-	if err := global.DB.Where("key = ?", "VLLMMonitorStatus").First(&vllmStatus).Error; err != nil {
-		global.LOG.Errorf("Load vLLM monitoring status failed: %v", err)
-	} else if vllmStatus.Value == constant.StatusEnable {
-		if err := global.DB.Where("key = ?", "VLLMMonitorInterval").First(&vllmInterval).Error; err != nil {
-			global.LOG.Errorf("Load vLLM monitoring interval failed: %v", err)
-		} else if err := service.StartVLLMMonitor(vllmInterval.Value); err != nil {
-			global.LOG.Errorf("Start vLLM monitoring failed: %v", err)
-		}
-	}
-
 	if _, err := global.Cron.AddJob("@daily", job.NewWebsiteJob()); err != nil {
 		global.LOG.Errorf("can not add  website corn job: %s", err.Error())
 	}
@@ -137,8 +126,7 @@ func syncBeforeStart() {
 		global.LOG.Errorf("load remote time with [%s] failed, err: %v", ntpSite.Value, err)
 		return
 	}
-	ts := ntime.Format(constant.DateTimeLayout)
-	if err := ntp.UpdateSystemTime(ts); err != nil {
+	if err := ntp.UpdateSystemTime(ntime); err != nil {
 		global.LOG.Errorf("failed to synchronize system time with [%s], err: %v", ntpSite.Value, err)
 	}
 	global.LOG.Debugf("synchronize system time with [%s] successful!", ntpSite.Value)

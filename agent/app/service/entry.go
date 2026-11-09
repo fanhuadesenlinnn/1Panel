@@ -3,6 +3,7 @@ package service
 import "github.com/1Panel-dev/1Panel/agent/app/repo"
 
 var (
+	gpuGroupRepo           = &repo.GPUGroupRepo{}
 	vmRepo                 = repo.NewIVMRepo()
 	appRepo                = repo.NewIAppRepo()
 	appTagRepo             = repo.NewIAppTagRepo()
@@ -32,11 +33,10 @@ var (
 	scriptRepo  = repo.NewIScriptRepo()
 	cronjobRepo = repo.NewICronjobRepo()
 
-	hostRepo        = repo.NewIHostRepo()
-	ftpRepo         = repo.NewIFtpRepo()
-	clamRepo        = repo.NewIClamRepo()
-	monitorRepo     = repo.NewIMonitorRepo()
-	vllmMonitorRepo = &repo.VLLMMonitorRepo{}
+	hostRepo    = repo.NewIHostRepo()
+	ftpRepo     = repo.NewIFtpRepo()
+	clamRepo    = repo.NewIClamRepo()
+	monitorRepo = repo.NewIMonitorRepo()
 
 	settingRepo = repo.NewISettingRepo()
 	backupRepo  = repo.NewIBackupRepo()

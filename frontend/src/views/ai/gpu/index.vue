@@ -28,5 +28,6 @@ const buttons = computed(() => [
         path: '/ai/gpu/history',
         disabled: props.historyDisabled,
     },
+    { label: i18n.global.t('website.groupSetting'), path: '/ai/gpu/groups' },
 ]);
 </script>

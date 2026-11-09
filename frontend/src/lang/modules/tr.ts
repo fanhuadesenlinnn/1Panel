@@ -780,6 +780,61 @@ const message = {
         localIP: 'Yerel IP',
     },
     aiTools: {
+        gpuGroup: {
+            emptyNodeCreate: 'NUMA {node} altında kullanılabilir GPU algılanmadı. Bu düğümden grup oluşturulamaz.',
+            inspectNUMA:
+                'GPU NUMA yerleşimini kontrol etmek için mevcut düğümün terminalinde bu salt okunur komutları çalıştırın ve PCI adreslerini eşleştirin:',
+            numaQueryHint:
+                'numa_node, NUMA düğüm kimliğini içerir; -1, sistemin yerleşimi bildirmediği anlamına gelir. Sonuçlar bu sayfadan farklıysa yenileyip tekrar deneyin.',
+            relationTopology: 'İlişki topolojisi',
+            relationHelp: 'Üyelik ilişkilerini vurgulamak için bir GPU veya grup seçin.',
+            selectionHelp:
+                'Aynı aygıt türündeki GPU’ları seçin ve grubu yapılandırmak için ilerleyin. Kesik çizgiler kaydedilmemiş üyelikleri gösterir.',
+            allRelations: 'Tüm ilişkileri göster',
+            pendingChanges: 'Kaydedilmedi',
+            hardware: 'Donanım yerleşimi',
+            editMembers: 'Üyeleri düzenle',
+            usageScope:
+                'İlişkiler, bu düğümde 1Panel tarafından yönetilen uygulama yapılandırmalarından alınır; bellek değerleri GPU’nun tamamı için ölçülür.',
+            usageTitle: 'GPU kullanımı',
+            usageHelp:
+                'Seçilen GPU’lar başka dağıtımlar tarafından kullanılıyor olabilir. Devam etmek GPU belleğinin yetersiz kalmasına veya performansın düşmesine neden olabilir. Yine de devam edebilirsiniz.',
+            usageUnknown: 'GPU kullanımı tam olarak kontrol edilemedi. Devam etmeden önce kaynakları doğrulayın.',
+            usagePossible: 'Sayıya göre ayrılır; bu GPU kullanılabilir',
+            usageMemory: 'GPU belleği (kullanılan / toplam)',
+            dimension: 'Boyut',
+            namePlaceholder: 'Örn. Üretim çıkarımı GPU çifti',
+            descriptionPlaceholder: 'İsteğe bağlı: grubun amacını veya kullanımını açıklayın',
+            selectedGPU: '{count} GPU seçildi',
+
+            byGroup: 'Gruba göre',
+            byNUMA: 'NUMA düğümüne göre',
+            ungrouped: 'Gruplanmamış',
+
+            unknownNode: 'NUMA düğümü bilinmiyor',
+            memoryNode: 'Bellek düğümü',
+            selectNode: 'Bu düğümün GPU birimlerini seç',
+            noDevices: 'Bu düğümde GPU yok',
+            affinity: 'CPU / bellek yakınlığı',
+            followGPU: 'GPU düğümlerini izle',
+            bindingPreview: 'Bağlama önizlemesi',
+
+            overview: 'Cihaz özeti',
+            groups: 'GPU grupları',
+            history: 'İzleme geçmişi',
+            source: 'Yapılandırma',
+            custom: 'Özel',
+            selectRequired: 'Bir GPU grubu seçin',
+            snapshotHelp:
+                'Dağıtımlar mevcut yapılandırmayı kaydeder. Grup değişiklikleri mevcut dağıtımlara otomatik uygulanmaz.',
+            changed: 'Kaynak grup değiştirildi veya silindi. Kaydedilen yapılandırma kullanılmaya devam ediyor.',
+            applyLatest: 'En son grup yapılandırmasını uygula',
+            deployments: 'İlişkili dağıtımlar',
+            help: 'Gruplar GPU ve NUMA ayarlarını yeniden kullanır. Cihazlar birden fazla grupta olabilir; özel GPU tahsisi veya bellek yalıtımı sağlanmaz.',
+            deleteHelp: '“{name}” grubu silinsin mi? Mevcut dağıtımlar yapılandırmalarını koruyacak.',
+            vendor: 'Cihaz türü',
+            topology: 'NUMA topolojisi',
+        },
         agents: {
             feishuUpgradeNotice:
                 'Yükseltmeden önce eski Feishu eklentisi ele alınmalıdır. Tam yedek gerekir; hata durumunda eski imaj ve verileri geri yüklenir. Yapılandırılmamış eklenti yalnızca devre dışı bırakılır.',
@@ -1082,6 +1137,24 @@ const message = {
             vllmVersion: 'vLLM sürümü',
             vllmImage: 'vLLM imajı',
             servicePort: 'Hizmet portu',
+            numaBinding: 'NUMA bağlama',
+            numaOff: 'Bağlama yok',
+            numaAuto: 'Otomatik',
+            numaManual: 'Elle',
+            numaNodes: 'NUMA düğümleri',
+            numaOffHelp: 'Seçilen GPU’lar kullanılır; CPU ve bellek sistem tarafından yönetilir.',
+            numaAutoHelp: 'CPU ve bellek, seçilen GPU’ların bulunduğu NUMA düğümüne bağlanır.',
+            numaManualHelp: 'GPU seçimini değiştirmeden uygulamanın CPU ve bellek düğümlerini belirtin.',
+            numaResolved: 'NUMA {node} düğümüne bağlanacak.',
+            numaHelp: 'GPU seçimi kullanılacak GPU’ları, yakınlık ise CPU ve bellek düğümlerini belirler.',
+            numaRequirements:
+                'İmaj numactl içermelidir. Bağlama etkinleştirildiğinde gerekirse SYS_NICE otomatik eklenir.',
+            numaUnknown:
+                'GPU ile ilişkili CPU ve bellek düğümü belirlenemedi. Bağlamayı kapalı bırakın veya donanım düzenini biliyorsanız düğümleri elle seçin.',
+            numaCross: 'Seçilen GPU aygıtları birden fazla NUMA düğümüne yayılıyor. Elle seçin.',
+            numaCount: 'Otomatik bağlama için belirli GPU aygıtlarını veya tümünü seçin.',
+            numaRequired: 'En az bir NUMA düğümü seçin.',
+            numaUnavailable: 'NUMA düğümü kullanılamıyor veya CPU ya da belleği yok.',
             gpuAcceleration: 'GPU hızlandırma',
             gpuMode: 'Hızlandırıcı seçimi',
             gpuAll: 'Tüm hızlandırıcılar',
@@ -1230,8 +1303,11 @@ const message = {
                 ascendA3: 'Ascend A3 serisi cihazlar için resmi Ascend A3 sürümü.',
                 ascendA5: '950DT cihazları için resmi Ascend A5 sürümü.',
                 ascend310P: 'Atlas 300I DUO ve Atlas 200I Pro cihazları için resmi Ascend 310P sürümü.',
-                default: 'Yeni sürücüler ve yeni GPU mimarileri için CUDA 13.0 içeren resmi standart sürüm.',
-                dspark: '1Panel tarafından bakımı yapılan özel imajı kullanan, iki cihaz için NVIDIA GB10 özel sürümü.',
+                default:
+                    'Yeni sürücüler ve yeni GPU mimarileri için CUDA 13.0 içeren resmî vLLM topluluk standart sürümü.',
+                rtxPro5000:
+                    'NVIDIA RTX Pro 5000 için DeepSeek-V4.1-Flash-1017’ye optimize edilmiş özel sürüm. İmajın bakımı 1Panel tarafından yapılır.',
+                dspark: 'İki NVIDIA GB10 cihazı için DeepSeek-V4-Flash’a optimize edilmiş özel sürüm. İmajın bakımı 1Panel tarafından yapılır.',
             },
             vllmDeployProfile: 'Dağıtım modeli',
             vllmProfileFlash0731: 'DeepSeek V4 Flash 0731',
@@ -1733,6 +1809,25 @@ const message = {
             extraHeaders: 'Ek Başlıklar',
         },
         vllmMonitor: {
+            averagePromptTokens: 'İstek başına ortalama girdi token sayısı',
+            itl: 'Ortalama ITL',
+            peakITLHelper:
+                'Girdi/çıktı uzunlukları istek sayısıyla, ITL çıktı aralığı örnek sayısıyla ağırlıklandırılır; mevcut izleme verileri kullanılır.',
+            peakMaxConcurrency: 'En yüksek çalışan istek sayısı',
+            peakAnalysis: 'Tepe analizi',
+            peakAuto: 'En yüksek eşzamanlılığı bul',
+            peakAtLeast: 'Çalışan istekler ≥',
+            peakEqual: 'Çalışan istekler =',
+            peakPeriods: 'Yüksek eşzamanlılık dönemleri',
+            peakPeriodsHelper: '{1} dönemden son {0} dönem gösteriliyor',
+            peakBefore: 'Önce',
+            peakAfter: 'Sonra',
+            peakDuring: 'Yüksek eşzamanlılık sırasında',
+            peakAfterWindow: 'Sonraki gözlem aralığı',
+            peakNearby: 'Tepe çevresindeki performans',
+            peakDuration: 'Örnekler arası süre',
+            peakHelper:
+                'Dönemler ham örneklerden belirlenir; tek örneğin süresi 0 saniyedir. TPS zamanla, TTFT istek sayısıyla ağırlıklandırılır. İstatistikler örnek zamanına aittir ve dönem sınırlarını aşabilir. Eğriler aynı isteklerin performansını değil, zamansal ilişkiyi gösterir.',
             concurrency: 'Mevcut eşzamanlı istekler',
             sampleMoment: 'Örnekleme anında',
             sampleWindow: 'Örnekleme aralığı',
@@ -4927,7 +5022,12 @@ const message = {
         serverNamesHashBucketSizeHelper: 'Sunucu adının karma tablosu boyutu',
         clientHeaderBufferSizeHelper: 'İstemci tarafından istenen başlık arabelleği boyutu',
         clientMaxBodySizeHelper: 'Maksimum Yükleme Dosyası',
-        keepaliveTimeoutHelper: 'Bağlantı Zaman Aşımı',
+        keepaliveTimeoutHelper: 'İstemci keep-alive bağlantılarının boşta kalma süresi',
+        proxyConnectTimeoutHelper: 'Arka uca bağlantı kurma zaman aşımı',
+        proxySendTimeoutHelper: 'Arka uca istek gönderme zaman aşımı',
+        proxyReadTimeoutHelper: 'Arka uç yanıtını bekleme zaman aşımı',
+        timeValueError: 'Geçersiz süre, örn. 60s, 5m, 1m30s',
+        directiveSourceHelper: '{0} dosyasında ayarlanmış; o dosyada düzenleyin',
         gzipMinLengthHelper: 'Minimum Sıkıştırılmış Dosya',
         gzipCompLevelHelper: 'Sıkıştırma Oranı',
         gzipHelper: 'İletim için sıkıştırmayı etkinleştir',
@@ -5598,9 +5698,50 @@ const message = {
             history: 'Dışa Aktarma Geçmişi',
             setting: 'Ayarlar',
             page: {
+                coreArchiveMasterOnly:
+                    'Yükseltme öncesi rapor kayıtları bulundu. Asıl dosyaları ana düğümde görüntülemek için bir yöneticiye başvurun.',
+                legacyHistoryReports: 'Yükseltme öncesi raporlar',
+                legacyHistoryManageHint: 'Yükseltme öncesi raporları burada görüntüleyip yönetebilirsiniz.',
+                legacyHistoryIntegrityHint: 'İndirme sırasında dosya bütünlüğü doğrulanır.',
+                legacyHistoryListFailed: 'Eski raporlar yüklenemedi. Listeyi yenileyip tekrar deneyin.',
+                legacyHistoryDownloadFailed:
+                    'İndirme başarısız oldu. Dosya durumunu kontrol edin veya daha sonra tekrar deneyin.',
+                legacyHistoryFileExists: 'Dosya mevcut',
+                legacyHistoryFileMissing: 'Dosya eksik',
+                legacyHistoryFileUnavailable: 'Dosya kullanılamıyor',
+                legacyHistoryNoFile: 'Dosya yok',
+                legacyHistoryFileMissingHint:
+                    'Asıl dosya artık mevcut değil ve indirilemiyor. İlgili kayıt silinebilir.',
+                legacyHistoryFileUnavailableHint:
+                    'Dosya yolu veya doğrulama bilgileri geçersiz. İndirme kullanılamıyor.',
+                legacyHistoryNoFileHint: 'Bu oluşturma kaydına bağlı bir rapor dosyası yok.',
+                legacyHistoryRemove: 'Sil',
+                legacyHistoryRemoveSelected: 'Seçilenleri sil ({0})',
+                legacyHistoryRemoveAll: 'Tümünü temizle',
+                legacyHistorySelectedScope: 'Seçilen {0} eski rapor ve dosyaları silinsin mi? Bu işlem geri alınamaz.',
+                legacyHistorySelectionChanged: 'Rapor kapsamı değişti. Listeyi yenileyip tekrar seçin.',
+                legacyHistoryQueryFailed: 'Yükseltme öncesi rapor geçmişi sorgulanamadı.',
+                legacyHistoryCleanup: 'Eski raporları temizle',
+                legacyHistoryCleanupScope:
+                    'Tüm düğümlerin eski geçmişi dahil ana düğümdeki tüm eski raporlar ve dosyaları silinsin mi? Bu işlem geri alınamaz.',
+                legacyHistoryCleanupFailed: 'Temizleme tamamlanmadı. Yeniden denemeden önce listeyi yenileyin.',
+                legacyHistoryCleanupPartial:
+                    '{0} eski kayıt temizlenemedi. Tekrar denemeden önce ana düğümdeki dosya izinlerini veya günlükleri kontrol edin.',
+                legacyHistoryCleanupSuccess: 'Seçilen eski raporlar silindi.',
+
+                licenseRequired:
+                    'Raporları ve geçmişi görüntülemek için geçerli bir lisans gereklidir. Lisansı yenileyin veya geçerli bir lisansı içe aktarın.',
+                agentUpgradeRequired:
+                    'Bu düğümün Agent bileşenini yerel operasyon raporlarını destekleyen bir sürüme yükseltin.',
+                contextFailed:
+                    'Bu düğümün rapor bilgileri yüklenemedi. Düğüm bağlantısını ve rapor okuma izinlerini kontrol edin.',
+                generationPending:
+                    'Bu istek hâlâ işleniyor. Raporu yeniden oluşturmadan önce rapor geçmişinden durumunu kontrol edin.',
+                notApplicable: 'Uygulanamaz',
+                panelNotApplicable: 'Bu düğümde panel kurulu değil. Panele özgü bilgiler uygulanamaz.',
+
                 enterprise: 'Kurumsal',
                 reportNode: 'Rapor Düğümü',
-                selectReportNode: 'Rapor düğümü seçin',
                 currentNode: 'Geçerli Düğüm',
                 scoreMeta: '{0} puan düşüldü · {1} risk',
                 hostAddress: 'Ana Makine Adresi',
@@ -5677,9 +5818,16 @@ const message = {
                 statSslDesc: '{0} sertifika kontrol edildi',
                 statContainerDesc: '{0} konteyner kontrol edildi',
                 assetHostDesc: 'Disk en yüksek kullanım %{0}',
-                assetWebsiteDesc: '{0} sertifika süresi dolmak üzere, {1} anormal web sitesi',
+                assetWebsiteDesc: '{0} sertifikanın süresi dolmuş veya dolmak üzere, {1} anormal web sitesi',
                 assetResourceDesc: '{0} anormal uygulama, {1} anormal konteyner',
-                assetCronjobDesc: 'Son 7 günde {0} başarısızlık kaydı, {1} görev devre dışı',
+
+                scoreDataUnavailable:
+                    'Önemli veriler eksik olduğu için puan gösterilmiyor. Bilinen riskler aşağıda listelenir. Yenileyip tekrar deneyin.',
+                scoreDataProvisional: 'Bazı veriler eksik veya yaklaşık. Bu puan geçicidir.',
+                reportWindow: 'Rapor dönemi: {0} - {1} ({2})',
+                snapshotScoreScope:
+                    'Ana makine puanı güncel ölçümleri kullanır; 24 saatlik eğilimler ayrı gösterilir. Elle dışa aktarma verileri yeniden toplar, değerler değişebilir.',
+                assetCronjobDesc: 'Son 24 saatte {0} başarısızlık kaydı, {1} görev devre dışı',
                 app: 'Uygulamalar',
                 website: 'Web Siteleri',
                 websiteSsl: 'Web Siteleri / Sertifikalar',
@@ -5934,7 +6082,7 @@ const message = {
                 wafSourceIpTop: 'WAF Kaynak IP TOP5',
                 wafAffectedSiteTop: 'Etkilenen Siteler TOP5',
                 sslRisk: 'Sertifika Riskleri',
-                sslExpiring: 'Süresi Dolan Sertifikalar',
+                sslExpiring: 'Sertifika Süre Sonu Riskleri',
                 includedInReport: 'Rapora dahil edildi',
                 needRenewal: 'Yenileme öneriliyor',
                 fromExpireInfo: 'Son kullanma bilgisinden',

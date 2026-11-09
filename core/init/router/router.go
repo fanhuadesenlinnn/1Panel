@@ -59,7 +59,7 @@ func setWebStatic(rootRouter *gin.RouterGroup) {
 		if !security.CheckSecurity(c) {
 			return
 		}
-		entrance = authService.GetSecurityEntrance()
+		entrance := authService.GetSecurityEntrance()
 		if entrance != "" {
 			appauth.SetSecurityEntranceCookie(c, entrance)
 		}
@@ -101,7 +101,7 @@ func Routers() *gin.Engine {
 	Router.Use(middleware.PasswordExpired())
 	Router.Use(middleware.CSRFTokenGuard())
 	Router.Use(xpack.AuthProvider.CoreRBACMiddlewares()...)
-	Router.Use(Proxy(panelMCPTaskProxyPolicy()))
+	Router.Use(Proxy(panelMCPTaskProxyPolicy(), opsReportProxyPolicy()))
 
 	PrivateGroup := Router.Group("/api/v2/core")
 	PrivateGroup.Use(middleware.SetPasswordPublicKey())

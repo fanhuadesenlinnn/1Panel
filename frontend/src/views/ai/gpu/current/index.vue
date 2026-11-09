@@ -2,10 +2,10 @@
     <div>
         <RouterMenu :history-disabled="historyDisabled" />
         <div>
-            <LayoutContent v-loading="loading" :title="$t('aiTools.gpu.monitoringTitle')">
-                <template #leftToolBar>
+            <LayoutContent v-loading="loading" :title="$t('aiTools.gpu.current')">
+                <template v-if="environmentStatus !== 'notDetected'" #leftToolBar>
                     <div class="monitor-heading">
-                        <h3 class="environment-heading">{{ $t('aiTools.gpu.monitoringTitle') }}</h3>
+                        <h3 class="environment-heading">{{ $t('aiTools.gpu.current') }}</h3>
                         <template v-if="loadFailed || gpuInfo.environment || gpuInfo.warnings?.length">
                             <el-tag :type="environmentPassed ? 'success' : loadFailed ? 'danger' : 'warning'">
                                 {{
@@ -20,7 +20,7 @@
                         </template>
                     </div>
                 </template>
-                <template #rightToolBar>
+                <template v-if="environmentStatus !== 'notDetected'" #rightToolBar>
                     <span v-if="hasAccelerators && gpuInfo.collectedAt" class="collection-time">
                         {{ $t('aiTools.gpu.collectedAt') }}:
                         {{ new Date(gpuInfo.collectedAt).toLocaleString() }}
@@ -586,6 +586,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { Box, InfoFilled, Monitor } from '@element-plus/icons-vue';
 import { loadGPUInfo } from '@/api/modules/ai';
 import RouterMenu from '@/views/ai/gpu/index.vue';
+import { getGPUEnvironmentState } from '../environment';
 import { AI } from '@/api/interface/ai';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { routerToName } from '@/utils/router';
@@ -863,23 +864,11 @@ const commonDeviceModels = computed<Record<string, string>>(() => {
     return models;
 });
 
-const environmentChecks = computed(() =>
-    (gpuInfo.value.environment?.checks || []).filter((check) => check.item === 'driver' || check.vendor === 'nvidia'),
-);
-const environmentIssueCount = computed(
-    () =>
-        environmentChecks.value.filter((check) => check.status !== 'passed').length +
-        (gpuInfo.value.warnings?.length || 0),
-);
-const environmentPassed = computed(
-    () => !loadFailed.value && environmentChecks.value.length > 0 && environmentIssueCount.value === 0,
-);
-const environmentStatus = computed(() => {
-    if (loadFailed.value) return 'loadFailed';
-    if (environmentPassed.value) return 'passed';
-    if (environmentIssueCount.value) return 'issues';
-    return gpuInfo.value.environment?.hardwareStatus === 'not_detected' ? 'notDetected' : 'unknown';
-});
+const environment = computed(() => getGPUEnvironmentState(gpuInfo.value, loadFailed.value));
+const environmentChecks = computed(() => environment.value.checks);
+const environmentIssueCount = computed(() => environment.value.issueCount);
+const environmentPassed = computed(() => environment.value.status === 'passed');
+const environmentStatus = computed(() => environment.value.status);
 const historyDisabled = computed(
     () =>
         (loading.value && !gpuInfo.value.environment && !hasAccelerators.value) ||
@@ -1064,7 +1053,9 @@ const search = async (refreshEnvironment = false) => {
     }
 };
 
-const refresh = () => search(true);
+const refresh = () => {
+    search(true);
+};
 
 watch(currentNode, () => {
     environmentDialogVisible.value = false;
@@ -1506,6 +1497,8 @@ onBeforeUnmount(invalidateRequest);
 }
 .environment-detail-link {
     font-size: 12px;
+}
+.environment-detail-link:not(.is-disabled) {
     color: var(--el-text-color-regular);
 }
 .collection-time {

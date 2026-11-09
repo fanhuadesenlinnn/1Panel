@@ -816,7 +816,10 @@ var InitLocalSSHConn = &gormigrate.Migration{
 			itemPath = path.Join(currentInfo.HomeDir, ".ssh/id_ed25519_1panel")
 		}
 		if _, err := os.Stat(itemPath); err != nil {
-			_ = service.NewISSHService().CreateRootCert(dto.RootCertOperate{EncryptionMode: "ed25519", Name: "id_ed25519_1panel", Description: "1Panel Terminal"})
+			if err := service.NewISSHService().CreateRootCert(dto.RootCertOperate{Mode: "generate", EncryptionMode: "ed25519", Name: "id_ed25519_1panel", Description: "1Panel Terminal"}); err != nil {
+				global.LOG.Errorf("initialize local SSH key failed: %v", err)
+				return nil
+			}
 		}
 		privateKey, _ := os.ReadFile(itemPath)
 		connWithKey := ssh.ConnInfo{
@@ -826,9 +829,11 @@ var InitLocalSSHConn = &gormigrate.Migration{
 			AuthMode:   "key",
 			PrivateKey: privateKey,
 		}
-		if _, err := ssh.NewClient(connWithKey); err != nil {
+		client, err := ssh.NewClient(connWithKey)
+		if err != nil {
 			return nil
 		}
+		defer client.Close()
 		var conn model.LocalConnInfo
 		_ = copier.Copy(&conn, &connWithKey)
 		conn.PrivateKey = string(privateKey)
@@ -1836,13 +1841,6 @@ var AddAcceleratorMetrics = &gormigrate.Migration{
 	},
 }
 
-var AddVLLMMonitor = &gormigrate.Migration{
-	ID: "20260928-vllm-monitor",
-	Migrate: func(tx *gorm.DB) error {
-		return global.VLLMMonitorDB.AutoMigrate(&model.MonitorVLLM{})
-	},
-}
-
 var AddMonitorSettings = &gormigrate.Migration{
 	ID: "20260929-monitor-settings",
 	Migrate: func(tx *gorm.DB) error {
@@ -1851,27 +1849,11 @@ var AddMonitorSettings = &gormigrate.Migration{
 			if err := tx.Where("key = ?", key).First(&setting).Error; err != nil {
 				return err
 			}
-			for _, prefix := range []string{"GPU", "VLLM"} {
-				if err := tx.Where("key = ?", prefix+key).FirstOrCreate(&model.Setting{Key: prefix + key, Value: setting.Value}).Error; err != nil {
-					return err
-				}
+			if err := tx.Where("key = ?", "GPU"+key).FirstOrCreate(&model.Setting{Key: "GPU" + key, Value: setting.Value}).Error; err != nil {
+				return err
 			}
 		}
 		return nil
-	},
-}
-
-var AddVLLMRequestMetrics = &gormigrate.Migration{
-	ID: "20261010-vllm-request-metrics",
-	Migrate: func(tx *gorm.DB) error {
-		return global.VLLMMonitorDB.AutoMigrate(&model.MonitorVLLM{})
-	},
-}
-
-var AddVLLMSampleInterval = &gormigrate.Migration{
-	ID: "20261016-vllm-sample-interval",
-	Migrate: func(tx *gorm.DB) error {
-		return global.VLLMMonitorDB.AutoMigrate(&model.MonitorVLLM{})
 	},
 }
 
@@ -1955,5 +1937,12 @@ var AddAgentAccountVerificationResult = &gormigrate.Migration{
 			return err
 		}
 		return tx.Model(&model.AgentAccount{}).Where("validate_availability IS NULL").Update("validate_availability", true).Error
+	},
+}
+
+var AddGPUGroup = &gormigrate.Migration{
+	ID: "20261108-add-gpu-groups",
+	Migrate: func(tx *gorm.DB) error {
+		return tx.AutoMigrate(&model.GPUGroup{})
 	},
 }

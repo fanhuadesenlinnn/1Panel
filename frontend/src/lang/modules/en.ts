@@ -776,6 +776,62 @@ const message = {
         localIP: 'Local IP',
     },
     aiTools: {
+        gpuGroup: {
+            emptyNodeCreate:
+                'No available GPUs were detected under NUMA {node}. A group cannot be created from this node.',
+            inspectNUMA:
+                'Run these read-only commands in the current node’s terminal and match PCI addresses to check GPU NUMA placement:',
+            numaQueryHint:
+                'numa_node contains the NUMA node ID; -1 means the system has not reported a placement. If the results differ from this page, refresh and try again.',
+            relationTopology: 'Relationship topology',
+            relationHelp: 'Select a GPU or group to highlight its memberships.',
+            selectionHelp:
+                'Select GPUs of the same device type, then continue to configure the group. Dashed lines show unsaved memberships.',
+            allRelations: 'Show all relationships',
+            pendingChanges: 'Unsaved',
+            hardware: 'Hardware placement',
+            editMembers: 'Edit members',
+            usageScope:
+                'Associations come from application configurations managed by 1Panel on this node; memory values are sampled for the whole GPU.',
+            usageTitle: 'GPU usage',
+            usageHelp:
+                'Selected GPUs may be used by other deployments. Continuing may cause insufficient GPU memory or reduced performance. You can still proceed.',
+            usageUnknown: 'GPU usage could not be fully checked. Verify resources before continuing.',
+            usagePossible: 'Allocated by count; may use this GPU',
+            usageMemory: 'GPU memory (used / total)',
+            dimension: 'Dimension',
+            namePlaceholder: 'e.g. Production inference pair',
+            descriptionPlaceholder: 'Optional: describe the purpose or usage of this group',
+            selectedGPU: '{count} GPUs selected',
+
+            byGroup: 'By group',
+            byNUMA: 'By NUMA',
+            ungrouped: 'Ungrouped',
+
+            unknownNode: 'Unknown NUMA affinity',
+            memoryNode: 'Memory node',
+            selectNode: 'Select GPUs in this node',
+            noDevices: 'No GPUs in this node',
+            affinity: 'CPU / memory affinity',
+            followGPU: 'Follow GPU nodes',
+            bindingPreview: 'Binding preview',
+
+            overview: 'Device overview',
+            groups: 'GPU groups',
+            history: 'Monitoring history',
+            source: 'Configuration',
+            custom: 'Custom',
+            selectRequired: 'Select a GPU group',
+            snapshotHelp:
+                'Deployments save a configuration snapshot. Group changes do not update existing deployments automatically.',
+            changed: 'The source group has changed or been deleted. The saved configuration is still in use.',
+            applyLatest: 'Apply latest group configuration',
+            deployments: 'Related deployments',
+            help: 'Groups reuse GPU and NUMA settings. Membership may overlap; GPUs and memory are not reserved or isolated.',
+            deleteHelp: 'Delete group “{name}”? Existing deployments will keep their configuration.',
+            vendor: 'Device type',
+            topology: 'NUMA topology',
+        },
         agents: {
             feishuUpgradeNotice:
                 'Legacy Feishu must be handled before upgrading. A full application backup is required; failure restores the old image and matching data. An unconfigured legacy plugin is only disabled.',
@@ -1074,6 +1130,24 @@ const message = {
             vllmVersion: 'vLLM Version',
             vllmImage: 'vLLM Image',
             servicePort: 'Service Port',
+            numaBinding: 'NUMA binding',
+            numaOff: 'No binding',
+            numaAuto: 'Automatic',
+            numaManual: 'Manual',
+            numaNodes: 'NUMA nodes',
+            numaOffHelp: 'Use the selected GPUs while the system schedules CPU and memory use.',
+            numaAutoHelp: 'Bind CPU and memory use to the NUMA node containing the selected GPUs.',
+            numaManualHelp: 'Specify CPU and memory nodes for the application without changing GPU selection.',
+            numaResolved: 'Will bind to NUMA {node}.',
+            numaHelp:
+                'GPU selection determines which graphics devices to use; affinity determines which CPU and memory nodes to use.',
+            numaRequirements: 'The image must include numactl. Enabling binding automatically adds SYS_NICE if needed.',
+            numaUnknown:
+                'Could not identify the CPU and memory node associated with the GPU. Leave binding off, or select nodes manually if you know the hardware layout.',
+            numaCross: 'Selected GPUs span multiple NUMA nodes. Select nodes manually.',
+            numaCount: 'Automatic binding requires specific GPUs or all GPUs.',
+            numaRequired: 'Select at least one NUMA node.',
+            numaUnavailable: 'NUMA node is unavailable or has no CPUs or memory.',
             gpuAcceleration: 'GPU acceleration',
             gpuMode: 'Accelerator selection',
             gpuAll: 'All accelerators',
@@ -1223,8 +1297,11 @@ const message = {
                 ascendA3: 'Official Ascend A3 version for Ascend A3 series devices.',
                 ascendA5: 'Official Ascend A5 version for 950DT devices.',
                 ascend310P: 'Official Ascend 310P version for Atlas 300I DUO and Atlas 200I Pro devices.',
-                default: 'Official standard version with CUDA 13.0, for newer drivers and newer GPU architectures.',
-                dspark: 'NVIDIA GB10 dual-device custom version, using a custom image maintained by 1Panel.',
+                default:
+                    'Official vLLM community standard version with CUDA 13.0, for newer drivers and newer GPU architectures.',
+                rtxPro5000:
+                    'Custom version for NVIDIA RTX Pro 5000, optimized for DeepSeek-V4.1-Flash-1017. The image is maintained by 1Panel.',
+                dspark: 'Custom version for two NVIDIA GB10 devices, optimized for DeepSeek-V4-Flash. The image is maintained by 1Panel.',
             },
             vllmDeployProfile: 'Deployment model',
             vllmProfileFlash0731: 'DeepSeek V4 Flash 0731',
@@ -1725,6 +1802,25 @@ const message = {
             extraHeaders: 'Extra Headers',
         },
         vllmMonitor: {
+            averagePromptTokens: 'Average input tokens per request',
+            itl: 'Mean ITL',
+            peakITLHelper:
+                'Input/output lengths are request-weighted; ITL is weighted by output-interval sample count, using existing monitoring data.',
+            peakMaxConcurrency: 'Peak running requests',
+            peakAnalysis: 'Peak analysis',
+            peakAuto: 'Find highest concurrency',
+            peakAtLeast: 'Running requests ≥',
+            peakEqual: 'Running requests =',
+            peakPeriods: 'High-concurrency periods',
+            peakPeriodsHelper: 'Showing the latest {0} of {1} periods',
+            peakBefore: 'Before',
+            peakAfter: 'After',
+            peakDuring: 'During high concurrency',
+            peakAfterWindow: 'Following window',
+            peakNearby: 'Performance around peaks',
+            peakDuration: 'Sample span',
+            peakHelper:
+                'Periods are identified from raw samples; a single sample spans 0 seconds. TPS is time-weighted and TTFT is request-weighted. Statistics belong to their sample timestamp and may cross period boundaries. Curves show time correlation, not the performance of the same requests.',
             concurrency: 'Current concurrency',
             sampleMoment: 'At sampling time',
             sampleWindow: 'Sample interval',
@@ -4848,7 +4944,12 @@ const message = {
         serverNamesHashBucketSizeHelper: 'The hash table size of the server name',
         clientHeaderBufferSizeHelper: 'The header buffer size requested by the client',
         clientMaxBodySizeHelper: 'Maximum Upload File',
-        keepaliveTimeoutHelper: 'Connection Timeout',
+        keepaliveTimeoutHelper: 'Idle timeout of client keep-alive connections',
+        proxyConnectTimeoutHelper: 'Timeout for establishing a connection to the backend',
+        proxySendTimeoutHelper: 'Timeout for sending a request to the backend',
+        proxyReadTimeoutHelper: 'Timeout for waiting for a response from the backend',
+        timeValueError: 'Invalid duration, e.g. 60s, 5m, 1m30s',
+        directiveSourceHelper: 'Set in {0}; edit it in that file',
         gzipMinLengthHelper: 'Minimum Compressed File',
         gzipCompLevelHelper: 'Compression Rate',
         gzipHelper: 'Enable compression for transmission',
@@ -5507,9 +5608,49 @@ const message = {
             history: 'Export History',
             setting: 'Settings',
             page: {
+                coreArchiveMasterOnly:
+                    'Pre-upgrade report records were found. Ask an administrator to view the original files on the master node.',
+                legacyHistoryReports: 'Pre-upgrade reports',
+                legacyHistoryManageHint: 'View and manage pre-upgrade reports here.',
+                legacyHistoryIntegrityHint: 'File integrity is verified when downloading.',
+                legacyHistoryListFailed: 'Unable to load pre-upgrade reports. Refresh the list and retry.',
+                legacyHistoryDownloadFailed: 'Download failed. Check the report file status or retry later.',
+                legacyHistoryFileExists: 'File exists',
+                legacyHistoryFileMissing: 'File missing',
+                legacyHistoryFileUnavailable: 'File unavailable',
+                legacyHistoryNoFile: 'No file',
+                legacyHistoryFileMissingHint:
+                    'The original file no longer exists and cannot be downloaded. Its record can be removed.',
+                legacyHistoryFileUnavailableHint:
+                    'The file path or verification metadata is invalid. Download is unavailable.',
+                legacyHistoryNoFileHint: 'This generation record has no associated report file.',
+                legacyHistoryRemove: 'Remove',
+                legacyHistoryRemoveSelected: 'Remove selected ({0})',
+                legacyHistoryRemoveAll: 'Clear all',
+                legacyHistorySelectedScope:
+                    'Remove the {0} selected pre-upgrade reports and their files? This cannot be undone.',
+                legacyHistorySelectionChanged: 'The report scope changed. Refresh the list and select again.',
+                legacyHistoryQueryFailed: 'Unable to check pre-upgrade report history.',
+                legacyHistoryCleanup: 'Clean up pre-upgrade reports',
+                legacyHistoryCleanupScope:
+                    'Remove all pre-upgrade reports and files stored on the master node, including old history for every node? This cannot be undone.',
+                legacyHistoryCleanupFailed: 'Cleanup was not completed. Refresh the list before retrying.',
+                legacyHistoryCleanupPartial:
+                    '{0} old records could not be cleared. Check file permissions or logs on the master node before retrying.',
+                legacyHistoryCleanupSuccess: 'Pre-upgrade reports have been removed.',
+
+                licenseRequired:
+                    'A valid license is required to view reports and history. Renew or import a valid license.',
+                agentUpgradeRequired:
+                    'This node must be upgraded to an Agent version that supports local operations reports.',
+                contextFailed:
+                    'Unable to load this node’s report context. Check node connectivity and report access permissions.',
+                generationPending: 'This request is still running. Check report history before generating again.',
+                notApplicable: 'Not applicable',
+                panelNotApplicable: 'No panel is deployed on this node. Panel-specific information is not applicable.',
+
                 enterprise: 'Enterprise',
                 reportNode: 'Report Node',
-                selectReportNode: 'Select report node',
                 currentNode: 'Current',
                 scoreMeta: '{0} points deducted · {1} risks',
                 hostAddress: 'Host Address',
@@ -5595,9 +5736,16 @@ const message = {
                 statContainerDesc: '{0} containers checked',
                 statAlertDesc: '{0} enabled tasks · {1} channels',
                 assetHostDesc: 'Max disk usage {0}%',
-                assetWebsiteDesc: '{0} certificates expiring soon, {1} abnormal websites',
+                assetWebsiteDesc: '{0} certificates expired or expiring soon, {1} abnormal websites',
                 assetResourceDesc: '{0} abnormal apps, {1} abnormal containers',
-                assetCronjobDesc: '{0} failure records in the last 7 days, {1} disabled jobs',
+
+                scoreDataUnavailable:
+                    'Key data is missing, so no score is shown. Known risks remain listed below. Refresh to try again.',
+                scoreDataProvisional: 'Some data is missing or approximate. This score is provisional.',
+                reportWindow: 'Report period: {0} to {1} ({2})',
+                snapshotScoreScope:
+                    'Host scoring uses current measurements; 24-hour trends are shown separately. Manual export collects again, so live values may change.',
+                assetCronjobDesc: '{0} failure records in the last 24 hours, {1} disabled jobs',
                 assetAlertDesc: '{0} failed logs, {1} pending sync logs',
                 app: 'Apps',
                 website: 'Websites',
@@ -5845,7 +5993,7 @@ const message = {
                 wafSourceIpTop: 'WAF Source IP TOP5',
                 wafAffectedSiteTop: 'Affected Sites TOP5',
                 sslRisk: 'Certificate Risks',
-                sslExpiring: 'Expiring Certificates',
+                sslExpiring: 'Certificate Expiry Risks',
                 includedInReport: 'Included in report',
                 needRenewal: 'Renewal recommended',
                 fromExpireInfo: 'From expiry information',

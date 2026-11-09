@@ -775,6 +775,61 @@ const message = {
         localIP: 'ローカルIP',
     },
     aiTools: {
+        gpuGroup: {
+            emptyNodeCreate:
+                'NUMA {node} に利用可能な GPU が検出されなかったため、このノードからグループを作成できません。',
+            inspectNUMA:
+                '現在のノードの端末で次の読み取り専用コマンドを実行し、PCI アドレスを照合して GPU の NUMA 所属を確認してください：',
+            numaQueryHint:
+                'numa_node は NUMA ノード番号を示します。-1 はシステムが所属を報告していないことを意味します。結果が画面と異なる場合は、更新して再試行してください。',
+            relationTopology: '関係トポロジー',
+            relationHelp: 'GPU またはグループを選択すると、所属関係が強調表示されます。',
+            selectionHelp:
+                '同じデバイス種類の GPU を選択し、次へ進んでグループを設定します。破線は未保存の所属関係を示します。',
+            allRelations: 'すべての関係を表示',
+            pendingChanges: '未保存',
+            hardware: 'ハードウェア配置',
+            editMembers: 'メンバーを編集',
+            usageScope:
+                '関連情報は、このノードで 1Panel が管理するアプリの設定に基づきます。メモリ値は GPU 全体の測定値です。',
+            usageTitle: 'GPU 使用状況',
+            usageHelp:
+                '選択した GPU は他のデプロイで使用されている可能性があります。続行すると GPU メモリ不足や性能低下が発生する場合がありますが、続行できます。',
+            usageUnknown: 'GPU の使用状況を完全に確認できませんでした。リソースを確認してから続行してください。',
+            usagePossible: '台数で割り当てるため、この GPU を使用する可能性があります',
+            usageMemory: 'GPU メモリ（使用量 / 合計）',
+            dimension: '表示軸',
+            namePlaceholder: '例：本番推論用 GPU ペア',
+            descriptionPlaceholder: '任意：グループの用途や運用ルールを記入',
+            selectedGPU: 'GPU を {count} 台選択',
+
+            byGroup: 'グループ別',
+            byNUMA: 'NUMA 別',
+            ungrouped: '未分類',
+
+            unknownNode: 'NUMA 所属不明',
+            memoryNode: 'メモリノード',
+            selectNode: 'このノードの GPU を選択',
+            noDevices: 'このノードに GPU はありません',
+            affinity: 'CPU / メモリアフィニティ',
+            followGPU: 'GPU の所属ノードに従う',
+            bindingPreview: 'バインドのプレビュー',
+
+            overview: 'デバイス概要',
+            groups: 'GPU グループ',
+            history: '監視履歴',
+            source: '設定方法',
+            custom: 'カスタム',
+            selectRequired: 'GPU グループを選択してください',
+            snapshotHelp: 'デプロイには現在の設定が保存されます。グループの変更は既存のデプロイに自動適用されません。',
+            changed: '元のグループが変更または削除されました。保存済みの設定を使用しています。',
+            applyLatest: '最新のグループ設定を適用',
+            deployments: '関連するデプロイ',
+            help: 'GPU と NUMA の設定を再利用します。デバイスの重複は可能ですが、GPU の専有やメモリの分離は行いません。',
+            deleteHelp: 'グループ「{name}」を削除しますか？既存のデプロイは設定を保持します。',
+            vendor: 'デバイスの種類',
+            topology: 'NUMA トポロジー',
+        },
         agents: {
             feishuUpgradeNotice:
                 '更新前に旧 Feishu プラグインを処理します。アプリ全体のバックアップが必要です。失敗時は旧イメージと対応するデータを復元します。未設定の旧プラグインは無効化のみ行います。',
@@ -1062,6 +1117,24 @@ const message = {
             vllmVersion: 'vLLM バージョン',
             vllmImage: 'vLLM イメージ',
             servicePort: 'サービスポート',
+            numaBinding: 'NUMA バインド',
+            numaOff: 'バインドなし',
+            numaAuto: '自動',
+            numaManual: '手動',
+            numaNodes: 'NUMA ノード',
+            numaOffHelp: '選択した GPU を使用し、CPU とメモリの割り当てはシステムに任せます。',
+            numaAutoHelp: 'CPU とメモリを、選択した GPU が属する NUMA ノードにバインドします。',
+            numaManualHelp: 'GPU の選択を変えずに、アプリが使用する CPU とメモリのノードを指定します。',
+            numaResolved: 'NUMA {node} にバインドします。',
+            numaHelp: 'GPU の選択は使用する GPU を決め、親和性は CPU とメモリに使用するノードを決めます。',
+            numaRequirements:
+                'イメージに numactl が必要です。バインドを有効にすると、必要に応じて SYS_NICE 権限が自動追加されます。',
+            numaUnknown:
+                'GPU に対応する CPU とメモリのノードを特定できません。バインドなしにするか、ハードウェア構成が分かる場合は手動で選択してください。',
+            numaCross: '選択した GPU は複数の NUMA ノードに属しています。手動で選択してください。',
+            numaCount: '自動バインドには特定の GPU またはすべての GPU を選択してください。',
+            numaRequired: 'NUMA ノードを少なくとも 1 つ選択してください。',
+            numaUnavailable: 'NUMA ノードが利用できないか、CPU またはメモリがありません。',
             gpuAcceleration: 'GPU アクセラレーション',
             gpuMode: 'アクセラレーターの選択',
             gpuAll: 'すべてのアクセラレーター',
@@ -1208,8 +1281,10 @@ const message = {
                 ascendA5: '950DT 向けの Ascend 公式 A5 版です。',
                 ascend310P: 'Atlas 300I DUO および Atlas 200I Pro 向けの Ascend 公式 310P 版です。',
                 default:
-                    '公式の標準バージョン。CUDA 13.0 を使用し、新しいドライバーと新しい GPU アーキテクチャに対応します。',
-                dspark: 'NVIDIA GB10 の 2 台構成向けカスタム版。1Panel が独自に保守するカスタムイメージです。',
+                    'vLLM 公式コミュニティの標準版。CUDA 13.0 を使用し、新しいドライバーと新しい GPU アーキテクチャに対応します。',
+                rtxPro5000:
+                    'NVIDIA RTX Pro 5000 向けカスタム版。DeepSeek-V4.1-Flash-1017 向けに最適化されており、イメージは 1Panel が保守しています。',
+                dspark: 'NVIDIA GB10 の 2 台構成向けカスタム版。DeepSeek-V4-Flash 向けに最適化されており、イメージは 1Panel が保守しています。',
             },
             vllmDeployProfile: 'デプロイモデル',
             vllmProfileFlash0731: 'DeepSeek V4 Flash 0731',
@@ -1709,6 +1784,25 @@ const message = {
             extraHeaders: '追加ヘッダー',
         },
         vllmMonitor: {
+            averagePromptTokens: 'リクエストあたりの平均入力トークン数',
+            itl: '平均 ITL',
+            peakITLHelper:
+                '入力・出力の長さはリクエスト数、ITL は出力間隔のサンプル数で加重し、既存の監視データを使用します。',
+            peakMaxConcurrency: '最大同時実行数',
+            peakAnalysis: 'ピーク分析',
+            peakAuto: '最大同時実行数を検索',
+            peakAtLeast: '実行中のリクエスト ≥',
+            peakEqual: '実行中のリクエスト =',
+            peakPeriods: '高同時実行期間',
+            peakPeriodsHelper: '最新 {0} 件を表示（全 {1} 件）',
+            peakBefore: '前',
+            peakAfter: '後',
+            peakDuring: '高同時実行中',
+            peakAfterWindow: '後続の観測期間',
+            peakNearby: 'ピーク前後の性能',
+            peakDuration: 'サンプル間隔幅',
+            peakHelper:
+                '期間は元のサンプルから特定し、単一サンプルの幅は 0 秒です。TPS は時間、TTFT はリクエスト数で加重します。統計はサンプル時刻に属し、期間の境界をまたぐ場合があります。曲線は時間的な関連を示し、同じリクエスト群の性能を示すものではありません。',
             concurrency: '現在の同時リクエスト',
             sampleMoment: 'サンプリング時点',
             sampleWindow: '集計区間',
@@ -4832,7 +4926,12 @@ const message = {
         serverNamesHashBucketSizeHelper: 'サーバー名のハッシュテーブルサイズ',
         clientHeaderBufferSizeHelper: 'クライアントが要求するヘッダーバッファサイズ',
         clientMaxBodySizeHelper: '最大アップロードファイル',
-        keepaliveTimeoutHelper: '接続タイムアウト',
+        keepaliveTimeoutHelper: 'クライアントのキープアライブ接続のアイドルタイムアウト',
+        proxyConnectTimeoutHelper: 'バックエンドとの接続確立のタイムアウト',
+        proxySendTimeoutHelper: 'バックエンドへのリクエスト送信のタイムアウト',
+        proxyReadTimeoutHelper: 'バックエンドからの応答待ちのタイムアウト',
+        timeValueError: '形式が正しくありません。例：60s、5m、1m30s',
+        directiveSourceHelper: '{0} で設定されています。そのファイルで変更してください',
         gzipMinLengthHelper: '最小圧縮ファイル',
         gzipCompLevelHelper: '圧縮率',
         gzipHelper: '伝送の圧縮を有効にします',
@@ -5488,9 +5587,52 @@ const message = {
             history: 'エクスポート履歴',
             setting: '設定',
             page: {
+                coreArchiveMasterOnly:
+                    'アップグレード前のレポート記録が見つかりました。元のファイルは管理者がマスターノードで確認してください。',
+                legacyHistoryReports: 'アップグレード前のレポート',
+                legacyHistoryManageHint: 'アップグレード前のレポートをここで確認・管理できます。',
+                legacyHistoryIntegrityHint: 'ダウンロード時にファイルの整合性を検証します。',
+                legacyHistoryListFailed: '旧レポート一覧を読み込めません。一覧を更新して再試行してください。',
+                legacyHistoryDownloadFailed:
+                    'ダウンロードに失敗しました。ファイルの状態を確認するか、後で再試行してください。',
+                legacyHistoryFileExists: 'ファイルあり',
+                legacyHistoryFileMissing: 'ファイルなし',
+                legacyHistoryFileUnavailable: 'ファイル利用不可',
+                legacyHistoryNoFile: 'ファイル未生成',
+                legacyHistoryFileMissingHint:
+                    '元のファイルが存在しないためダウンロードできません。対応する記録は削除できます。',
+                legacyHistoryFileUnavailableHint:
+                    'ファイルパスまたは検証情報が要件を満たさないためダウンロードできません。',
+                legacyHistoryNoFileHint: 'この生成記録に対応するレポートファイルはありません。',
+                legacyHistoryRemove: '削除',
+                legacyHistoryRemoveSelected: '選択項目を削除（{0}）',
+                legacyHistoryRemoveAll: 'すべて削除',
+                legacyHistorySelectedScope:
+                    '選択した {0} 件の旧レポートとファイルを削除しますか？この操作は取り消せません。',
+                legacyHistorySelectionChanged: 'レポートの範囲が変わりました。一覧を更新して選択し直してください。',
+                legacyHistoryQueryFailed: 'アップグレード前のレポート履歴を確認できません。',
+                legacyHistoryCleanup: '旧レポートを削除',
+                legacyHistoryCleanupScope:
+                    '各ノードの旧履歴を含め、マスターノードに保存されたすべての旧レポートとファイルを削除しますか？この操作は取り消せません。',
+                legacyHistoryCleanupFailed: '削除が完了しませんでした。一覧を更新してから再試行してください。',
+                legacyHistoryCleanupPartial:
+                    '{0} 件の旧記録を削除できませんでした。マスターノードのファイル権限またはログを確認してから再試行してください。',
+                legacyHistoryCleanupSuccess: '対象の旧レポートを削除しました。',
+
+                licenseRequired:
+                    'レポートと履歴の閲覧には有効なライセンスが必要です。ライセンスを更新するか、有効なライセンスをインポートしてください。',
+                agentUpgradeRequired:
+                    'このノードの Agent を、ローカル運用レポートに対応したバージョンにアップグレードしてください。',
+                contextFailed:
+                    'このノードのレポート情報を読み込めません。ノードへの接続とレポートの閲覧権限を確認してください。',
+                generationPending:
+                    'このリクエストはまだ処理中です。再生成する前にレポート履歴で状態を確認してください。',
+                notApplicable: '対象外',
+                panelNotApplicable:
+                    'このノードにはパネルがインストールされていないため、パネル固有の情報は対象外です。',
+
                 enterprise: 'エンタープライズ',
                 reportNode: 'レポートノード',
-                selectReportNode: 'レポートノードを選択',
                 currentNode: '現在のノード',
                 scoreMeta: '{0} 点減点 · リスク {1} 件',
                 hostAddress: 'ホストアドレス',
@@ -5567,9 +5709,16 @@ const message = {
                 statSslDesc: '証明書 {0} 枚を検査',
                 statContainerDesc: 'コンテナ {0} 個を検査',
                 assetHostDesc: 'ディスク最大使用率 {0}%',
-                assetWebsiteDesc: '{0} 枚の証明書が期限間近、{1} 個のWebサイトの状態が異常',
+                assetWebsiteDesc: '{0} 枚の証明書が期限切れまたは期限間近、{1} 個のWebサイトの状態が異常',
                 assetResourceDesc: '{0} 個のアプリが異常、{1} 個のコンテナが異常',
-                assetCronjobDesc: '過去7日間に {0} 件の失敗記録、{1} 個のタスクが無効',
+
+                scoreDataUnavailable:
+                    '重要なデータが不足しているため採点できません。確認済みのリスクは以下に残ります。再読み込みしてください。',
+                scoreDataProvisional: '一部のデータが不足または概算のため、このスコアは暫定値です。',
+                reportWindow: '集計期間：{0} ～ {1}（{2}）',
+                snapshotScoreScope:
+                    'ホスト評価は収集時の値を使用し、24時間の推移は別途表示します。手動エクスポートでは再収集するため、値が変わる場合があります。',
+                assetCronjobDesc: '過去24時間に {0} 件の失敗記録、{1} 個のタスクが無効',
                 app: 'アプリ',
                 website: 'Webサイト',
                 websiteSsl: 'Webサイト / 証明書',
@@ -5830,7 +5979,7 @@ const message = {
                 wafSourceIpTop: 'WAF 遮断元IP TOP5',
                 wafAffectedSiteTop: '影響を受けたサイト TOP5',
                 sslRisk: '証明書リスク',
-                sslExpiring: '期限間近の証明書',
+                sslExpiring: '証明書の期限リスク',
                 includedInReport: 'レポートに含まれる',
                 needRenewal: '更新を推奨',
                 fromExpireInfo: '期限切れ情報より',

@@ -784,6 +784,62 @@ const message = {
         localIP: 'IP Tempatan',
     },
     aiTools: {
+        gpuGroup: {
+            emptyNodeCreate:
+                'Tiada GPU tersedia dikesan pada NUMA {node}. Kumpulan tidak boleh dicipta daripada nod ini.',
+            inspectNUMA:
+                'Jalankan arahan baca sahaja ini dalam terminal nod semasa dan padankan alamat PCI untuk menyemak penempatan NUMA GPU:',
+            numaQueryHint:
+                'numa_node mengandungi ID nod NUMA; -1 bermaksud sistem belum melaporkan penempatan. Jika keputusan berbeza daripada halaman ini, muat semula dan cuba lagi.',
+            relationTopology: 'Topologi hubungan',
+            relationHelp: 'Pilih GPU atau kumpulan untuk menyerlahkan hubungan keahliannya.',
+            selectionHelp:
+                'Pilih GPU daripada jenis peranti yang sama, kemudian teruskan untuk mengkonfigurasi kumpulan. Garis putus-putus menunjukkan keahlian yang belum disimpan.',
+            allRelations: 'Tunjukkan semua hubungan',
+            pendingChanges: 'Belum disimpan',
+            hardware: 'Penempatan perkakasan',
+            editMembers: 'Sunting ahli',
+            usageScope:
+                'Perkaitan berdasarkan konfigurasi aplikasi yang diurus oleh 1Panel pada nod ini; nilai memori diukur untuk seluruh GPU.',
+            usageTitle: 'Penggunaan GPU',
+            usageHelp:
+                'GPU yang dipilih mungkin digunakan oleh pengerahan lain. Meneruskan boleh menyebabkan kekurangan memori GPU atau prestasi menurun. Anda masih boleh meneruskan.',
+            usageUnknown: 'Penggunaan GPU tidak dapat disemak sepenuhnya. Sahkan sumber sebelum meneruskan.',
+            usagePossible: 'Diperuntukkan mengikut bilangan; mungkin menggunakan GPU ini',
+            usageMemory: 'Memori GPU (digunakan / jumlah)',
+            dimension: 'Dimensi',
+            namePlaceholder: 'Cth. pasangan GPU inferens produksi',
+            descriptionPlaceholder: 'Pilihan: terangkan tujuan atau penggunaan kumpulan',
+            selectedGPU: '{count} GPU dipilih',
+
+            byGroup: 'Mengikut kumpulan',
+            byNUMA: 'Mengikut NUMA',
+            ungrouped: 'Tanpa kumpulan',
+
+            unknownNode: 'Nod NUMA tidak diketahui',
+            memoryNode: 'Nod memori',
+            selectNode: 'Pilih GPU dalam nod ini',
+            noDevices: 'Tiada GPU dalam nod ini',
+            affinity: 'Afiniti CPU / memori',
+            followGPU: 'Ikut nod GPU',
+            bindingPreview: 'Pratonton pengikatan',
+
+            overview: 'Gambaran peranti',
+            groups: 'Kumpulan GPU',
+            history: 'Sejarah pemantauan',
+            source: 'Konfigurasi',
+            custom: 'Tersuai',
+            selectRequired: 'Pilih kumpulan GPU',
+            snapshotHelp:
+                'Pelaksanaan menyimpan konfigurasi semasa. Perubahan kumpulan tidak mengemas kini pelaksanaan sedia ada secara automatik.',
+            changed: 'Kumpulan asal telah berubah atau dipadam. Konfigurasi tersimpan masih digunakan.',
+            applyLatest: 'Gunakan konfigurasi kumpulan terkini',
+            deployments: 'Pelaksanaan berkaitan',
+            help: 'Kumpulan menggunakan semula tetapan GPU dan NUMA. Peranti boleh berada dalam beberapa kumpulan; tiada penggunaan GPU eksklusif atau pengasingan memori.',
+            deleteHelp: 'Padam kumpulan “{name}”? Pelaksanaan sedia ada akan mengekalkan konfigurasi.',
+            vendor: 'Jenis peranti',
+            topology: 'Topologi NUMA',
+        },
         agents: {
             feishuUpgradeNotice:
                 'Pemalam Feishu lama perlu ditangani sebelum naik taraf. Sandaran aplikasi penuh diperlukan; kegagalan memulihkan imej lama dan datanya. Pemalam tanpa konfigurasi hanya dinyahaktifkan.',
@@ -1085,6 +1141,24 @@ const message = {
             vllmVersion: 'Versi vLLM',
             vllmImage: 'Imej vLLM',
             servicePort: 'Port perkhidmatan',
+            numaBinding: 'Pengikatan NUMA',
+            numaOff: 'Tanpa pengikatan',
+            numaAuto: 'Automatik',
+            numaManual: 'Manual',
+            numaNodes: 'Nod NUMA',
+            numaOffHelp: 'Gunakan GPU yang dipilih sementara sistem mengurus CPU dan memori.',
+            numaAutoHelp: 'Ikat CPU dan memori pada nod NUMA yang menempatkan GPU terpilih.',
+            numaManualHelp: 'Tentukan nod CPU dan memori aplikasi tanpa mengubah pilihan GPU.',
+            numaResolved: 'Akan diikat pada NUMA {node}.',
+            numaHelp: 'Pilihan GPU menentukan GPU yang digunakan; afiniti menentukan nod CPU dan memori.',
+            numaRequirements:
+                'Imej mesti mengandungi numactl. Mengaktifkan pengikatan menambah SYS_NICE secara automatik jika perlu.',
+            numaUnknown:
+                'Nod CPU dan memori yang berkaitan dengan GPU tidak dapat dikenal pasti. Biarkan pengikatan dimatikan atau pilih nod secara manual jika anda mengetahui susun atur perkakasan.',
+            numaCross: 'GPU yang dipilih merentasi beberapa nod NUMA. Pilih secara manual.',
+            numaCount: 'Pengikatan automatik memerlukan GPU tertentu atau semua GPU.',
+            numaRequired: 'Pilih sekurang-kurangnya satu nod NUMA.',
+            numaUnavailable: 'Nod NUMA tidak tersedia atau tiada CPU atau memori.',
             gpuAcceleration: 'Pecutan GPU',
             gpuMode: 'Pemilihan pemecut',
             gpuAll: 'Semua pemecut',
@@ -1236,8 +1310,11 @@ const message = {
                 ascendA3: 'Versi rasmi Ascend A3 untuk peranti siri Ascend A3.',
                 ascendA5: 'Versi rasmi Ascend A5 untuk peranti 950DT.',
                 ascend310P: 'Versi rasmi Ascend 310P untuk peranti Atlas 300I DUO dan Atlas 200I Pro.',
-                default: 'Versi standard rasmi dengan CUDA 13.0, untuk pemacu baharu dan seni bina GPU baharu.',
-                dspark: 'Versi tersuai NVIDIA GB10 untuk dua peranti, menggunakan imej tersuai yang diselenggara oleh 1Panel.',
+                default:
+                    'Versi standard komuniti rasmi vLLM dengan CUDA 13.0, sesuai untuk pemacu dan seni bina GPU yang lebih baharu.',
+                rtxPro5000:
+                    'Versi tersuai untuk NVIDIA RTX Pro 5000, dioptimumkan untuk DeepSeek-V4.1-Flash-1017. Imej diselenggara oleh 1Panel.',
+                dspark: 'Versi tersuai untuk dua peranti NVIDIA GB10, dioptimumkan untuk DeepSeek-V4-Flash. Imej diselenggara oleh 1Panel.',
             },
             vllmDeployProfile: 'Model penggunaan',
             vllmProfileFlash0731: 'DeepSeek V4 Flash 0731',
@@ -1740,6 +1817,25 @@ const message = {
             extraHeaders: 'Pengepala Tambahan',
         },
         vllmMonitor: {
+            averagePromptTokens: 'Purata token input setiap permintaan',
+            itl: 'Purata ITL',
+            peakITLHelper:
+                'Panjang input/output diwajarkan mengikut bilangan permintaan; ITL mengikut bilangan sampel sela output, menggunakan data pemantauan sedia ada.',
+            peakMaxConcurrency: 'Permintaan berjalan tertinggi',
+            peakAnalysis: 'Analisis puncak',
+            peakAuto: 'Cari keserentakan tertinggi',
+            peakAtLeast: 'Permintaan berjalan ≥',
+            peakEqual: 'Permintaan berjalan =',
+            peakPeriods: 'Tempoh keserentakan tinggi',
+            peakPeriodsHelper: 'Memaparkan {0} tempoh terkini daripada {1}',
+            peakBefore: 'Sebelum',
+            peakAfter: 'Selepas',
+            peakDuring: 'Semasa keserentakan tinggi',
+            peakAfterWindow: 'Tetingkap pemerhatian berikutnya',
+            peakNearby: 'Prestasi sekitar puncak',
+            peakDuration: 'Rentang sampel',
+            peakHelper:
+                'Tempoh dikenal pasti daripada sampel asal; satu sampel mempunyai rentang 0 saat. TPS diwajarkan mengikut masa dan TTFT mengikut bilangan permintaan. Statistik dipadankan dengan masa sampel dan mungkin merentasi sempadan tempoh. Lengkung menunjukkan perkaitan masa, bukan prestasi kumpulan permintaan yang sama.',
             concurrency: 'Permintaan serentak semasa',
             sampleMoment: 'Pada masa pensampelan',
             sampleWindow: 'Selang pensampelan',
@@ -4923,7 +5019,12 @@ const message = {
         serverNamesHashBucketSizeHelper: 'Saiz jadual hash nama pelayan',
         clientHeaderBufferSizeHelper: 'Saiz buffer header yang diminta oleh klien',
         clientMaxBodySizeHelper: 'Fail muat naik maksimum',
-        keepaliveTimeoutHelper: 'Masa tamat sambungan',
+        keepaliveTimeoutHelper: 'Masa melahu sambungan keep-alive klien',
+        proxyConnectTimeoutHelper: 'Masa tamat untuk mewujudkan sambungan ke backend',
+        proxySendTimeoutHelper: 'Masa tamat untuk menghantar permintaan ke backend',
+        proxyReadTimeoutHelper: 'Masa tamat untuk menunggu respons daripada backend',
+        timeValueError: 'Tempoh tidak sah, cth. 60s, 5m, 1m30s',
+        directiveSourceHelper: 'Ditetapkan dalam {0}; edit dalam fail tersebut',
         gzipMinLengthHelper: 'Saiz minimum fail untuk pemampatan',
         gzipCompLevelHelper: 'Kadar mampatan',
         gzipHelper: 'Aktifkan pemampatan untuk penghantaran',
@@ -5589,9 +5690,50 @@ const message = {
             history: 'Sejarah Eksport',
             setting: 'Tetapan',
             page: {
+                coreArchiveMasterOnly:
+                    'Rekod laporan sebelum naik taraf ditemui. Minta pentadbir melihat fail asal pada nod induk.',
+                legacyHistoryReports: 'Laporan sebelum naik taraf',
+                legacyHistoryManageHint: 'Lihat dan urus laporan sebelum naik taraf di sini.',
+                legacyHistoryIntegrityHint: 'Integriti fail disahkan semasa muat turun.',
+                legacyHistoryListFailed: 'Tidak dapat memuatkan laporan lama. Segarkan senarai dan cuba lagi.',
+                legacyHistoryDownloadFailed: 'Muat turun gagal. Semak status fail laporan atau cuba lagi kemudian.',
+                legacyHistoryFileExists: 'Fail wujud',
+                legacyHistoryFileMissing: 'Fail tiada',
+                legacyHistoryFileUnavailable: 'Fail tidak tersedia',
+                legacyHistoryNoFile: 'Tiada fail',
+                legacyHistoryFileMissingHint:
+                    'Fail asal tidak lagi wujud dan tidak boleh dimuat turun. Rekodnya boleh dipadam.',
+                legacyHistoryFileUnavailableHint:
+                    'Laluan atau metadata pengesahan fail tidak sah. Muat turun tidak tersedia.',
+                legacyHistoryNoFileHint: 'Rekod penjanaan ini tidak mempunyai fail laporan yang berkaitan.',
+                legacyHistoryRemove: 'Padam',
+                legacyHistoryRemoveSelected: 'Padam pilihan ({0})',
+                legacyHistoryRemoveAll: 'Kosongkan semua',
+                legacyHistorySelectedScope:
+                    'Padam {0} laporan lama yang dipilih dan failnya? Tindakan ini tidak boleh dibuat asal.',
+                legacyHistorySelectionChanged: 'Skop laporan telah berubah. Segarkan senarai dan pilih semula.',
+                legacyHistoryQueryFailed: 'Tidak dapat menyemak sejarah laporan sebelum naik taraf.',
+                legacyHistoryCleanup: 'Bersihkan laporan lama',
+                legacyHistoryCleanupScope:
+                    'Padam semua laporan lama dan fail pada nod induk, termasuk sejarah lama semua nod? Tindakan ini tidak boleh dibuat asal.',
+                legacyHistoryCleanupFailed: 'Pembersihan belum selesai. Segarkan senarai sebelum mencuba lagi.',
+                legacyHistoryCleanupPartial:
+                    '{0} rekod lama tidak dapat dibersihkan. Semak kebenaran fail atau log pada nod induk sebelum mencuba lagi.',
+                legacyHistoryCleanupSuccess: 'Laporan lama yang dipilih telah dipadam.',
+
+                licenseRequired:
+                    'Lesen yang sah diperlukan untuk melihat laporan dan sejarah. Perbaharui atau import lesen yang sah.',
+                agentUpgradeRequired:
+                    'Naik taraf Agent pada nod ini kepada versi yang menyokong laporan operasi setempat.',
+                contextFailed:
+                    'Maklumat laporan nod ini tidak dapat dimuatkan. Semak sambungan nod dan kebenaran untuk membaca laporan.',
+                generationPending:
+                    'Permintaan ini masih diproses. Semak status dalam sejarah laporan sebelum menjana laporan semula.',
+                notApplicable: 'Tidak berkenaan',
+                panelNotApplicable: 'Tiada panel dipasang pada nod ini. Maklumat khusus panel tidak berkenaan.',
+
                 enterprise: 'Edisi Perusahaan',
                 reportNode: 'Nod Laporan',
-                selectReportNode: 'Pilih nod laporan',
                 currentNode: 'Semasa',
                 scoreMeta: 'Potongan {0} mata · {1} risiko',
                 hostAddress: 'Alamat Hos',
@@ -5669,9 +5811,16 @@ const message = {
                 statSslDesc: '{0} sijil diperiksa',
                 statContainerDesc: '{0} bekas diperiksa',
                 assetHostDesc: 'Penggunaan cakera maksimum {0}%',
-                assetWebsiteDesc: '{0} sijil hampir tamat tempoh, {1} laman web tidak normal',
+                assetWebsiteDesc: '{0} sijil telah tamat atau hampir tamat tempoh, {1} laman web tidak normal',
                 assetResourceDesc: '{0} aplikasi tidak normal, {1} bekas tidak normal',
-                assetCronjobDesc: '{0} rekod kegagalan dalam 7 hari terakhir, {1} tugas dilumpuhkan',
+
+                scoreDataUnavailable:
+                    'Data penting tiada, jadi skor tidak dipaparkan. Risiko yang diketahui masih disenaraikan. Muat semula untuk mencuba lagi.',
+                scoreDataProvisional: 'Sesetengah data tiada atau anggaran. Skor ini adalah sementara.',
+                reportWindow: 'Tempoh laporan: {0} hingga {1} ({2})',
+                snapshotScoreScope:
+                    'Skor hos menggunakan ukuran semasa; trend 24 jam dipaparkan berasingan. Eksport manual mengumpul semula, jadi nilai langsung mungkin berubah.',
+                assetCronjobDesc: '{0} rekod kegagalan dalam 24 jam terakhir, {1} tugas dilumpuhkan',
                 app: 'Aplikasi',
                 website: 'Laman Web',
                 websiteSsl: 'Laman Web / Sijil',
@@ -5932,7 +6081,7 @@ const message = {
                 wafSourceIpTop: 'IP Sumber WAF TOP5',
                 wafAffectedSiteTop: 'Tapak Terjejas TOP5',
                 sslRisk: 'Risiko Sijil',
-                sslExpiring: 'Sijil Hampir Tamat',
+                sslExpiring: 'Risiko Tamat Tempoh Sijil',
                 includedInReport: 'Dimasukkan dalam laporan',
                 needRenewal: 'Disarankan perbaharui',
                 fromExpireInfo: 'Daripada maklumat tamat tempoh',

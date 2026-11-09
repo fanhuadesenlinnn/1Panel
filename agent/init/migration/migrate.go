@@ -109,10 +109,7 @@ func agentDBMigrations() []*gormigrate.Migration {
 		migrations.MigrateFirewallDescriptions,
 		migrations.MigrateFirewallPortWhitelistSources,
 		migrations.AddAcceleratorMetrics,
-		migrations.AddVLLMMonitor,
 		migrations.AddMonitorSettings,
-		migrations.AddVLLMRequestMetrics,
-		migrations.AddVLLMSampleInterval,
 		migrations.AddNativeAgentInstalls,
 		migrations.AddQuickDirectory,
 		migrations.AddLocalModelAccountLink,
@@ -122,6 +119,7 @@ func agentDBMigrations() []*gormigrate.Migration {
 		migrations.MigrateVMDatabase,
 		migrations.UpdateModelServicesQuickJumpRouter,
 		migrations.AddAgentAccountVerificationResult,
+		migrations.AddGPUGroup,
 	}
 }
 

@@ -777,6 +777,62 @@ const message = {
         localIP: 'IP local',
     },
     aiTools: {
+        gpuGroup: {
+            emptyNodeCreate:
+                'Nenhuma GPU disponível foi detectada no NUMA {node}. Não é possível criar um grupo a partir deste nó.',
+            inspectNUMA:
+                'Execute estes comandos somente de leitura no terminal do nó atual e compare os endereços PCI para verificar a localização NUMA das GPUs:',
+            numaQueryHint:
+                'numa_node contém o ID do nó NUMA; -1 indica que o sistema não informou a localização. Se os resultados diferirem desta página, atualize e tente novamente.',
+            relationTopology: 'Topologia de relações',
+            relationHelp: 'Selecione uma GPU ou um grupo para destacar suas relações de associação.',
+            selectionHelp:
+                'Selecione GPUs do mesmo tipo de dispositivo e avance para configurar o grupo. Linhas tracejadas indicam associações não salvas.',
+            allRelations: 'Mostrar todas as relações',
+            pendingChanges: 'Não salvo',
+            hardware: 'Localização do hardware',
+            editMembers: 'Editar membros',
+            usageScope:
+                'As associações vêm das configurações de aplicativos gerenciados pelo 1Panel neste nó; a memória é medida para toda a GPU.',
+            usageTitle: 'Uso de GPU',
+            usageHelp:
+                'Outras implantações podem usar as GPUs selecionadas. Continuar pode causar falta de memória ou reduzir o desempenho. Você ainda pode prosseguir.',
+            usageUnknown: 'Não foi possível verificar todo o uso de GPU. Verifique os recursos antes de continuar.',
+            usagePossible: 'Alocação por quantidade; pode usar esta GPU',
+            usageMemory: 'Memória de GPU (usada / total)',
+            dimension: 'Dimensão',
+            namePlaceholder: 'Ex.: par de GPUs para inferência',
+            descriptionPlaceholder: 'Opcional: descreva a finalidade ou o uso do grupo',
+            selectedGPU: '{count} GPUs selecionadas',
+
+            byGroup: 'Por grupo',
+            byNUMA: 'Por NUMA',
+            ungrouped: 'Sem grupo',
+
+            unknownNode: 'Nó NUMA desconhecido',
+            memoryNode: 'Nó de memória',
+            selectNode: 'Selecionar GPUs deste nó',
+            noDevices: 'Nenhuma GPU neste nó',
+            affinity: 'Afinidade de CPU / memória',
+            followGPU: 'Seguir os nós das GPUs',
+            bindingPreview: 'Prévia da vinculação',
+
+            overview: 'Visão geral dos dispositivos',
+            groups: 'Grupos de GPU',
+            history: 'Histórico de monitoramento',
+            source: 'Configuração',
+            custom: 'Personalizada',
+            selectRequired: 'Selecione um grupo de GPU',
+            snapshotHelp:
+                'As implantações salvam a configuração atual. Alterações no grupo não atualizam implantações existentes automaticamente.',
+            changed: 'O grupo de origem foi alterado ou excluído. A configuração salva continua em uso.',
+            applyLatest: 'Aplicar a configuração mais recente',
+            deployments: 'Implantações associadas',
+            help: 'Os grupos reutilizam configurações de GPU e NUMA. Dispositivos podem participar de vários grupos, sem exclusividade ou isolamento de memória.',
+            deleteHelp: 'Excluir o grupo “{name}”? As implantações existentes manterão a configuração.',
+            vendor: 'Tipo de dispositivo',
+            topology: 'Topologia NUMA',
+        },
         agents: {
             feishuUpgradeNotice:
                 'O plugin Feishu antigo deve ser tratado antes da atualização. É necessário um backup completo; em caso de falha, a imagem anterior e seus dados serão restaurados. Um plugin não configurado será apenas desativado.',
@@ -1080,6 +1136,24 @@ const message = {
             vllmVersion: 'Versão do vLLM',
             vllmImage: 'Imagem do vLLM',
             servicePort: 'Porta do serviço',
+            numaBinding: 'Afinidade NUMA',
+            numaOff: 'Sem afinidade',
+            numaAuto: 'Automática',
+            numaManual: 'Manual',
+            numaNodes: 'Nós NUMA',
+            numaOffHelp: 'Usa as GPUs selecionadas enquanto o sistema gerencia CPU e memória.',
+            numaAutoHelp: 'Vincula CPU e memória ao nó NUMA das GPUs selecionadas.',
+            numaManualHelp: 'Especifica os nós de CPU e memória sem alterar a seleção de GPU.',
+            numaResolved: 'Será vinculado ao NUMA {node}.',
+            numaHelp: 'A seleção de GPU define quais GPUs usar; a afinidade define os nós de CPU e memória.',
+            numaRequirements:
+                'A imagem deve incluir numactl. Ativar a afinidade adiciona SYS_NICE automaticamente, se necessário.',
+            numaUnknown:
+                'Não foi possível identificar o nó de CPU e memória associado à GPU. Deixe a afinidade desativada ou selecione os nós manualmente se conhecer a disposição do hardware.',
+            numaCross: 'As GPUs selecionadas abrangem vários nós NUMA. Selecione-os manualmente.',
+            numaCount: 'A afinidade automática exige GPUs específicas ou todas as GPUs.',
+            numaRequired: 'Selecione pelo menos um nó NUMA.',
+            numaUnavailable: 'O nó NUMA está indisponível ou não possui CPU ou memória.',
             gpuAcceleration: 'Aceleração de GPU',
             gpuMode: 'Seleção de aceleradores',
             gpuAll: 'Todos os aceleradores',
@@ -1231,8 +1305,11 @@ const message = {
                 ascendA3: 'Versão oficial Ascend A3 para dispositivos da série Ascend A3.',
                 ascendA5: 'Versão oficial Ascend A5 para dispositivos 950DT.',
                 ascend310P: 'Versão oficial Ascend 310P para dispositivos Atlas 300I DUO e Atlas 200I Pro.',
-                default: 'Versão padrão oficial com CUDA 13.0, para drivers recentes e GPUs de novas arquiteturas.',
-                dspark: 'Versão personalizada do NVIDIA GB10 para dois dispositivos, com uma imagem mantida pelo 1Panel.',
+                default:
+                    'Versão padrão oficial da comunidade vLLM com CUDA 13.0, para drivers e arquiteturas de GPU mais recentes.',
+                rtxPro5000:
+                    'Versão personalizada para NVIDIA RTX Pro 5000, otimizada para DeepSeek-V4.1-Flash-1017. A imagem é mantida pelo 1Panel.',
+                dspark: 'Versão personalizada para dois dispositivos NVIDIA GB10, otimizada para DeepSeek-V4-Flash. A imagem é mantida pelo 1Panel.',
             },
             vllmDeployProfile: 'Modelo de implantação',
             vllmProfileFlash0731: 'DeepSeek V4 Flash 0731',
@@ -1737,6 +1814,25 @@ const message = {
             extraHeaders: 'Cabeçalhos extras',
         },
         vllmMonitor: {
+            averagePromptTokens: 'Média de tokens de entrada por requisição',
+            itl: 'ITL médio',
+            peakITLHelper:
+                'Os comprimentos de entrada/saída são ponderados por requisições; ITL pelo número de amostras de intervalos de saída, usando os dados de monitoramento existentes.',
+            peakMaxConcurrency: 'Máximo de requisições em execução',
+            peakAnalysis: 'Análise de picos',
+            peakAuto: 'Buscar maior concorrência',
+            peakAtLeast: 'Requisições em execução ≥',
+            peakEqual: 'Requisições em execução =',
+            peakPeriods: 'Períodos de alta concorrência',
+            peakPeriodsHelper: 'Últimos {0} de {1} períodos',
+            peakBefore: 'Antes',
+            peakAfter: 'Depois',
+            peakDuring: 'Durante alta concorrência',
+            peakAfterWindow: 'Janela posterior',
+            peakNearby: 'Desempenho próximo ao pico',
+            peakDuration: 'Intervalo entre amostras',
+            peakHelper:
+                'Os períodos são identificados nas amostras originais; uma amostra isolada abrange 0 segundos. TPS é ponderado pelo tempo e TTFT pelo número de requisições. As estatísticas pertencem ao instante da amostra e podem cruzar limites. As curvas mostram correlação temporal, não o desempenho das mesmas requisições.',
             concurrency: 'Concorrência atual',
             sampleMoment: 'No momento da coleta',
             sampleWindow: 'Intervalo de coleta',
@@ -4949,7 +5045,12 @@ const message = {
         serverNamesHashBucketSizeHelper: 'Tamanho da tabela hash dos nomes de servidor',
         clientHeaderBufferSizeHelper: 'Tamanho do buffer de cabeçalho solicitado pelo cliente',
         clientMaxBodySizeHelper: 'Tamanho máximo de upload',
-        keepaliveTimeoutHelper: 'Tempo limite da conexão',
+        keepaliveTimeoutHelper: 'Tempo ocioso das conexões keep-alive do cliente',
+        proxyConnectTimeoutHelper: 'Tempo limite para estabelecer a conexão com o backend',
+        proxySendTimeoutHelper: 'Tempo limite para enviar a requisição ao backend',
+        proxyReadTimeoutHelper: 'Tempo limite para aguardar a resposta do backend',
+        timeValueError: 'Duração inválida, ex.: 60s, 5m, 1m30s',
+        directiveSourceHelper: 'Definido em {0}; edite nesse arquivo',
         gzipMinLengthHelper: 'Tamanho mínimo para compressão',
         gzipCompLevelHelper: 'Nível de compressão',
         gzipHelper: 'Ativar compressão na transmissão',
@@ -5624,9 +5725,55 @@ const message = {
             history: 'Histórico de exportação',
             setting: 'Configurações',
             page: {
+                coreArchiveMasterOnly:
+                    'Foram encontrados registros de relatórios anteriores à atualização. Peça a um administrador para consultar os arquivos originais no nó principal.',
+                legacyHistoryReports: 'Relatórios anteriores à atualização',
+                legacyHistoryManageHint: 'Consulte e gerencie aqui os relatórios anteriores à atualização.',
+                legacyHistoryIntegrityHint: 'A integridade do arquivo é verificada durante o download.',
+                legacyHistoryListFailed:
+                    'Não foi possível carregar os relatórios antigos. Atualize a lista e tente novamente.',
+                legacyHistoryDownloadFailed:
+                    'Falha no download. Verifique o estado do arquivo ou tente novamente mais tarde.',
+                legacyHistoryFileExists: 'Arquivo existente',
+                legacyHistoryFileMissing: 'Arquivo ausente',
+                legacyHistoryFileUnavailable: 'Arquivo indisponível',
+                legacyHistoryNoFile: 'Sem arquivo',
+                legacyHistoryFileMissingHint:
+                    'O arquivo original não existe mais e não pode ser baixado. Seu registro pode ser removido.',
+                legacyHistoryFileUnavailableHint:
+                    'O caminho ou os metadados de verificação do arquivo são inválidos. O download está indisponível.',
+                legacyHistoryNoFileHint: 'Este registro de geração não possui um arquivo de relatório associado.',
+                legacyHistoryRemove: 'Remover',
+                legacyHistoryRemoveSelected: 'Remover selecionados ({0})',
+                legacyHistoryRemoveAll: 'Limpar tudo',
+                legacyHistorySelectedScope:
+                    'Remover os {0} relatórios anteriores selecionados e seus arquivos? Esta ação não pode ser desfeita.',
+                legacyHistorySelectionChanged:
+                    'O conjunto de relatórios mudou. Atualize a lista e selecione novamente.',
+                legacyHistoryQueryFailed:
+                    'Não foi possível consultar o histórico de relatórios anterior à atualização.',
+                legacyHistoryCleanup: 'Limpar relatórios anteriores',
+                legacyHistoryCleanupScope:
+                    'Remover todos os relatórios anteriores e arquivos do nó principal, incluindo o histórico antigo de todos os nós? Esta ação não pode ser desfeita.',
+                legacyHistoryCleanupFailed: 'A limpeza não foi concluída. Atualize a lista antes de tentar novamente.',
+                legacyHistoryCleanupPartial:
+                    'Não foi possível limpar {0} registros antigos. Verifique as permissões de arquivos ou os logs no nó principal antes de tentar novamente.',
+                legacyHistoryCleanupSuccess: 'Os relatórios anteriores selecionados foram removidos.',
+
+                licenseRequired:
+                    'É necessária uma licença válida para visualizar relatórios e histórico. Renove ou importe uma licença válida.',
+                agentUpgradeRequired:
+                    'Atualize o Agent deste nó para uma versão compatível com relatórios de operações locais.',
+                contextFailed:
+                    'Não foi possível carregar as informações de relatório deste nó. Verifique a conexão do nó e as permissões de leitura dos relatórios.',
+                generationPending:
+                    'Esta solicitação ainda está em andamento. Verifique o status no histórico de relatórios antes de gerar o relatório novamente.',
+                notApplicable: 'Não aplicável',
+                panelNotApplicable:
+                    'Nenhum painel está instalado neste nó. As informações específicas do painel não se aplicam.',
+
                 enterprise: 'Edição Empresarial',
                 reportNode: 'Nó do relatório',
-                selectReportNode: 'Selecionar nó do relatório',
                 currentNode: 'Nó atual',
                 scoreMeta: '{0} pontos deduzidos · {1} riscos',
                 hostAddress: 'Endereço do host',
@@ -5705,9 +5852,16 @@ const message = {
                 statSslDesc: '{0} certificados verificados',
                 statContainerDesc: '{0} contêineres verificados',
                 assetHostDesc: 'Uso máximo de disco {0}%',
-                assetWebsiteDesc: '{0} certificados prestes a vencer, {1} sites anormais',
+                assetWebsiteDesc: '{0} certificados vencidos ou próximos do vencimento, {1} sites anormais',
                 assetResourceDesc: '{0} aplicações anormais, {1} contêineres anormais',
-                assetCronjobDesc: '{0} registros de falha nos últimos 7 dias, {1} tarefas desativadas',
+
+                scoreDataUnavailable:
+                    'Faltam dados essenciais, portanto a pontuação não é exibida. Os riscos conhecidos continuam listados. Atualize e tente novamente.',
+                scoreDataProvisional: 'Alguns dados estão ausentes ou são aproximados. Esta pontuação é provisória.',
+                reportWindow: 'Período do relatório: {0} a {1} ({2})',
+                snapshotScoreScope:
+                    'A pontuação do host usa medições atuais; as tendências de 24 horas são exibidas separadamente. A exportação manual coleta novamente e os valores podem mudar.',
+                assetCronjobDesc: '{0} registros de falha nas últimas 24 horas, {1} tarefas desativadas',
                 app: 'Aplicações',
                 website: 'Sites',
                 websiteSsl: 'Sites / Certificados',
@@ -5964,7 +6118,7 @@ const message = {
                 wafSourceIpTop: 'IPs de origem WAF TOP5',
                 wafAffectedSiteTop: 'Sites afetados TOP5',
                 sslRisk: 'Riscos de certificado',
-                sslExpiring: 'Certificados a vencer',
+                sslExpiring: 'Riscos de vencimento de certificados',
                 includedInReport: 'Incluído no relatório',
                 needRenewal: 'Renovação recomendada',
                 fromExpireInfo: 'Das informações de vencimento',
