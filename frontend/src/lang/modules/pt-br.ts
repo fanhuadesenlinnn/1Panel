@@ -1134,6 +1134,7 @@ const message = {
             vllmVersion: 'Versão do vLLM',
             vllmImage: 'Imagem do vLLM',
             servicePort: 'Porta do serviço',
+            vllmAPIKeyHelper: 'Insira uma chave de API para ativar a autenticação. Deixe em branco para desativá-la.',
             numaBinding: 'Afinidade NUMA',
             numaOff: 'Sem afinidade',
             numaAuto: 'Automática',
@@ -1896,7 +1897,9 @@ const message = {
             unavailable:
                 'Métricas indisponíveis. Verifique se a instância está em execução e se /metrics está acessível.',
             loadFailed: 'Falha ao carregar os dados. Tente novamente.',
-            helper: 'Ajuste a coleta, o intervalo e a retenção nas configurações de monitoramento.',
+            settings: 'Configurações de monitoramento',
+            historyCollection: 'Coletar histórico',
+            helper: 'Aplica-se apenas a esta instância. Ao desativar, a coleta agendada e a limpeza por retenção são interrompidas. O monitoramento em tempo real e as consultas ao histórico continuam disponíveis.',
             cache: 'Cache KV',
             throughput: 'Solicitações/s',
             phaseTime: 'Tempo de preenchimento e decodificação',

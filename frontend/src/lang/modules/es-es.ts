@@ -1130,6 +1130,7 @@ const message = {
             vllmVersion: 'Versión de vLLM',
             vllmImage: 'Imagen de vLLM',
             servicePort: 'Puerto del servicio',
+            vllmAPIKeyHelper: 'Introduce una clave API para activar la autenticación. Déjalo vacío para desactivarla.',
             numaBinding: 'Afinidad NUMA',
             numaOff: 'Sin afinidad',
             numaAuto: 'Automática',
@@ -1895,7 +1896,9 @@ const message = {
             unavailable:
                 'Métricas no disponibles. Compruebe que la instancia esté en ejecución y que /metrics sea accesible.',
             loadFailed: 'No se pudieron cargar los datos. Inténtelo de nuevo.',
-            helper: 'Configura la recopilación, el intervalo y la retención en los ajustes de monitorización.',
+            settings: 'Configuración de monitorización',
+            historyCollection: 'Recopilar historial',
+            helper: 'Solo afecta a esta instancia. Al desactivar, se detienen la recopilación programada y la limpieza por retención. La monitorización en tiempo real y las consultas del historial siguen disponibles.',
             cache: 'Caché KV',
             throughput: 'Solicitudes/s',
             phaseTime: 'Tiempo de precarga y decodificación',

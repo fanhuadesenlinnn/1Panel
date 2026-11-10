@@ -1136,6 +1136,8 @@ const message = {
             vllmVersion: 'vLLM sürümü',
             vllmImage: 'vLLM imajı',
             servicePort: 'Hizmet portu',
+            vllmAPIKeyHelper:
+                'Kimlik doğrulamayı etkinleştirmek için bir API anahtarı girin. Devre dışı bırakmak için boş bırakın.',
             numaBinding: 'NUMA bağlama',
             numaOff: 'Bağlama yok',
             numaAuto: 'Otomatik',
@@ -1891,7 +1893,9 @@ const message = {
             unavailable:
                 'Metrikler kullanılamıyor. Örneğin çalıştığını ve /metrics yolunun erişilebilir olduğunu kontrol edin.',
             loadFailed: 'İzleme verileri yüklenemedi. Tekrar deneyin.',
-            helper: 'Toplama, aralık ve saklama süresini izleme ayarlarından yönetin.',
+            settings: 'İzleme ayarları',
+            historyCollection: 'İzleme geçmişini topla',
+            helper: 'Yalnızca bu örneğe uygulanır. Devre dışı bırakıldığında zamanlanmış toplama ve süresi dolan geçmişin temizlenmesi durur. Canlı izleme ve geçmiş sorguları kullanılabilir olmaya devam eder.',
             cache: 'KV önbelleği',
             throughput: 'İstek hızı',
             phaseTime: 'Ön doldurma ve çözümleme süresi',
