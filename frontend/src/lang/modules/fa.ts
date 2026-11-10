@@ -772,11 +772,8 @@ const message = {
     },
     aiTools: {
         gpuGroup: {
-            emptyNodeCreate: 'در NUMA {node} هیچ GPU قابل استفاده‌ای شناسایی نشد. ایجاد گروه از این گره ممکن نیست.',
-            inspectNUMA:
-                'این فرمان‌های فقط‌خواندنی را در پایانه گره فعلی اجرا کنید و با تطبیق آدرس‌های PCI، وابستگی GPU به NUMA را بررسی کنید:',
-            numaQueryHint:
-                'مقدار numa_node شناسه گره NUMA است؛ -1 یعنی سیستم وابستگی را گزارش نکرده است. اگر نتایج با صفحه متفاوت است، صفحه را تازه‌سازی کرده و دوباره تلاش کنید.',
+            singleGPU:
+                'گروه\u200cبندی GPU برای دستگاه\u200cهای دارای چند GPU است. این گره تنها یک GPU دارد و نیازی به گروه\u200cبندی ندارد.',
             relationTopology: 'توپولوژی روابط',
             relationHelp: 'برای برجسته کردن روابط عضویت، یک GPU یا گروه را انتخاب کنید.',
             selectionHelp:
@@ -803,6 +800,8 @@ const message = {
             ungrouped: 'بدون گروه',
 
             unknownNode: 'گره NUMA نامشخص',
+            unknownNodeHelp:
+                'سیستم وابستگی NUMA این GPUها را گزارش نکرده است. انتخاب و گروه\u200cبندی GPUها همچنان امکان\u200cپذیر است.',
             memoryNode: 'گره حافظه',
             selectNode: 'انتخاب GPUهای این گره',
             noDevices: 'این گره GPU ندارد',
@@ -813,7 +812,7 @@ const message = {
             overview: 'نمای کلی دستگاه‌ها',
             groups: 'گروه‌های GPU',
             history: 'تاریخچه پایش',
-            source: 'پیکربندی',
+            source: 'منبع GPU',
             custom: 'سفارشی',
             selectRequired: 'یک گروه GPU انتخاب کنید',
             snapshotHelp:
@@ -1131,6 +1130,7 @@ const message = {
             numaCross: 'پردازنده‌های گرافیکی انتخاب‌شده در چند گره NUMA قرار دارند. دستی انتخاب کنید.',
             numaCount: 'اتصال خودکار به انتخاب پردازنده‌های گرافیکی مشخص یا همه آن‌ها نیاز دارد.',
             numaRequired: 'حداقل یک گره NUMA انتخاب کنید.',
+            numaTopologyUnavailable: 'اطلاعات توپولوژی NUMA در دسترس نیست.',
             numaUnavailable: 'گره NUMA در دسترس نیست یا پردازنده یا حافظه ندارد.',
             gpuAcceleration: 'شتاب‌دهی GPU',
             gpuMode: 'انتخاب شتاب‌دهنده',
@@ -1811,6 +1811,8 @@ const message = {
             peakAfterWindow: 'بازهٔ مشاهدهٔ بعدی',
             peakNearby: 'عملکرد پیرامون اوج',
             peakDuration: 'فاصلهٔ نمونه‌ها',
+            peakSingleSample: 'یک نمونه',
+            peakSingleSampleHelp: 'فقط یک نمونه شرایط را دارد. مدت زمان واقعی قابل تعیین نیست.',
             peakHelper:
                 'بازه‌ها از نمونه‌های خام شناسایی می‌شوند؛ طول یک نمونه صفر ثانیه است. TPS بر اساس زمان و TTFT بر اساس تعداد درخواست‌ها وزن‌دهی می‌شود. آمار به زمان نمونه تعلق دارد و ممکن است از مرز بازه عبور کند. نمودارها ارتباط زمانی را نشان می‌دهند، نه عملکرد یک گروه یکسان از درخواست‌ها.',
             concurrency: 'درخواست‌های هم‌زمان فعلی',
@@ -5610,6 +5612,19 @@ const message = {
                     'پاک‌سازی {0} سابقه قدیمی ممکن نشد. پیش از تلاش مجدد، مجوزهای فایل یا گزارش‌های گره اصلی را بررسی کنید.',
                 legacyHistoryCleanupSuccess: 'گزارش‌های قدیمی انتخاب‌شده حذف شدند.',
 
+                introContactAdmin: 'برای رفع مشکلات مجوز یا ارتقای گره با مدیر تماس بگیرید.',
+                introDescription:
+                    'وضعیت اجرا، خطرهای امنیتی و اجرای وظایف این گره را با امکان خروجی گزارش و گزارش‌های روزانه خودکار مشاهده کنید.',
+                introNodeOverview: 'نمای کلی گره',
+                introReportExport: 'خروجی گزارش',
+                introDaily: 'گزارش‌های روزانه خودکار',
+                introSecurityDescription:
+                    'خطرهای منابع میزبان، امنیت ورود و گواهی‌های وب‌سایت را همراه با امتیاز و دلایل کسر امتیاز بررسی کنید.',
+                introNodeDescription: 'برنامه‌ها، کانتینرها، وظایف زمان‌بندی‌شده و هشدارهای این گره را مشاهده کنید.',
+                introExportDescription: 'گزارش‌ها را برای بایگانی در قالب PDF، HTML یا Markdown خروجی بگیرید.',
+                introDailyDescription: 'پس از فعال‌سازی، هر روز ساعت 09:00 به وقت محلی گره گزارش تولید می‌شود.',
+                introNodeManagement: 'رفتن به مدیریت گره‌ها',
+
                 licenseRequired:
                     'برای مشاهده گزارش‌ها و تاریخچه، مجوز معتبر لازم است. مجوز را تمدید یا یک مجوز معتبر وارد کنید.',
                 agentUpgradeRequired:
@@ -5617,10 +5632,7 @@ const message = {
                 contextFailed: 'اطلاعات گزارش این گره بارگیری نشد. اتصال گره و مجوز خواندن گزارش‌ها را بررسی کنید.',
                 generationPending:
                     'این درخواست هنوز در حال اجرا است. پیش از تولید دوباره گزارش، وضعیت را در تاریخچه گزارش‌ها بررسی کنید.',
-                notApplicable: 'قابل اعمال نیست',
-                panelNotApplicable: 'روی این گره پنلی نصب نشده است. اطلاعات اختصاصی پنل قابل اعمال نیست.',
 
-                enterprise: 'سازمانی',
                 reportNode: 'گره گزارش',
                 currentNode: 'جاری',
                 scoreMeta: '{0} امتیاز کسر شد · {1} ریسک',
@@ -5904,7 +5916,6 @@ const message = {
                 alertTimeRuleShort: 'در {0} روز فعال شود، {1} بار ارسال شود',
                 alertSendCountRuleShort: '{0} بار در روز ارسال شود',
                 failedExecutionRecords: 'رکوردهای اجرای ناموفق',
-                taskID: 'شناسه وظیفه',
                 executeTime: 'زمان اجرا',
                 backupTasks: 'وظایف پشتیبان',
                 systemMetrics: 'معیارهای زمان اجرا',
@@ -5926,12 +5937,12 @@ const message = {
                 dataSource: 'منبع داده',
                 noHighUsagePeriod: 'هیچ دوره استفاده بالا وجود ندارد',
                 monitorDisabledOrNoData: 'نظارت بر میزبان غیرفعال است یا داده نظارتی در دسترس نیست',
-                systemHealthStatus: 'ریسک زمان اجرای میزبان در ۲۴ ساعت گذشته',
+                systemHealthStatus: 'وضعیت ریسک عملکرد میزبان',
                 mainReasons: 'دلایل اصلی',
                 viewHostMonitor: 'مشاهده نظارت بر میزبان',
                 systemHealthAttentionDesc:
-                    '{0} مورد ریسک در ۲۴ ساعت گذشته شناسایی شد. اوج منابع و استفاده از دیسک را در اولویت قرار دهید.',
-                systemHealthNormalDesc: 'معیارهای زمان اجرای میزبان در ۲۴ ساعت گذشته عادی بود',
+                    'این ارزیابی {0} مورد ریسک شناسایی کرد. معیارهای زیر را بررسی کنید.',
+                systemHealthNormalDesc: 'در این ارزیابی هیچ ریسکی در عملکرد میزبان شناسایی نشد.',
                 monitorEnabled: 'نظارت فعال',
                 cpuCoreUsage: '{0} / {1} هسته',
                 load1Minute: 'بار ۱ دقیقه',
@@ -6087,7 +6098,9 @@ const message = {
                 receiver: 'گیرنده',
                 systemThreshold: 'آستانه سیستم',
                 metric: 'معیار',
-                currentRule: 'قانون فعلی',
+                currentRule: 'برآورده شدن معیارها',
+                criteriaMet: 'برآورده شده',
+                criteriaNotMet: 'برآورده نشده',
                 hostMonitor: 'نظارت بر میزبان',
                 monitorInterval: 'فاصله نظارت',
                 exportSettings: 'تنظیمات خروجی',
@@ -7588,6 +7601,7 @@ const message = {
             local: 'مسیر محلی',
             remote: 'لینک از راه دور',
             imagePrefix: 'پیشوند تصویر',
+            disableImagePrefixConfirm: 'آیا می‌خواهید پیشوند تصویر را غیرفعال کنید و مقدار فعلی آن را پاک کنید؟',
             imagePrefixHelper:
                 'عملکرد: سفارشی‌سازی پیشوند تصویر و تغییر فیلد تصویر در فایل compose. به عنوان مثال، وقتی پیشوند تصویر روی 1panel/custom تنظیم شود، فیلد تصویر برای MaxKB به 1panel/custom/maxkb:v1.10.0 تغییر می‌کند',
             closeHelper: 'لغو استفاده از مخزن برنامه سفارشی',

@@ -780,12 +780,8 @@ const message = {
     },
     aiTools: {
         gpuGroup: {
-            emptyNodeCreate:
-                'No se detectaron GPU disponibles en NUMA {node}. No se puede crear un grupo desde este nodo.',
-            inspectNUMA:
-                'Ejecute estos comandos de solo lectura en el terminal del nodo actual y compare las direcciones PCI para comprobar la ubicación NUMA de las GPU:',
-            numaQueryHint:
-                'numa_node indica el ID del nodo NUMA; -1 significa que el sistema no ha informado de la ubicación. Si los resultados difieren de esta página, actualice e inténtelo de nuevo.',
+            singleGPU:
+                'Los grupos de GPU están destinados a equipos con varias GPU. Este nodo solo tiene una GPU y no necesita agrupación.',
             relationTopology: 'Topología de relaciones',
             relationHelp: 'Seleccione una GPU o un grupo para resaltar sus relaciones de pertenencia.',
             selectionHelp:
@@ -812,6 +808,8 @@ const message = {
             ungrouped: 'Sin grupo',
 
             unknownNode: 'Nodo NUMA desconocido',
+            unknownNodeHelp:
+                'El sistema no ha informado de la afinidad NUMA de estas GPU. La selección y agrupación de GPU siguen disponibles.',
             memoryNode: 'Nodo de memoria',
             selectNode: 'Seleccionar las GPU de este nodo',
             noDevices: 'No hay GPU en este nodo',
@@ -822,7 +820,7 @@ const message = {
             overview: 'Resumen de dispositivos',
             groups: 'Grupos de GPU',
             history: 'Historial de supervisión',
-            source: 'Configuración',
+            source: 'Origen de GPU',
             custom: 'Personalizada',
             selectRequired: 'Seleccione un grupo de GPU',
             snapshotHelp:
@@ -1149,6 +1147,7 @@ const message = {
             numaCross: 'Las GPU seleccionadas abarcan varios nodos NUMA. Selecciónelos manualmente.',
             numaCount: 'La afinidad automática requiere GPU específicas o todas las GPU.',
             numaRequired: 'Seleccione al menos un nodo NUMA.',
+            numaTopologyUnavailable: 'La topología NUMA no está disponible.',
             numaUnavailable: 'El nodo NUMA no está disponible o carece de CPU o memoria.',
             gpuAcceleration: 'Aceleración GPU',
             gpuMode: 'Selección de aceleradores',
@@ -1846,6 +1845,8 @@ const message = {
             peakAfterWindow: 'Ventana posterior',
             peakNearby: 'Rendimiento alrededor del pico',
             peakDuration: 'Duración entre muestras',
+            peakSingleSample: 'Una sola muestra',
+            peakSingleSampleHelp: 'Solo una muestra cumple los criterios. No se puede determinar la duración real.',
             peakHelper:
                 'Los periodos se identifican con muestras originales; una sola muestra abarca 0 segundos. TPS se pondera por tiempo y TTFT por solicitudes. Las estadísticas se asignan a la fecha de la muestra y pueden cruzar límites. Las curvas muestran correlación temporal, no el rendimiento de las mismas solicitudes.',
             concurrency: 'Concurrencia actual',
@@ -5747,6 +5748,22 @@ const message = {
                     'No se pudieron limpiar {0} registros antiguos. Revise los permisos de archivos o los registros del nodo principal antes de reintentarlo.',
                 legacyHistoryCleanupSuccess: 'Se han eliminado los informes anteriores seleccionados.',
 
+                introContactAdmin:
+                    'Contacte con un administrador para resolver los problemas de licencia o actualización del nodo.',
+                introDescription:
+                    'Consulte el estado de ejecución, los riesgos de seguridad y las tareas de este nodo, con exportación de informes e informes diarios automáticos.',
+                introNodeOverview: 'Resumen del nodo',
+                introReportExport: 'Exportación de informes',
+                introDaily: 'Informes diarios automáticos',
+                introSecurityDescription:
+                    'Revise los riesgos de recursos del host, seguridad de acceso y certificados web, con puntuaciones y motivos de deducción.',
+                introNodeDescription:
+                    'Consulte las aplicaciones, los contenedores, las tareas programadas y las alertas de este nodo.',
+                introExportDescription: 'Exporte informes en formato PDF, HTML o Markdown para archivarlos.',
+                introDailyDescription:
+                    'Al activarse, genera un informe diario a las 09:00 en la zona horaria local del nodo.',
+                introNodeManagement: 'Ir a la gestión de nodos',
+
                 licenseRequired:
                     'Se requiere una licencia válida para ver informes e historial. Renueve o importe una licencia válida.',
                 agentUpgradeRequired:
@@ -5755,11 +5772,7 @@ const message = {
                     'No se pudo cargar la información del informe de este nodo. Compruebe la conexión del nodo y los permisos de lectura de informes.',
                 generationPending:
                     'Esta solicitud sigue en curso. Compruebe su estado en el historial de informes antes de volver a generar el informe.',
-                notApplicable: 'No aplicable',
-                panelNotApplicable:
-                    'No hay un panel instalado en este nodo. La información específica del panel no es aplicable.',
 
-                enterprise: 'Edición Empresarial',
                 reportNode: 'Nodo de informe',
                 currentNode: 'Actual',
                 scoreMeta: '{0} puntos deducidos · {1} riesgos',
@@ -6053,7 +6066,6 @@ const message = {
                 statAlertDesc: '{0} tareas habilitadas · {1} canales',
                 assetAlertDesc: '{0} registros fallidos, {1} registros pendientes de sincronización',
                 failedExecutionRecords: 'Registros de ejecución fallidos',
-                taskID: 'ID de tarea',
                 executeTime: 'Tiempo de ejecución',
                 backupTasks: 'Tareas de copia de seguridad',
                 systemMetrics: 'Métricas de ejecución',
@@ -6075,13 +6087,13 @@ const message = {
                 dataSource: 'Fuente de datos',
                 noHighUsagePeriod: 'Sin períodos de alto uso',
                 monitorDisabledOrNoData: 'El monitoreo del host está deshabilitado o no hay datos disponibles',
-                systemHealthStatus: 'Estado de riesgo de ejecución del host en las últimas 24 h',
+                systemHealthStatus: 'Estado de riesgo de ejecución del host',
                 mainReasons: 'Causas principales',
                 viewHostMonitor: 'Ver monitoreo del host',
                 systemHealthAttentionDesc:
-                    '{0} elementos de riesgo detectados en las últimas 24 horas. Priorice los picos de recursos y el uso de disco.',
+                    'Esta evaluación detectó {0} riesgos. Revise las métricas siguientes.',
                 systemHealthNormalDesc:
-                    'Las métricas de ejecución del host estuvieron normales en las últimas 24 horas',
+                    'Esta evaluación no detectó riesgos de ejecución del host.',
                 monitorEnabled: 'Monitoreo habilitado',
                 cpuCoreUsage: '{0} / {1} núcleos',
                 load1Minute: 'Carga 1 min',
@@ -6238,7 +6250,9 @@ const message = {
                 receiver: 'Destinatario',
                 systemThreshold: 'Umbral del sistema',
                 metric: 'Métrica',
-                currentRule: 'Regla actual',
+                currentRule: 'Cumple los criterios',
+                criteriaMet: 'Cumple',
+                criteriaNotMet: 'No cumple',
                 hostMonitor: 'Monitoreo del host',
                 monitorInterval: 'Intervalo de monitoreo',
                 exportSettings: 'Configuración de exportación',
@@ -7778,6 +7792,7 @@ const message = {
             local: 'Ruta Local',
             remote: 'Enlace Remoto',
             imagePrefix: 'Prefijo de Imagen',
+            disableImagePrefixConfirm: '¿Desea desactivar el prefijo de imagen y borrar el valor actual?',
             imagePrefixHelper:
                 'Función: Personaliza el prefijo de la imagen y modifica el campo image en el archivo compose. Ejemplo: si el prefijo es 1panel/custom, la imagen de MaxKB pasará a ser 1panel/custom/maxkb:v1.10.0',
             closeHelper: 'Cancelar el uso del repositorio de apps personalizadas',

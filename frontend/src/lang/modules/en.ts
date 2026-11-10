@@ -777,12 +777,8 @@ const message = {
     },
     aiTools: {
         gpuGroup: {
-            emptyNodeCreate:
-                'No available GPUs were detected under NUMA {node}. A group cannot be created from this node.',
-            inspectNUMA:
-                'Run these read-only commands in the current node’s terminal and match PCI addresses to check GPU NUMA placement:',
-            numaQueryHint:
-                'numa_node contains the NUMA node ID; -1 means the system has not reported a placement. If the results differ from this page, refresh and try again.',
+            singleGPU:
+                'GPU groups are intended for multi-GPU machines. This node has only one GPU and does not need grouping.',
             relationTopology: 'Relationship topology',
             relationHelp: 'Select a GPU or group to highlight its memberships.',
             selectionHelp:
@@ -809,6 +805,8 @@ const message = {
             ungrouped: 'Ungrouped',
 
             unknownNode: 'Unknown NUMA affinity',
+            unknownNodeHelp:
+                'The system has not reported the NUMA affinity of these GPUs. GPU selection and grouping are still available.',
             memoryNode: 'Memory node',
             selectNode: 'Select GPUs in this node',
             noDevices: 'No GPUs in this node',
@@ -819,7 +817,7 @@ const message = {
             overview: 'Device overview',
             groups: 'GPU groups',
             history: 'Monitoring history',
-            source: 'Configuration',
+            source: 'GPU source',
             custom: 'Custom',
             selectRequired: 'Select a GPU group',
             snapshotHelp:
@@ -1147,6 +1145,7 @@ const message = {
             numaCross: 'Selected GPUs span multiple NUMA nodes. Select nodes manually.',
             numaCount: 'Automatic binding requires specific GPUs or all GPUs.',
             numaRequired: 'Select at least one NUMA node.',
+            numaTopologyUnavailable: 'NUMA topology is unavailable.',
             numaUnavailable: 'NUMA node is unavailable or has no CPUs or memory.',
             gpuAcceleration: 'GPU acceleration',
             gpuMode: 'Accelerator selection',
@@ -1835,6 +1834,8 @@ const message = {
             peakAfterWindow: 'Following window',
             peakNearby: 'Performance around peaks',
             peakDuration: 'Sample span',
+            peakSingleSample: 'Single sample',
+            peakSingleSampleHelp: 'Only one sample meets the criteria. The actual duration cannot be determined.',
             peakHelper:
                 'Periods are identified from raw samples; a single sample spans 0 seconds. TPS is time-weighted and TTFT is request-weighted. Statistics belong to their sample timestamp and may cross period boundaries. Curves show time correlation, not the performance of the same requests.',
             concurrency: 'Current concurrency',
@@ -5656,6 +5657,19 @@ const message = {
                     '{0} old records could not be cleared. Check file permissions or logs on the master node before retrying.',
                 legacyHistoryCleanupSuccess: 'Pre-upgrade reports have been removed.',
 
+                introContactAdmin: 'Contact an administrator to resolve licensing or node upgrade issues.',
+                introDescription:
+                    'View this node’s running status, security risks, and task execution, with report export and automatic daily reports.',
+                introNodeOverview: 'Node overview',
+                introReportExport: 'Report export',
+                introDaily: 'Automatic daily reports',
+                introSecurityDescription:
+                    'Review host resource, login security, and website certificate risks, including scores and deduction reasons.',
+                introNodeDescription: 'View this node’s applications, containers, scheduled tasks, and alerts.',
+                introExportDescription: 'Export reports in PDF, HTML, or Markdown format for archiving.',
+                introDailyDescription: 'When enabled, generates a daily report at 09:00 in the node’s local time zone.',
+                introNodeManagement: 'Go to node management',
+
                 licenseRequired:
                     'A valid license is required to view reports and history. Renew or import a valid license.',
                 agentUpgradeRequired:
@@ -5663,10 +5677,7 @@ const message = {
                 contextFailed:
                     'Unable to load this node’s report context. Check node connectivity and report access permissions.',
                 generationPending: 'This request is still running. Check report history before generating again.',
-                notApplicable: 'Not applicable',
-                panelNotApplicable: 'No panel is deployed on this node. Panel-specific information is not applicable.',
 
-                enterprise: 'Enterprise',
                 reportNode: 'Report Node',
                 currentNode: 'Current',
                 scoreMeta: '{0} points deducted · {1} risks',
@@ -5952,7 +5963,6 @@ const message = {
                 alertTimeRuleShort: 'Trigger within {0} days, send {1} times',
                 alertSendCountRuleShort: 'Send {0} times per day',
                 failedExecutionRecords: 'Failed Execution Records',
-                taskID: 'Task ID',
                 executeTime: 'Execution Time',
                 backupTasks: 'Backup Tasks',
                 systemMetrics: 'Runtime Metrics',
@@ -5974,12 +5984,11 @@ const message = {
                 dataSource: 'Data Source',
                 noHighUsagePeriod: 'No high usage periods',
                 monitorDisabledOrNoData: 'Host monitoring is disabled or no monitor data is available',
-                systemHealthStatus: 'Last 24h Host Runtime Risk',
+                systemHealthStatus: 'Host Runtime Risk',
                 mainReasons: 'Main Reasons',
                 viewHostMonitor: 'View Host Monitor',
-                systemHealthAttentionDesc:
-                    '{0} risk items detected in the last 24 hours. Prioritize resource peaks and disk usage.',
-                systemHealthNormalDesc: 'Host runtime metrics were normal in the last 24 hours',
+                systemHealthAttentionDesc: 'This assessment found {0} risk items. Review the metrics below.',
+                systemHealthNormalDesc: 'No host runtime risk was found in this assessment.',
                 monitorEnabled: 'Monitoring Enabled',
                 cpuCoreUsage: '{0} / {1} cores',
                 load1Minute: '1-min load',
@@ -6135,7 +6144,9 @@ const message = {
                 receiver: 'Receiver',
                 systemThreshold: 'System Threshold',
                 metric: 'Metric',
-                currentRule: 'Current Rule',
+                currentRule: 'Meets Criteria',
+                criteriaMet: 'Met',
+                criteriaNotMet: 'Not met',
                 hostMonitor: 'Host Monitor',
                 monitorInterval: 'Monitor Interval',
                 exportSettings: 'Export Settings',
@@ -7636,6 +7647,7 @@ const message = {
             local: 'Local Path',
             remote: 'Remote Link',
             imagePrefix: 'Image Prefix',
+            disableImagePrefixConfirm: 'Disable the image prefix and clear its current value?',
             imagePrefixHelper:
                 'Function: Customize the image prefix and modify the image field in the compose file. For example, when the image prefix is set to 1panel/custom, the image field for MaxKB will change to 1panel/custom/maxkb:v1.10.0',
             closeHelper: 'Cancel using custom app repository',

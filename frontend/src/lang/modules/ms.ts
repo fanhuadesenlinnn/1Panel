@@ -785,12 +785,8 @@ const message = {
     },
     aiTools: {
         gpuGroup: {
-            emptyNodeCreate:
-                'Tiada GPU tersedia dikesan pada NUMA {node}. Kumpulan tidak boleh dicipta daripada nod ini.',
-            inspectNUMA:
-                'Jalankan arahan baca sahaja ini dalam terminal nod semasa dan padankan alamat PCI untuk menyemak penempatan NUMA GPU:',
-            numaQueryHint:
-                'numa_node mengandungi ID nod NUMA; -1 bermaksud sistem belum melaporkan penempatan. Jika keputusan berbeza daripada halaman ini, muat semula dan cuba lagi.',
+            singleGPU:
+                'Kumpulan GPU adalah untuk mesin dengan berbilang GPU. Nod ini hanya mempunyai satu GPU dan tidak memerlukan pengumpulan.',
             relationTopology: 'Topologi hubungan',
             relationHelp: 'Pilih GPU atau kumpulan untuk menyerlahkan hubungan keahliannya.',
             selectionHelp:
@@ -817,6 +813,8 @@ const message = {
             ungrouped: 'Tanpa kumpulan',
 
             unknownNode: 'Nod NUMA tidak diketahui',
+            unknownNodeHelp:
+                'Sistem tidak melaporkan perkaitan NUMA bagi GPU ini. Pemilihan dan pengumpulan GPU masih tersedia.',
             memoryNode: 'Nod memori',
             selectNode: 'Pilih GPU dalam nod ini',
             noDevices: 'Tiada GPU dalam nod ini',
@@ -827,7 +825,7 @@ const message = {
             overview: 'Gambaran peranti',
             groups: 'Kumpulan GPU',
             history: 'Sejarah pemantauan',
-            source: 'Konfigurasi',
+            source: 'Sumber GPU',
             custom: 'Tersuai',
             selectRequired: 'Pilih kumpulan GPU',
             snapshotHelp:
@@ -1158,6 +1156,7 @@ const message = {
             numaCross: 'GPU yang dipilih merentasi beberapa nod NUMA. Pilih secara manual.',
             numaCount: 'Pengikatan automatik memerlukan GPU tertentu atau semua GPU.',
             numaRequired: 'Pilih sekurang-kurangnya satu nod NUMA.',
+            numaTopologyUnavailable: 'Maklumat topologi NUMA tidak tersedia.',
             numaUnavailable: 'Nod NUMA tidak tersedia atau tiada CPU atau memori.',
             gpuAcceleration: 'Pecutan GPU',
             gpuMode: 'Pemilihan pemecut',
@@ -1850,6 +1849,8 @@ const message = {
             peakAfterWindow: 'Tetingkap pemerhatian berikutnya',
             peakNearby: 'Prestasi sekitar puncak',
             peakDuration: 'Rentang sampel',
+            peakSingleSample: 'Satu sampel',
+            peakSingleSampleHelp: 'Hanya satu sampel memenuhi kriteria. Tempoh sebenar tidak dapat ditentukan.',
             peakHelper:
                 'Tempoh dikenal pasti daripada sampel asal; satu sampel mempunyai rentang 0 saat. TPS diwajarkan mengikut masa dan TTFT mengikut bilangan permintaan. Statistik dipadankan dengan masa sampel dan mungkin merentasi sempadan tempoh. Lengkung menunjukkan perkaitan masa, bukan prestasi kumpulan permintaan yang sama.',
             concurrency: 'Permintaan serentak semasa',
@@ -5738,6 +5739,20 @@ const message = {
                     '{0} rekod lama tidak dapat dibersihkan. Semak kebenaran fail atau log pada nod induk sebelum mencuba lagi.',
                 legacyHistoryCleanupSuccess: 'Laporan lama yang dipilih telah dipadam.',
 
+                introContactAdmin: 'Hubungi pentadbir untuk menyelesaikan masalah lesen atau naik taraf nod.',
+                introDescription:
+                    'Lihat status operasi, risiko keselamatan dan pelaksanaan tugas nod ini, dengan eksport laporan dan laporan harian automatik.',
+                introNodeOverview: 'Gambaran nod',
+                introReportExport: 'Eksport laporan',
+                introDaily: 'Laporan harian automatik',
+                introSecurityDescription:
+                    'Semak risiko sumber hos, keselamatan log masuk dan sijil laman web, termasuk skor dan sebab potongan mata.',
+                introNodeDescription: 'Lihat aplikasi, kontena, tugas berjadual dan amaran nod ini.',
+                introExportDescription: 'Eksport laporan dalam format PDF, HTML atau Markdown untuk diarkibkan.',
+                introDailyDescription:
+                    'Apabila diaktifkan, laporan harian dijana setiap hari pada 09:00 mengikut zon waktu tempatan nod.',
+                introNodeManagement: 'Pergi ke pengurusan nod',
+
                 licenseRequired:
                     'Lesen yang sah diperlukan untuk melihat laporan dan sejarah. Perbaharui atau import lesen yang sah.',
                 agentUpgradeRequired:
@@ -5746,10 +5761,7 @@ const message = {
                     'Maklumat laporan nod ini tidak dapat dimuatkan. Semak sambungan nod dan kebenaran untuk membaca laporan.',
                 generationPending:
                     'Permintaan ini masih diproses. Semak status dalam sejarah laporan sebelum menjana laporan semula.',
-                notApplicable: 'Tidak berkenaan',
-                panelNotApplicable: 'Tiada panel dipasang pada nod ini. Maklumat khusus panel tidak berkenaan.',
 
-                enterprise: 'Edisi Perusahaan',
                 reportNode: 'Nod Laporan',
                 currentNode: 'Semasa',
                 scoreMeta: 'Potongan {0} mata · {1} risiko',
@@ -6040,7 +6052,6 @@ const message = {
                 statAlertDesc: '{0} tugas didayakan · {1} saluran',
                 assetAlertDesc: '{0} log gagal, {1} log menunggu sync',
                 failedExecutionRecords: 'Rekod Pelaksanaan Gagal',
-                taskID: 'ID Tugas',
                 executeTime: 'Masa Pelaksanaan',
                 backupTasks: 'Tugas Sandaran',
                 systemMetrics: 'Metrik Masa Jalan',
@@ -6062,12 +6073,12 @@ const message = {
                 dataSource: 'Sumber Data',
                 noHighUsagePeriod: 'Tiada tempoh penggunaan tinggi',
                 monitorDisabledOrNoData: 'Pemantauan hos dilumpuhkan atau tiada data pemantauan',
-                systemHealthStatus: 'Status Risiko Operasi Hos 24 Jam Terakhir',
+                systemHealthStatus: 'Status Risiko Operasi Hos',
                 mainReasons: 'Sebab Utama',
                 viewHostMonitor: 'Lihat Pemantauan Hos',
                 systemHealthAttentionDesc:
-                    '{0} item risiko dikesan dalam 24 jam terakhir. Utamakan puncak sumber dan penggunaan cakera.',
-                systemHealthNormalDesc: 'Metrik operasi hos adalah normal dalam 24 jam terakhir',
+                    'Penilaian ini menemui {0} risiko. Semak metrik di bawah.',
+                systemHealthNormalDesc: 'Tiada risiko operasi hos ditemui dalam penilaian ini.',
                 monitorEnabled: 'Pemantauan Didayakan',
                 cpuCoreUsage: '{0} / {1} teras',
                 load1Minute: 'Beban 1 minit',
@@ -6221,7 +6232,9 @@ const message = {
                 receiver: 'Penerima',
                 systemThreshold: 'Ambang Sistem',
                 metric: 'Metrik',
-                currentRule: 'Peraturan Semasa',
+                currentRule: 'Memenuhi kriteria',
+                criteriaMet: 'Memenuhi',
+                criteriaNotMet: 'Tidak memenuhi',
                 hostMonitor: 'Pemantauan Hos',
                 monitorInterval: 'Selang Pemantauan',
                 exportSettings: 'Tetapan Eksport',
@@ -7748,6 +7761,7 @@ const message = {
             local: 'Laluan Tempatan',
             remote: 'Pautan Jauh',
             imagePrefix: 'Awalan Imej',
+            disableImagePrefixConfirm: 'Nyahaktifkan awalan imej dan kosongkan nilai semasa?',
             imagePrefixHelper:
                 'Fungsi: Sesuaikan awalan imej dan ubah medan imej dalam fail compose. Contohnya, apabila awalan imej ditetapkan kepada 1panel/custom, medan imej untuk MaxKB akan bertukar kepada 1panel/custom/maxkb:v1.10.0',
             closeHelper: 'Batalkan penggunaan repositori aplikasi khusus',

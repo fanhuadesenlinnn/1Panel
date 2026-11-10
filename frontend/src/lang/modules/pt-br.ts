@@ -778,12 +778,8 @@ const message = {
     },
     aiTools: {
         gpuGroup: {
-            emptyNodeCreate:
-                'Nenhuma GPU disponível foi detectada no NUMA {node}. Não é possível criar um grupo a partir deste nó.',
-            inspectNUMA:
-                'Execute estes comandos somente de leitura no terminal do nó atual e compare os endereços PCI para verificar a localização NUMA das GPUs:',
-            numaQueryHint:
-                'numa_node contém o ID do nó NUMA; -1 indica que o sistema não informou a localização. Se os resultados diferirem desta página, atualize e tente novamente.',
+            singleGPU:
+                'Os grupos de GPU são destinados a máquinas com várias GPUs. Este nó tem apenas uma GPU e não precisa de agrupamento.',
             relationTopology: 'Topologia de relações',
             relationHelp: 'Selecione uma GPU ou um grupo para destacar suas relações de associação.',
             selectionHelp:
@@ -810,6 +806,8 @@ const message = {
             ungrouped: 'Sem grupo',
 
             unknownNode: 'Nó NUMA desconhecido',
+            unknownNodeHelp:
+                'O sistema não informou a afinidade NUMA destas GPUs. A seleção e o agrupamento de GPUs continuam disponíveis.',
             memoryNode: 'Nó de memória',
             selectNode: 'Selecionar GPUs deste nó',
             noDevices: 'Nenhuma GPU neste nó',
@@ -820,7 +818,7 @@ const message = {
             overview: 'Visão geral dos dispositivos',
             groups: 'Grupos de GPU',
             history: 'Histórico de monitoramento',
-            source: 'Configuração',
+            source: 'Origem da GPU',
             custom: 'Personalizada',
             selectRequired: 'Selecione um grupo de GPU',
             snapshotHelp:
@@ -1153,6 +1151,7 @@ const message = {
             numaCross: 'As GPUs selecionadas abrangem vários nós NUMA. Selecione-os manualmente.',
             numaCount: 'A afinidade automática exige GPUs específicas ou todas as GPUs.',
             numaRequired: 'Selecione pelo menos um nó NUMA.',
+            numaTopologyUnavailable: 'A topologia NUMA está indisponível.',
             numaUnavailable: 'O nó NUMA está indisponível ou não possui CPU ou memória.',
             gpuAcceleration: 'Aceleração de GPU',
             gpuMode: 'Seleção de aceleradores',
@@ -1847,6 +1846,8 @@ const message = {
             peakAfterWindow: 'Janela posterior',
             peakNearby: 'Desempenho próximo ao pico',
             peakDuration: 'Intervalo entre amostras',
+            peakSingleSample: 'Amostra única',
+            peakSingleSampleHelp: 'Apenas uma amostra atende aos critérios. Não é possível determinar a duração real.',
             peakHelper:
                 'Os períodos são identificados nas amostras originais; uma amostra isolada abrange 0 segundos. TPS é ponderado pelo tempo e TTFT pelo número de requisições. As estatísticas pertencem ao instante da amostra e podem cruzar limites. As curvas mostram correlação temporal, não o desempenho das mesmas requisições.',
             concurrency: 'Concorrência atual',
@@ -5777,6 +5778,21 @@ const message = {
                     'Não foi possível limpar {0} registros antigos. Verifique as permissões de arquivos ou os logs no nó principal antes de tentar novamente.',
                 legacyHistoryCleanupSuccess: 'Os relatórios anteriores selecionados foram removidos.',
 
+                introContactAdmin:
+                    'Entre em contato com um administrador para resolver problemas de licença ou de atualização do nó.',
+                introDescription:
+                    'Consulte o estado de execução, os riscos de segurança e as tarefas deste nó, com exportação de relatórios e relatórios diários automáticos.',
+                introNodeOverview: 'Visão geral do nó',
+                introReportExport: 'Exportação de relatórios',
+                introDaily: 'Relatórios diários automáticos',
+                introSecurityDescription:
+                    'Analise os riscos de recursos do host, segurança de login e certificados de sites, com pontuações e motivos de desconto.',
+                introNodeDescription:
+                    'Consulte as aplicações, os contêineres, as tarefas agendadas e os alertas deste nó.',
+                introExportDescription: 'Exporte relatórios nos formatos PDF, HTML ou Markdown para arquivamento.',
+                introDailyDescription: 'Quando ativado, gera um relatório diário às 09:00 no fuso horário local do nó.',
+                introNodeManagement: 'Ir para a gestão de nós',
+
                 licenseRequired:
                     'É necessária uma licença válida para visualizar relatórios e histórico. Renove ou importe uma licença válida.',
                 agentUpgradeRequired:
@@ -5785,11 +5801,7 @@ const message = {
                     'Não foi possível carregar as informações de relatório deste nó. Verifique a conexão do nó e as permissões de leitura dos relatórios.',
                 generationPending:
                     'Esta solicitação ainda está em andamento. Verifique o status no histórico de relatórios antes de gerar o relatório novamente.',
-                notApplicable: 'Não aplicável',
-                panelNotApplicable:
-                    'Nenhum painel está instalado neste nó. As informações específicas do painel não se aplicam.',
 
-                enterprise: 'Edição Empresarial',
                 reportNode: 'Nó do relatório',
                 currentNode: 'Nó atual',
                 scoreMeta: '{0} pontos deduzidos · {1} riscos',
@@ -6077,7 +6089,6 @@ const message = {
                 statAlertDesc: '{0} tarefas ativadas · {1} canais',
                 assetAlertDesc: '{0} registros com falha, {1} registros pendentes de sincronização',
                 failedExecutionRecords: 'Registros de execução com falha',
-                taskID: 'ID da tarefa',
                 executeTime: 'Tempo de execução',
                 backupTasks: 'Tarefas de backup',
                 systemMetrics: 'Métricas de execução',
@@ -6099,12 +6110,12 @@ const message = {
                 dataSource: 'Fonte de dados',
                 noHighUsagePeriod: 'Nenhum período de alto uso',
                 monitorDisabledOrNoData: 'Monitoramento do host desativado ou sem dados disponíveis',
-                systemHealthStatus: 'Risco de execução do host nas últimas 24h',
+                systemHealthStatus: 'Risco de execução do host',
                 mainReasons: 'Principais motivos',
                 viewHostMonitor: 'Ver monitor do host',
                 systemHealthAttentionDesc:
-                    '{0} itens de risco detectados nas últimas 24 horas. Priorize picos de recursos e uso de disco.',
-                systemHealthNormalDesc: 'Métricas de execução do host estiveram normais nas últimas 24 horas',
+                    'Esta avaliação encontrou {0} riscos. Verifique as métricas abaixo.',
+                systemHealthNormalDesc: 'Nenhum risco de execução do host foi encontrado nesta avaliação.',
                 monitorEnabled: 'Monitoramento ativado',
                 cpuCoreUsage: '{0} / {1} núcleos',
                 load1Minute: 'Carga de 1 min',
@@ -6260,7 +6271,9 @@ const message = {
                 receiver: 'Destinatário',
                 systemThreshold: 'Limite do sistema',
                 metric: 'Métrica',
-                currentRule: 'Regra atual',
+                currentRule: 'Atende aos critérios',
+                criteriaMet: 'Atende',
+                criteriaNotMet: 'Não atende',
                 hostMonitor: 'Monitor do host',
                 monitorInterval: 'Intervalo de monitoramento',
                 exportSettings: 'Configurações de exportação',
@@ -7802,6 +7815,7 @@ const message = {
             local: 'Caminho Local',
             remote: 'Link Remoto',
             imagePrefix: 'Prefixo de Imagem',
+            disableImagePrefixConfirm: 'Deseja desativar o prefixo de imagem e limpar o valor atual?',
             imagePrefixHelper:
                 'Função: Personalize o prefixo da imagem e modifique o campo de imagem no arquivo compose. Por exemplo, quando o prefixo da imagem é configurado como 1panel/custom, o campo de imagem do MaxKB mudará para 1panel/custom/maxkb:v1.10.0',
             closeHelper: 'Cancelar o uso do repositório de aplicativos personalizados',

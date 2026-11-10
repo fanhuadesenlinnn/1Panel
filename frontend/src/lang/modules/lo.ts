@@ -766,11 +766,8 @@ const message = {
     },
     aiTools: {
         gpuGroup: {
-            emptyNodeCreate: 'ບໍ່ພົບ GPU ທີ່ໃຊ້ໄດ້ໃນ NUMA {node}. ບໍ່ສາມາດສ້າງກຸ່ມຈາກໂນດນີ້ໄດ້.',
-            inspectNUMA:
-                'ໃຫ້ເອີ້ນໃຊ້ຄຳສັ່ງອ່ານຢ່າງດຽວນີ້ໃນເທີມິນອລຂອງໂນດປັດຈຸບັນ ແລະ ທຽບທີ່ຢູ່ PCI ເພື່ອກວດສອບ NUMA ຂອງ GPU:',
-            numaQueryHint:
-                'ຄ່າ numa_node ແມ່ນໝາຍເລກໂນດ NUMA; -1 ໝາຍເຖິງລະບົບບໍ່ໄດ້ລາຍງານການສັງກັດ. ຖ້າຜົນບໍ່ກົງກັບໜ້ານີ້ ໃຫ້ໂຫຼດໃໝ່ແລ້ວລອງອີກຄັ້ງ.',
+            singleGPU:
+                'ການຈັດກຸ່ມ GPU ໃຊ້ສຳລັບເຄື່ອງທີ່ມີ GPU ຫຼາຍຕົວ. ໂນດນີ້ມີ GPU ພຽງໜຶ່ງຕົວ ຈຶ່ງບໍ່ຈຳເປັນຕ້ອງຈັດກຸ່ມ.',
             relationTopology: 'ໂຄງສ້າງຄວາມສຳພັນ',
             relationHelp: 'ເລືອກ GPU ຫຼື ກຸ່ມເພື່ອເນັ້ນຄວາມສຳພັນຂອງສະມາຊິກ.',
             selectionHelp:
@@ -797,6 +794,8 @@ const message = {
             ungrouped: 'ຍັງບໍ່ມີກຸ່ມ',
 
             unknownNode: 'ບໍ່ຮູ້ໂນດ NUMA',
+            unknownNodeHelp:
+                'ລະບົບບໍ່ໄດ້ລາຍງານວ່າ GPU ເຫຼົ່ານີ້ຂຶ້ນກັບໂນດ NUMA ໃດ. ທ່ານຍັງສາມາດເລືອກ ແລະ ຈັດກຸ່ມ GPU ໄດ້.',
             memoryNode: 'ໂນດໜ່ວຍຄວາມຈຳ',
             selectNode: 'ເລືອກ GPU ໃນໂນດນີ້',
             noDevices: 'ບໍ່ມີ GPU ໃນໂນດນີ້',
@@ -807,7 +806,7 @@ const message = {
             overview: 'ພາບລວມອຸປະກອນ',
             groups: 'ກຸ່ມ GPU',
             history: 'ປະຫວັດການຕິດຕາມ',
-            source: 'ການຕັ້ງຄ່າ',
+            source: 'ແຫຼ່ງ GPU',
             custom: 'ກຳນົດເອງ',
             selectRequired: 'ເລືອກກຸ່ມ GPU',
             snapshotHelp: 'ການຕິດຕັ້ງບັນທຶກຄ່າປັດຈຸບັນ. ການປ່ຽນກຸ່ມຈະບໍ່ປ່ຽນການຕິດຕັ້ງເກົ່າອັດຕະໂນມັດ.',
@@ -1116,6 +1115,7 @@ const message = {
             numaCross: 'GPU ທີ່ເລືອກຢູ່ຫຼາຍໂນດ NUMA. ກະລຸນາເລືອກເອງ.',
             numaCount: 'ການຜູກອັດຕະໂນມັດຕ້ອງເລືອກ GPU ສະເພາະ ຫຼື GPU ທັງໝົດ.',
             numaRequired: 'ກະລຸນາເລືອກຢ່າງໜ້ອຍໜຶ່ງໂນດ NUMA.',
+            numaTopologyUnavailable: 'ບໍ່ມີຂໍ້ມູນໂຄງສ້າງ NUMA.',
             numaUnavailable: 'ໂນດ NUMA ບໍ່ພ້ອມໃຊ້ ຫຼື ບໍ່ມີ CPU ຫຼື ໜ່ວຍຄວາມຈຳ.',
             gpuAcceleration: 'ການເລັ່ງ GPU',
             gpuMode: 'ເລືອກຕົວເລັ່ງ',
@@ -1786,6 +1786,8 @@ const message = {
             peakAfterWindow: 'ຊ່ວງສັງເກດຫຼັງຈາກນັ້ນ',
             peakNearby: 'ປະສິດທິພາບໃກ້ຈຸດສູງສຸດ',
             peakDuration: 'ໄລຍະລະຫວ່າງຕົວຢ່າງ',
+            peakSingleSample: 'ຕົວຢ່າງດຽວ',
+            peakSingleSampleHelp: 'ມີພຽງຕົວຢ່າງດຽວທີ່ກົງຕາມເງື່ອນໄຂ. ບໍ່ສາມາດກຳນົດໄລຍະເວລາຕົວຈິງໄດ້.',
             peakHelper:
                 'ຊ່ວງເວລາຖືກລະບຸຈາກຕົວຢ່າງຕົ້ນສະບັບ; ຕົວຢ່າງດຽວມີໄລຍະ 0 ວິນາທີ. TPS ຖ່ວງນ້ຳໜັກຕາມເວລາ ແລະ TTFT ຕາມຈຳນວນຄຳຮ້ອງຂໍ. ສະຖິຕິອີງຕາມເວລາເກັບຕົວຢ່າງ ແລະ ອາດຂ້າມຂອບເຂດຊ່ວງເວລາ. ເສັ້ນສະແດງຄວາມສຳພັນດ້ານເວລາ ບໍ່ແມ່ນປະສິດທິພາບຂອງຄຳຮ້ອງຂໍກຸ່ມດຽວກັນ.',
             concurrency: 'ຄຳຮ້ອງຂໍພ້ອມກັນໃນປັດຈຸບັນ',
@@ -5475,16 +5477,27 @@ const message = {
                     'ບໍ່ສາມາດລ້າງ {0} ບັນທຶກເກົ່າໄດ້. ກວດສິດໄຟລ໌ ຫຼື ບັນທຶກລະບົບຢູ່ໂນດຫຼັກ ແລ້ວລອງໃໝ່.',
                 legacyHistoryCleanupSuccess: 'ລຶບລາຍງານເກົ່າທີ່ເລືອກແລ້ວ.',
 
+                introContactAdmin: 'ກະລຸນາຕິດຕໍ່ຜູ້ດູແລເພື່ອແກ້ໄຂບັນຫາໃບອະນຸຍາດ ຫຼືການອັບເກຣດໂນດ.',
+                introDescription:
+                    'ເບິ່ງສະຖານະການເຮັດວຽກ, ຄວາມສ່ຽງດ້ານຄວາມປອດໄພ ແລະການເຮັດວຽກຂອງວຽກໃນໂນດນີ້ ພ້ອມການສົ່ງອອກລາຍງານ ແລະລາຍງານປະຈຳວັນອັດຕະໂນມັດ.',
+                introNodeOverview: 'ພາບລວມໂນດ',
+                introReportExport: 'ສົ່ງອອກລາຍງານ',
+                introDaily: 'ລາຍງານປະຈຳວັນອັດຕະໂນມັດ',
+                introSecurityDescription:
+                    'ກວດເບິ່ງຄວາມສ່ຽງຂອງຊັບພະຍາກອນໂຮສ, ຄວາມປອດໄພໃນການເຂົ້າລະບົບ ແລະໃບຢັ້ງຢືນເວັບໄຊ ພ້ອມຄະແນນ ແລະເຫດຜົນການຫັກຄະແນນ.',
+                introNodeDescription: 'ເບິ່ງແອັບພລິເຄຊັນ, ຄອນເທນເນີ, ວຽກຕັ້ງເວລາ ແລະການແຈ້ງເຕືອນຂອງໂນດນີ້.',
+                introExportDescription: 'ສົ່ງອອກລາຍງານເປັນ PDF, HTML ຫຼື Markdown ເພື່ອຈັດເກັບ.',
+                introDailyDescription:
+                    'ເມື່ອເປີດໃຊ້ ຈະສ້າງລາຍງານປະຈຳວັນອັດຕະໂນມັດທຸກມື້ເວລາ 09:00 ຕາມເຂດເວລາທ້ອງຖິ່ນຂອງໂນດ.',
+                introNodeManagement: 'ໄປທີ່ການຈັດການໂນດ',
+
                 licenseRequired:
                     'ຕ້ອງມີໃບອະນຸຍາດທີ່ຍັງໃຊ້ໄດ້ເພື່ອເບິ່ງລາຍງານ ແລະປະຫວັດ. ກະລຸນາຕໍ່ອາຍຸ ຫຼືນຳເຂົ້າໃບອະນຸຍາດທີ່ຖືກຕ້ອງ.',
                 agentUpgradeRequired: 'ກະລຸນາອັບເກຣດ Agent ຂອງໂນດນີ້ເປັນເວີຊັນທີ່ຮອງຮັບລາຍງານການປະຕິບັດການພາຍໃນໂນດ.',
                 contextFailed:
                     'ບໍ່ສາມາດໂຫຼດຂໍ້ມູນລາຍງານຂອງໂນດນີ້ໄດ້. ກະລຸນາກວດສອບການເຊື່ອມຕໍ່ໂນດ ແລະສິດໃນການອ່ານລາຍງານ.',
                 generationPending: 'ຄຳຮ້ອງນີ້ຍັງກຳລັງດຳເນີນການ. ກະລຸນາກວດສອບສະຖານະໃນປະຫວັດລາຍງານກ່ອນສ້າງລາຍງານອີກຄັ້ງ.',
-                notApplicable: 'ບໍ່ກ່ຽວຂ້ອງ',
-                panelNotApplicable: 'ໂນດນີ້ບໍ່ໄດ້ຕິດຕັ້ງແຜງຄວບຄຸມ. ຂໍ້ມູນສະເພາະຂອງແຜງຄວບຄຸມຈຶ່ງບໍ່ກ່ຽວຂ້ອງ.',
 
-                enterprise: 'ສະບັບວິສາຫະກິດ',
                 reportNode: 'Node ທີ່ລາຍງານ',
                 currentNode: 'ປະຈຸບັນ',
                 scoreMeta: 'ຖືກຫັກ {0} ຄະແນນ · ພົບ {1} ຄວາມສ່ຽງ',
@@ -5767,7 +5780,6 @@ const message = {
                 alertTimeRuleShort: 'ແຈ້ງເຕືອນພາຍໃນ {0} ວັນ, ສົ່ງ {1} ຄັ້ງ',
                 alertSendCountRuleShort: 'ສົ່ງ {0} ຄັ້ງຕໍ່ວັນ',
                 failedExecutionRecords: 'ບັນທຶກການເຮັດວຽກທີ່ລົ້ມເຫຼວ',
-                taskID: 'ລະຫັດວຽກ',
                 executeTime: 'ເວລາເຮັດວຽກ',
                 backupTasks: 'ວຽກສຳຮອງຂໍ້ມູນ',
                 systemMetrics: 'ຕົວຊີ້ວັດການເຮັດວຽກ',
@@ -5789,12 +5801,12 @@ const message = {
                 dataSource: 'ແຫຼ່ງຂໍ້ມູນ',
                 noHighUsagePeriod: 'ບໍ່ມີຊ່ວງເວລາທີ່ໃຊ້ງານສູງ',
                 monitorDisabledOrNoData: 'ປິດການຕິດຕາມ Host ຫຼື ບໍ່ມີຂໍ້ມູນການຕິດຕາມ',
-                systemHealthStatus: 'ຄວາມສ່ຽງການເຮັດວຽກຂອງ Host ໃນ 24 ຊົ່ວໂມງຫຼ້າສຸດ',
+                systemHealthStatus: 'ສະຖານະຄວາມສ່ຽງການເຮັດວຽກຂອງ Host',
                 mainReasons: 'ສາເຫດຫຼັກ',
                 viewHostMonitor: 'ເບິ່ງການຕິດຕາມ Host',
                 systemHealthAttentionDesc:
-                    'ພົບ {0} ລາຍການຄວາມສ່ຽງໃນ 24 ຊົ່ວໂມງຫຼ້າສຸດ. ກະລຸນາໃຫ້ຄວາມສຳຄັນກັບຊ່ວງທີ່ຊັບພະຍາກອນພຸ່ງສູງ ແລະ ການໃຊ້ດິສກ໌.',
-                systemHealthNormalDesc: 'ຕົວຊີ້ວັດການເຮັດວຽກຂອງ Host ເປັນປົກກະຕິໃນ 24 ຊົ່ວໂມງຫຼ້າສຸດ',
+                    'ການປະເມີນຄັ້ງນີ້ພົບຄວາມສ່ຽງ {0} ລາຍການ. ກະລຸນາກວດສອບຕົວຊີ້ວັດດ້ານລຸ່ມ.',
+                systemHealthNormalDesc: 'ການປະເມີນຄັ້ງນີ້ບໍ່ພົບຄວາມສ່ຽງການເຮັດວຽກຂອງ Host.',
                 monitorEnabled: 'ເປີດການຕິດຕາມແລ້ວ',
                 cpuCoreUsage: '{0} / {1} ຄໍຣ໌',
                 load1Minute: 'ໂຫຼດ 1 ນາທີ',
@@ -5950,7 +5962,9 @@ const message = {
                 receiver: 'ຜູ້ຮັບ',
                 systemThreshold: 'ເກນຂອງລະບົບ',
                 metric: 'ຕົວຊີ້ວັດ',
-                currentRule: 'ກົດລະບຽບປະຈຸບັນ',
+                currentRule: 'ຜ່ານເງື່ອນໄຂການປະເມີນ',
+                criteriaMet: 'ຜ່ານ',
+                criteriaNotMet: 'ບໍ່ຜ່ານ',
                 hostMonitor: 'ຕິດຕາມໂຮສຕ໌',
                 monitorInterval: 'ໄລຍະຫ່າງການຕິດຕາມ',
                 exportSettings: 'ສົ່ງອອກການຕັ້ງຄ່າ',
@@ -7375,6 +7389,7 @@ const message = {
             local: 'ທີ່ຢູ່ພາຍໃນເຄື່ອງ',
             remote: 'ລິ້ງທາງໄກ',
             imagePrefix: 'Image Prefix',
+            disableImagePrefixConfirm: 'ຕ້ອງການປິດການໃຊ້ Prefix ຂອງ Image ແລະ ລ້າງຄ່າປັດຈຸບັນບໍ?',
             imagePrefixHelper:
                 'ຟັງຊັນ: ກຳນົດ Prefix ຂອງ Image ເອງ. ຕົວຢ່າງ: ຫາກຕັ້ງເປັນ 1panel/custom, image ຂອງ MaxKB ຈະປ່ຽນເປັນ 1panel/custom/maxkb:v1.10.0',
             closeHelper: 'ຍົກເລີກການໃຊ້ຄັງແອັບກຳນົດເອງ',

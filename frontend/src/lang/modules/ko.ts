@@ -767,12 +767,8 @@ const message = {
     },
     aiTools: {
         gpuGroup: {
-            emptyNodeCreate:
-                'NUMA {node}에서 사용 가능한 GPU를 찾지 못했습니다. 이 노드에서 그룹을 생성할 수 없습니다.',
-            inspectNUMA:
-                '현재 노드의 터미널에서 다음 읽기 전용 명령을 실행하고 PCI 주소를 대조하여 GPU의 NUMA 소속을 확인하세요:',
-            numaQueryHint:
-                'numa_node 값은 NUMA 노드 번호입니다. -1은 시스템이 소속 정보를 보고하지 않았음을 나타냅니다. 결과가 페이지와 다르면 새로 고침 후 다시 시도하세요.',
+            singleGPU:
+                'GPU 그룹은 여러 GPU가 있는 시스템용입니다. 현재 노드에는 GPU가 하나뿐이므로 그룹화가 필요하지 않습니다.',
             relationTopology: '관계 토폴로지',
             relationHelp: 'GPU 또는 그룹을 선택하면 소속 관계가 강조 표시됩니다.',
             selectionHelp:
@@ -799,6 +795,8 @@ const message = {
             ungrouped: '미분류',
 
             unknownNode: 'NUMA 소속 알 수 없음',
+            unknownNodeHelp:
+                '시스템에서 이 GPU들의 NUMA 소속을 보고하지 않았습니다. GPU 선택 및 그룹화에는 영향을 주지 않습니다.',
             memoryNode: '메모리 노드',
             selectNode: '이 노드의 GPU 선택',
             noDevices: '이 노드에 GPU가 없습니다',
@@ -809,7 +807,7 @@ const message = {
             overview: '장치 개요',
             groups: 'GPU 그룹',
             history: '모니터링 기록',
-            source: '설정 방식',
+            source: 'GPU 소스',
             custom: '사용자 지정',
             selectRequired: 'GPU 그룹을 선택하세요',
             snapshotHelp: '배포는 현재 설정을 저장합니다. 그룹 변경은 기존 배포에 자동 적용되지 않습니다.',
@@ -1122,6 +1120,7 @@ const message = {
             numaCross: '선택한 GPU가 여러 NUMA 노드에 걸쳐 있습니다. 수동으로 선택하세요.',
             numaCount: '자동 바인딩에는 특정 GPU 또는 모든 GPU를 선택해야 합니다.',
             numaRequired: 'NUMA 노드를 하나 이상 선택하세요.',
+            numaTopologyUnavailable: 'NUMA 토폴로지 정보를 사용할 수 없습니다.',
             numaUnavailable: 'NUMA 노드를 사용할 수 없거나 CPU 또는 메모리가 없습니다.',
             gpuAcceleration: 'GPU 가속',
             gpuMode: '가속기 선택',
@@ -1799,6 +1798,8 @@ const message = {
             peakAfterWindow: '후속 관찰 구간',
             peakNearby: '최대 동시 실행 전후 성능',
             peakDuration: '샘플 시간 폭',
+            peakSingleSample: '단일 샘플',
+            peakSingleSampleHelp: '조건을 충족하는 샘플이 하나뿐이므로 실제 지속 시간을 확인할 수 없습니다.',
             peakHelper:
                 '원본 샘플로 구간을 식별하며 단일 샘플의 시간 폭은 0초입니다. TPS는 시간, TTFT는 요청 수로 가중합니다. 통계는 샘플 시각에 귀속되므로 구간 경계를 넘을 수 있습니다. 곡선은 시간적 연관성을 나타내며 동일한 요청 집합의 성능을 의미하지 않습니다.',
             concurrency: '현재 동시 요청',
@@ -5534,6 +5535,20 @@ const message = {
                     '이전 기록 {0}개를 정리하지 못했습니다. 마스터 노드의 파일 권한 또는 로그를 확인한 후 재시도하세요.',
                 legacyHistoryCleanupSuccess: '대상 이전 보고서를 삭제했습니다.',
 
+                introContactAdmin: '라이선스 또는 노드 업그레이드 문제는 관리자에게 문의하세요.',
+                introDescription:
+                    '이 노드의 실행 상태, 보안 위험 및 작업 실행 현황을 확인하고 보고서 내보내기와 자동 일일 보고서를 사용할 수 있습니다.',
+                introNodeOverview: '노드 개요',
+                introReportExport: '보고서 내보내기',
+                introDaily: '자동 일일 보고서',
+                introSecurityDescription:
+                    '호스트 리소스, 로그인 보안 및 웹사이트 인증서의 위험과 점수, 감점 사유를 확인합니다.',
+                introNodeDescription: '이 노드의 애플리케이션, 컨테이너, 예약 작업 및 알림 현황을 확인합니다.',
+                introExportDescription: '보고서를 PDF, HTML 또는 Markdown 형식으로 내보내 보관합니다.',
+                introDailyDescription:
+                    '활성화하면 노드의 현지 시간대를 기준으로 매일 09:00에 일일 보고서를 생성합니다.',
+                introNodeManagement: '노드 관리로 이동',
+
                 licenseRequired:
                     '보고서와 기록을 보려면 유효한 라이선스가 필요합니다. 라이선스를 갱신하거나 유효한 라이선스를 가져오세요.',
                 agentUpgradeRequired: '이 노드의 Agent를 로컬 운영 보고서를 지원하는 버전으로 업그레이드하세요.',
@@ -5541,10 +5556,7 @@ const message = {
                     '이 노드의 보고서 정보를 불러올 수 없습니다. 노드 연결 및 보고서 조회 권한을 확인하세요.',
                 generationPending:
                     '이 요청은 아직 처리 중입니다. 보고서를 다시 생성하기 전에 보고서 기록에서 상태를 확인하세요.',
-                notApplicable: '해당 없음',
-                panelNotApplicable: '이 노드에는 패널이 설치되어 있지 않아 패널 전용 정보는 해당되지 않습니다.',
 
-                enterprise: '엔터프라이즈',
                 reportNode: '보고서 노드',
                 currentNode: '현재 노드',
                 scoreMeta: '감점 {0}점 · 위험 {1}건',
@@ -5829,7 +5841,6 @@ const message = {
                 statAlertDesc: '활성 작업 {0}개 · 채널 {1}개',
                 assetAlertDesc: '실패 로그 {0}건, 동기화 대기 {1}건',
                 failedExecutionRecords: '실패 실행 기록',
-                taskID: '작업 ID',
                 executeTime: '실행 시간',
                 backupTasks: '백업 작업',
                 systemMetrics: '실행 지표',
@@ -5851,12 +5862,12 @@ const message = {
                 dataSource: '데이터 소스',
                 noHighUsagePeriod: '고부하 시간대가 없습니다',
                 monitorDisabledOrNoData: '호스트 모니터링이 미활성화되었거나 모니터 데이터가 없습니다',
-                systemHealthStatus: '최근 24시간 호스트 실행 위험 상태',
+                systemHealthStatus: '호스트 실행 위험 상태',
                 mainReasons: '주요 원인',
                 viewHostMonitor: '호스트 모니터 보기',
                 systemHealthAttentionDesc:
-                    '최근 24시간 동안 {0}개의 위험 항목이 감지되었습니다. 리소스 피크와 디스크 사용률을 우선 확인하세요.',
-                systemHealthNormalDesc: '최근 24시간 호스트 실행 지표가 정상 상태입니다',
+                    '이번 평가에서 위험 항목 {0}개가 발견되었습니다. 아래 지표를 확인하세요.',
+                systemHealthNormalDesc: '이번 평가에서는 호스트 실행 위험이 발견되지 않았습니다.',
                 monitorEnabled: '모니터링 활성화됨',
                 cpuCoreUsage: '{0} / {1}코어',
                 load1Minute: '1분 부하',
@@ -6012,7 +6023,9 @@ const message = {
                 receiver: '수신 대상',
                 systemThreshold: '시스템 임계값',
                 metric: '지표',
-                currentRule: '현재 규칙',
+                currentRule: '판정 조건 충족 여부',
+                criteriaMet: '충족',
+                criteriaNotMet: '미충족',
                 hostMonitor: '호스트 모니터링',
                 monitorInterval: '모니터링 간격',
                 exportSettings: '내보내기 설정',
@@ -7464,6 +7477,7 @@ const message = {
             local: '로컬 경로',
             remote: '원격 링크',
             imagePrefix: '이미지 접두사',
+            disableImagePrefixConfirm: '이미지 접두사 사용을 중지하고 현재 접두사를 지우시겠습니까?',
             imagePrefixHelper:
                 '기능: 이미지 접두사를 사용자 정의하고 compose 파일의 이미지 필드를 수정합니다. 예를 들어 이미지 접두사를 1panel/custom으로 설정하면 MaxKB의 이미지 필드는 1panel/custom/maxkb:v1.10.0으로 변경됩니다',
             closeHelper: '사용자 정의 앱 저장소 사용 취소',

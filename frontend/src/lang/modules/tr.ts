@@ -781,11 +781,8 @@ const message = {
     },
     aiTools: {
         gpuGroup: {
-            emptyNodeCreate: 'NUMA {node} altında kullanılabilir GPU algılanmadı. Bu düğümden grup oluşturulamaz.',
-            inspectNUMA:
-                'GPU NUMA yerleşimini kontrol etmek için mevcut düğümün terminalinde bu salt okunur komutları çalıştırın ve PCI adreslerini eşleştirin:',
-            numaQueryHint:
-                'numa_node, NUMA düğüm kimliğini içerir; -1, sistemin yerleşimi bildirmediği anlamına gelir. Sonuçlar bu sayfadan farklıysa yenileyip tekrar deneyin.',
+            singleGPU:
+                'GPU grupları birden fazla GPU bulunan makineler içindir. Bu düğümde yalnızca bir GPU olduğundan gruplama gerekmez.',
             relationTopology: 'İlişki topolojisi',
             relationHelp: 'Üyelik ilişkilerini vurgulamak için bir GPU veya grup seçin.',
             selectionHelp:
@@ -812,6 +809,8 @@ const message = {
             ungrouped: 'Gruplanmamış',
 
             unknownNode: 'NUMA düğümü bilinmiyor',
+            unknownNodeHelp:
+                'Sistem bu GPU’ların NUMA ilişkisini bildirmedi. GPU seçimi ve gruplama kullanılmaya devam edilebilir.',
             memoryNode: 'Bellek düğümü',
             selectNode: 'Bu düğümün GPU birimlerini seç',
             noDevices: 'Bu düğümde GPU yok',
@@ -822,7 +821,7 @@ const message = {
             overview: 'Cihaz özeti',
             groups: 'GPU grupları',
             history: 'İzleme geçmişi',
-            source: 'Yapılandırma',
+            source: 'GPU kaynağı',
             custom: 'Özel',
             selectRequired: 'Bir GPU grubu seçin',
             snapshotHelp:
@@ -1154,6 +1153,7 @@ const message = {
             numaCross: 'Seçilen GPU aygıtları birden fazla NUMA düğümüne yayılıyor. Elle seçin.',
             numaCount: 'Otomatik bağlama için belirli GPU aygıtlarını veya tümünü seçin.',
             numaRequired: 'En az bir NUMA düğümü seçin.',
+            numaTopologyUnavailable: 'NUMA topolojisi bilgisi kullanılamıyor.',
             numaUnavailable: 'NUMA düğümü kullanılamıyor veya CPU ya da belleği yok.',
             gpuAcceleration: 'GPU hızlandırma',
             gpuMode: 'Hızlandırıcı seçimi',
@@ -1842,6 +1842,8 @@ const message = {
             peakAfterWindow: 'Sonraki gözlem aralığı',
             peakNearby: 'Tepe çevresindeki performans',
             peakDuration: 'Örnekler arası süre',
+            peakSingleSample: 'Tek örnek',
+            peakSingleSampleHelp: 'Yalnızca bir örnek koşulları karşılıyor. Gerçek süre belirlenemiyor.',
             peakHelper:
                 'Dönemler ham örneklerden belirlenir; tek örneğin süresi 0 saniyedir. TPS zamanla, TTFT istek sayısıyla ağırlıklandırılır. İstatistikler örnek zamanına aittir ve dönem sınırlarını aşabilir. Eğriler aynı isteklerin performansını değil, zamansal ilişkiyi gösterir.',
             concurrency: 'Mevcut eşzamanlı istekler',
@@ -5746,6 +5748,21 @@ const message = {
                     '{0} eski kayıt temizlenemedi. Tekrar denemeden önce ana düğümdeki dosya izinlerini veya günlükleri kontrol edin.',
                 legacyHistoryCleanupSuccess: 'Seçilen eski raporlar silindi.',
 
+                introContactAdmin: 'Lisans veya düğüm yükseltme sorunlarını çözmek için yöneticiyle iletişime geçin.',
+                introDescription:
+                    'Bu düğümün çalışma durumunu, güvenlik risklerini ve görev yürütmesini görüntüleyin; raporları dışa aktarın ve otomatik günlük raporları kullanın.',
+                introNodeOverview: 'Düğüm özeti',
+                introReportExport: 'Rapor dışa aktarma',
+                introDaily: 'Otomatik günlük raporlar',
+                introSecurityDescription:
+                    'Ana makine kaynakları, giriş güvenliği ve web sitesi sertifika risklerini; puanları ve puan kesintisi nedenlerini inceleyin.',
+                introNodeDescription:
+                    'Bu düğümün uygulamalarını, konteynerlerini, zamanlanmış görevlerini ve uyarılarını görüntüleyin.',
+                introExportDescription: 'Arşivlemek için raporları PDF, HTML veya Markdown biçiminde dışa aktarın.',
+                introDailyDescription:
+                    "Etkinleştirildiğinde, düğümün yerel saat diliminde her gün 09:00'da günlük rapor oluşturur.",
+                introNodeManagement: 'Düğüm yönetimine git',
+
                 licenseRequired:
                     'Raporları ve geçmişi görüntülemek için geçerli bir lisans gereklidir. Lisansı yenileyin veya geçerli bir lisansı içe aktarın.',
                 agentUpgradeRequired:
@@ -5754,10 +5771,7 @@ const message = {
                     'Bu düğümün rapor bilgileri yüklenemedi. Düğüm bağlantısını ve rapor okuma izinlerini kontrol edin.',
                 generationPending:
                     'Bu istek hâlâ işleniyor. Raporu yeniden oluşturmadan önce rapor geçmişinden durumunu kontrol edin.',
-                notApplicable: 'Uygulanamaz',
-                panelNotApplicable: 'Bu düğümde panel kurulu değil. Panele özgü bilgiler uygulanamaz.',
 
-                enterprise: 'Kurumsal',
                 reportNode: 'Rapor Düğümü',
                 currentNode: 'Geçerli Düğüm',
                 scoreMeta: '{0} puan düşüldü · {1} risk',
@@ -6041,7 +6055,6 @@ const message = {
                 statAlertDesc: '{0} etkin görev · {1} kanal',
                 assetAlertDesc: '{0} başarısız günlük, {1} senkronizasyon bekleyen günlük',
                 failedExecutionRecords: 'Başarısız Yürütme Kayıtları',
-                taskID: 'Görev ID',
                 executeTime: 'Yürütme Zamanı',
                 backupTasks: 'Yedekleme Görevleri',
                 systemMetrics: 'Çalışma Metrikleri',
@@ -6063,12 +6076,12 @@ const message = {
                 dataSource: 'Veri Kaynağı',
                 noHighUsagePeriod: 'Yüksek kullanım dönemi yok',
                 monitorDisabledOrNoData: 'Ana makine izleme devre dışı veya izleme verisi yok',
-                systemHealthStatus: 'Son 24 saat ana makine çalışma risk durumu',
+                systemHealthStatus: 'Ana makine çalışma risk durumu',
                 mainReasons: 'Başlıca Nedenler',
                 viewHostMonitor: 'Ana Makine İzlemeyi Gör',
                 systemHealthAttentionDesc:
-                    'Son 24 saatte {0} risk öğesi algılandı. Kaynak zirvelerine ve disk kullanımına öncelik verin.',
-                systemHealthNormalDesc: 'Son 24 saatte ana makine çalışma metrikleri normaldi',
+                    'Bu değerlendirmede {0} risk öğesi bulundu. Aşağıdaki metrikleri inceleyin.',
+                systemHealthNormalDesc: 'Bu değerlendirmede ana makine çalışma riski bulunmadı.',
                 monitorEnabled: 'İzleme Etkin',
                 cpuCoreUsage: '{0} / {1} çekirdek',
                 load1Minute: '1 dk yük',
@@ -6224,7 +6237,9 @@ const message = {
                 receiver: 'Alıcı',
                 systemThreshold: 'Sistem eşiği',
                 metric: 'Metrik',
-                currentRule: 'Mevcut Kural',
+                currentRule: 'Ölçütleri karşılıyor mu',
+                criteriaMet: 'Karşılıyor',
+                criteriaNotMet: 'Karşılamıyor',
                 hostMonitor: 'Ana Makine İzleme',
                 monitorInterval: 'İzleme Aralığı',
                 exportSettings: 'Dışa Aktarma Ayarları',
@@ -7757,6 +7772,7 @@ const message = {
             local: 'Yerel Yol',
             remote: 'Uzak Bağlantı',
             imagePrefix: 'Görüntü Öneki',
+            disableImagePrefixConfirm: 'Görüntü önekini devre dışı bırakıp mevcut değeri temizlemek istiyor musunuz?',
             imagePrefixHelper:
                 'İşlev: Görüntü önekini özelleştirir ve compose dosyasındaki görüntü alanını değiştirir. Örneğin, görüntü öneki 1panel/custom olarak ayarlandığında, MaxKB için görüntü alanı 1panel/custom/maxkb:v1.10.0 olarak değişir',
             closeHelper: 'Özel uygulama deposunu kullanmayı iptal et',

@@ -776,12 +776,8 @@ const message = {
     },
     aiTools: {
         gpuGroup: {
-            emptyNodeCreate:
-                'NUMA {node} に利用可能な GPU が検出されなかったため、このノードからグループを作成できません。',
-            inspectNUMA:
-                '現在のノードの端末で次の読み取り専用コマンドを実行し、PCI アドレスを照合して GPU の NUMA 所属を確認してください：',
-            numaQueryHint:
-                'numa_node は NUMA ノード番号を示します。-1 はシステムが所属を報告していないことを意味します。結果が画面と異なる場合は、更新して再試行してください。',
+            singleGPU:
+                'GPU グループは複数の GPU を搭載したマシン向けです。このノードには GPU が 1 基しかないため、グループ化は不要です。',
             relationTopology: '関係トポロジー',
             relationHelp: 'GPU またはグループを選択すると、所属関係が強調表示されます。',
             selectionHelp:
@@ -808,6 +804,8 @@ const message = {
             ungrouped: '未分類',
 
             unknownNode: 'NUMA 所属不明',
+            unknownNodeHelp:
+                'これらの GPU の NUMA 所属はシステムから報告されていません。GPU の選択とグループ化には影響しません。',
             memoryNode: 'メモリノード',
             selectNode: 'このノードの GPU を選択',
             noDevices: 'このノードに GPU はありません',
@@ -818,7 +816,7 @@ const message = {
             overview: 'デバイス概要',
             groups: 'GPU グループ',
             history: '監視履歴',
-            source: '設定方法',
+            source: 'GPU の選択元',
             custom: 'カスタム',
             selectRequired: 'GPU グループを選択してください',
             snapshotHelp: 'デプロイには現在の設定が保存されます。グループの変更は既存のデプロイに自動適用されません。',
@@ -1134,6 +1132,7 @@ const message = {
             numaCross: '選択した GPU は複数の NUMA ノードに属しています。手動で選択してください。',
             numaCount: '自動バインドには特定の GPU またはすべての GPU を選択してください。',
             numaRequired: 'NUMA ノードを少なくとも 1 つ選択してください。',
+            numaTopologyUnavailable: 'NUMA トポロジー情報を取得できません。',
             numaUnavailable: 'NUMA ノードが利用できないか、CPU またはメモリがありません。',
             gpuAcceleration: 'GPU アクセラレーション',
             gpuMode: 'アクセラレーターの選択',
@@ -1817,6 +1816,8 @@ const message = {
             peakAfterWindow: '後続の観測期間',
             peakNearby: 'ピーク前後の性能',
             peakDuration: 'サンプル間隔幅',
+            peakSingleSample: '単一サンプル',
+            peakSingleSampleHelp: '条件を満たすサンプルは1つだけです。実際の継続時間は判断できません。',
             peakHelper:
                 '期間は元のサンプルから特定し、単一サンプルの幅は 0 秒です。TPS は時間、TTFT はリクエスト数で加重します。統計はサンプル時刻に属し、期間の境界をまたぐ場合があります。曲線は時間的な関連を示し、同じリクエスト群の性能を示すものではありません。',
             concurrency: '現在の同時リクエスト',
@@ -5636,6 +5637,22 @@ const message = {
                     '{0} 件の旧記録を削除できませんでした。マスターノードのファイル権限またはログを確認してから再試行してください。',
                 legacyHistoryCleanupSuccess: '対象の旧レポートを削除しました。',
 
+                introContactAdmin:
+                    'ライセンスまたはノードのアップグレードに関する問題は、管理者にお問い合わせください。',
+                introDescription:
+                    'このノードの稼働状況、セキュリティリスク、タスクの実行状況を確認し、レポートの出力や日次レポートの自動生成を利用できます。',
+                introNodeOverview: 'ノード概要',
+                introReportExport: 'レポート出力',
+                introDaily: '日次レポート自動生成',
+                introSecurityDescription:
+                    'ホストリソース、ログインセキュリティ、Web サイト証明書のリスクと、スコアや減点理由を確認できます。',
+                introNodeDescription:
+                    'このノードのアプリケーション、コンテナ、スケジュールタスク、アラートを確認できます。',
+                introExportDescription: 'PDF、HTML、Markdown 形式でレポートを出力し、保管できます。',
+                introDailyDescription:
+                    '有効にすると、ノードのローカルタイムゾーンで毎日 09:00 に日次レポートを生成します。',
+                introNodeManagement: 'ノード管理へ',
+
                 licenseRequired:
                     'レポートと履歴の閲覧には有効なライセンスが必要です。ライセンスを更新するか、有効なライセンスをインポートしてください。',
                 agentUpgradeRequired:
@@ -5644,11 +5661,7 @@ const message = {
                     'このノードのレポート情報を読み込めません。ノードへの接続とレポートの閲覧権限を確認してください。',
                 generationPending:
                     'このリクエストはまだ処理中です。再生成する前にレポート履歴で状態を確認してください。',
-                notApplicable: '対象外',
-                panelNotApplicable:
-                    'このノードにはパネルがインストールされていないため、パネル固有の情報は対象外です。',
 
-                enterprise: 'エンタープライズ',
                 reportNode: 'レポートノード',
                 currentNode: '現在のノード',
                 scoreMeta: '{0} 点減点 · リスク {1} 件',
@@ -5938,7 +5951,6 @@ const message = {
                 statAlertDesc: '有効タスク {0} 個 · チャネル {1} 個',
                 assetAlertDesc: '失敗ログ {0} 件、同期待ちログ {1} 件',
                 failedExecutionRecords: '失敗実行記録',
-                taskID: 'タスクID',
                 executeTime: '実行時間',
                 backupTasks: 'バックアップタスク',
                 systemMetrics: '実行指標',
@@ -5960,12 +5972,12 @@ const message = {
                 dataSource: 'データソース',
                 noHighUsagePeriod: '高負荷時間帯がありません',
                 monitorDisabledOrNoData: 'ホスト監視が無効または監視データがありません',
-                systemHealthStatus: '過去24時間のホスト実行リスク',
+                systemHealthStatus: 'ホスト稼働リスク',
                 mainReasons: '主な原因',
                 viewHostMonitor: 'ホスト監視を表示',
                 systemHealthAttentionDesc:
-                    '過去24時間に {0} 件のリスク項目を検出しました。リソースピークとディスク使用率を優先的に確認してください。',
-                systemHealthNormalDesc: '過去24時間のホスト実行指標は正常です',
+                    '今回の評価で {0} 件のリスクが検出されました。以下の指標を確認してください。',
+                systemHealthNormalDesc: '今回の評価ではホスト稼働リスクは検出されませんでした。',
                 monitorEnabled: '監視有効',
                 cpuCoreUsage: '{0} / {1} コア',
                 load1Minute: '1分負荷',
@@ -6122,7 +6134,9 @@ const message = {
                 receiver: '受信者',
                 systemThreshold: 'システムしきい値',
                 metric: '指標',
-                currentRule: '現在のルール',
+                currentRule: '判定条件を満たすか',
+                criteriaMet: '満たす',
+                criteriaNotMet: '満たさない',
                 hostMonitor: 'ホスト監視',
                 monitorInterval: '監視間隔',
                 exportSettings: 'エクスポート設定',
@@ -7621,6 +7635,7 @@ const message = {
             local: 'ローカルパス',
             remote: 'リモートリンク',
             imagePrefix: 'イメージプレフィックス',
+            disableImagePrefixConfirm: 'イメージプレフィックスを無効にし、現在の値をクリアしますか？',
             imagePrefixHelper:
                 '機能: イメージプレフィックスをカスタマイズし、composeファイル内のイメージフィールドを変更します。例えば、イメージプレフィックスを1panel/customに設定した場合、MaxKBのイメージフィールドは1panel/custom/maxkb:v1.10.0に変更されます',
             closeHelper: 'カスタムアプリリポジトリの使用をキャンセルしますか',
