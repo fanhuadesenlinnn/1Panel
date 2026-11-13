@@ -305,7 +305,7 @@ const message = {
                 'Este campo no debe comenzar con el carácter "_" y debe estar compuesto por letras, números y "_" con una longitud de 1 a 30.',
             dbName: 'Este campo no debe comenzar con el carácter "_" y debe estar compuesto por letras, números y "_" con una longitud de 1 a 64.',
             imageName:
-                'Este campo debe estar compuesto por letras, números, ":", "@", "/", ".", "-", y "_" con una longitud de 1 a 256.',
+                `Este campo debe estar compuesto por letras, números, ":", "{'@'}", "/", ".", "-", y "_" con una longitud de 1 a 256.`,
             volumeName:
                 'Este campo debe estar compuesto por letras, números, ".", "-", y "_" con una longitud de 2 a 30.',
             supervisorName:
@@ -1121,6 +1121,34 @@ const message = {
             validateImageAvailabilityHelper: 'Genera una imagen mínima antes de guardar y puede generar costes',
         },
         model: {
+            poolEditHelp: 'Obtenga modelos en línea o añádalos manualmente. Todos se pueden editar.',
+            poolUnavailable:
+                'Este tipo de proveedor y API no permite obtener modelos en línea. Añada los ID manualmente.',
+            poolEmpty: 'No hay modelos. Obténgalos en línea o añádalos manualmente.',
+            poolOverwrite:
+                'Si la consulta tiene éxito, se reemplazará toda la lista, incluidas las adiciones y ediciones manuales. ¿Continuar?',
+            poolFetchEmpty: 'No se recibieron modelos. La lista se conserva. Reintente o añádalos manualmente.',
+            poolFetchFailed:
+                'Error al obtener modelos. La lista se conserva. Revise la URL, la clave API y la red, o edite manualmente.',
+            poolSaveHelp: 'Los cambios se aplican al guardar. No se pueden quitar modelos en uso.',
+
+            accountType: 'Tipo de cuenta',
+            accountTypes: {
+                default: 'Predeterminado',
+                payAsYouGo: 'Pago por uso',
+                chinaApi: 'API de China',
+                globalApi: 'API global',
+                chinaCodingPlan: 'Coding Plan de China',
+                globalCodingPlan: 'Coding Plan global',
+                chinaTokenPlan: 'Token Plan de China',
+                globalTokenPlan: 'Token Plan global',
+                speech: 'Servicios de voz',
+                codingPlan: 'Coding Plan',
+                tokenPlan: 'Token Plan',
+                agentPlan: 'Agent Plan',
+                go: 'Go',
+                zen: 'Zen',
+            },
             externalInspect: 'Comprobar y obtener',
             externalHealthPassed: 'Comprobación de salud correcta',
             externalHealthFailed: 'Falló la comprobación de salud',
@@ -1334,6 +1362,10 @@ const message = {
             container_conn_helper: 'Utilice esta dirección para el acceso o conexión entre contenedores',
             from_remote: 'Este modelo no fue descargado vía 1Panel, no hay registros de descarga relacionados.',
             no_logs: 'Los registros de descarga de este modelo han sido eliminados y no se pueden consultar.',
+            composeFile: 'Archivo de Orquestación',
+            imageCategory: 'Tipo de imagen',
+            standardImage: 'Imagen estándar',
+            customImage: 'Imagen personalizada',
             vllmVersionHelper: {
                 ascend: 'Versión estándar oficial de Ascend para dispositivos de la serie Ascend A2.',
                 ascendA3: 'Versión oficial Ascend A3 para dispositivos de la serie Ascend A3.',

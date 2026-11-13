@@ -12,6 +12,7 @@ import (
 	"path"
 	"reflect"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"syscall"
@@ -277,6 +278,25 @@ func newWebsiteCreateHTTPSOp(sslID uint) request.WebsiteHTTPSOp {
 		Hsts:                  true,
 		HstsIncludeSubDomains: true,
 	}
+}
+
+func deploymentWebAddress(protocol string, domains []model.WebsiteDomain, httpPort, httpsPort int) string {
+	host := strings.Trim(domains[0].Domain, "[]")
+	port := domains[0].Port
+	standardPort := 80
+	if protocol == constant.ProtocolHTTPS {
+		standardPort = 443
+		plan := buildWebsiteTLSPlan(domains, httpPort, httpsPort)
+		if !slices.Contains(plan.httpsPorts, port) {
+			port = plan.redirectPort
+		}
+	}
+	if port != standardPort {
+		host = net.JoinHostPort(host, strconv.Itoa(port))
+	} else if strings.Contains(host, ":") {
+		host = "[" + host + "]"
+	}
+	return strings.ToLower(protocol) + "://" + host
 }
 
 func (w WebsiteService) CreateWebsite(create request.WebsiteCreate) (err error) {
@@ -590,6 +610,15 @@ func (w WebsiteService) CreateWebsite(create request.WebsiteCreate) (err error) 
 				domains[i].WebsiteID = website.ID
 			}
 			if err = websiteDomainRepo.BatchCreate(ctx, domains); err != nil {
+				return err
+			}
+		}
+
+		if website.Type == constant.Deployment {
+			address := deploymentWebAddress(website.Protocol, domains, defaultHttpPort, nginxInstall.HttpsPort)
+			if err := tx.Model(&model.AppInstall{}).
+				Where("id = ? AND (web_ui IS NULL OR web_ui = '')", website.AppInstallID).
+				Update("web_ui", address).Error; err != nil {
 				return err
 			}
 		}
@@ -1428,7 +1457,7 @@ func (w WebsiteService) ChangePHPVersion(req request.WebsitePHPVersionReq) (err 
 				server.UpdateDirective("index", []string{"index.html index.php index.htm default.php default.htm default.html"})
 			}
 		}
-		if req.RuntimeID > 0 && site.Status != constant.WebStopped {
+		if req.RuntimeID > 0 && (site.Status != constant.WebStopped || server.HasStopPage()) {
 			updated := false
 			for _, location := range server.FindDirectives("location") {
 				if strings.Join(location.GetParameters(), " ") == "~ [^/]\\.php(/|$)" && location.GetBlock() != nil {

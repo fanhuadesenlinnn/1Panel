@@ -308,7 +308,7 @@ const message = {
             simplePassword:
                 'Ruangan ini tidak boleh bermula dengan aksara garis bawah ("_") dan mesti terdiri daripada aksara rumi, nombor, dan "_" dengan panjang 1-30 aksara.',
             dbName: 'Ruangan ini tidak boleh bermula dengan aksara garis bawah ("_") dan mesti terdiri daripada aksara rumi, nombor, dan "_" dengan panjang 1-64 aksara.',
-            imageName: 'Menyokong bermula dengan bukan aksara khas, Bahasa Inggeris, nombor, :@/.-_, panjang 1-256',
+            imageName: "Menyokong bermula dengan bukan aksara khas, Bahasa Inggeris, nombor, :{'@'}/.-_, panjang 1-256",
             composeName:
                 'Menyokong aksara bukan khas pada permulaan, huruf kecil, nombor, "-", dan "_", dengan panjang 1-256 aksara.',
             volumeName:
@@ -1130,6 +1130,34 @@ const message = {
             validateImageAvailabilityHelper: 'Menjana satu imej minimum sebelum menyimpan dan mungkin dikenakan caj',
         },
         model: {
+            poolEditHelp: 'Dapatkan model dalam talian atau tambah secara manual. Semua model boleh disunting.',
+            poolUnavailable:
+                'Jenis pembekal dan API ini tidak menyokong pengambilan dalam talian. Tambah ID model secara manual.',
+            poolEmpty: 'Tiada model. Dapatkan dalam talian atau tambah secara manual.',
+            poolOverwrite:
+                'Pengambilan yang berjaya akan menggantikan seluruh senarai, termasuk tambahan dan suntingan manual. Teruskan?',
+            poolFetchEmpty: 'Tiada model diterima. Senarai dikekalkan. Cuba lagi atau tambah secara manual.',
+            poolFetchFailed:
+                'Pengambilan gagal. Senarai dikekalkan. Semak URL, kunci API dan rangkaian atau sunting secara manual.',
+            poolSaveHelp: 'Perubahan berkuat kuasa selepas disimpan. Model yang sedang digunakan tidak boleh dibuang.',
+
+            accountType: 'Jenis akaun',
+            accountTypes: {
+                default: 'Lalai',
+                payAsYouGo: 'Bayar mengikut penggunaan',
+                chinaApi: 'API China',
+                globalApi: 'API global',
+                chinaCodingPlan: 'Coding Plan China',
+                globalCodingPlan: 'Coding Plan global',
+                chinaTokenPlan: 'Token Plan China',
+                globalTokenPlan: 'Token Plan global',
+                speech: 'Perkhidmatan suara',
+                codingPlan: 'Coding Plan',
+                tokenPlan: 'Token Plan',
+                agentPlan: 'Agent Plan',
+                go: 'Go',
+                zen: 'Zen',
+            },
             externalInspect: 'Semak dan dapatkan',
             externalHealthPassed: 'Semakan kesihatan berjaya',
             externalHealthFailed: 'Semakan kesihatan gagal',
@@ -1343,6 +1371,10 @@ const message = {
             container_conn_helper: 'Gunakan alamat ini untuk akses atau sambungan antara kontena',
             from_remote: 'Model ini tidak dimuat turun melalui 1Panel; tiada log muat turun berkaitan.',
             no_logs: 'Log muat turun model ini telah dipadam dan tidak boleh dilihat.',
+            composeFile: 'Fail Susunan',
+            imageCategory: 'Jenis imej',
+            standardImage: 'Imej standard',
+            customImage: 'Imej tersuai',
             vllmVersionHelper: {
                 ascend: 'Versi standard rasmi Ascend untuk peranti siri Ascend A2.',
                 ascendA3: 'Versi rasmi Ascend A3 untuk peranti siri Ascend A3.',

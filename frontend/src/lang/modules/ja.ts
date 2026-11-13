@@ -304,7 +304,7 @@ const message = {
             simplePassword:
                 'このフィールドは、アンダースコアキャラクターから始めてはなりません。長さ1〜30の英語、数字、「_」文字で構成されている必要があります。',
             dbName: 'このフィールドは、アンダースコアキャラクターから始めてはなりません。長さ1〜64の英語、数字、「_」文字で構成されている必要があります。',
-            imageName: '特殊文字で始まらない、英字、数字、:@/.-_をサポート、長さ1-256',
+            imageName: "特殊文字で始まらない、英字、数字、:{'@'}/.-_をサポート、長さ1-256",
             composeName: '最初の特別な文字、小文字、数字、_、長さ1-256をサポートします',
             volumeName:
                 'このフィールドは、英語、数字、「。」、「 - 」、および「_」文字で構成されている必要があります。',
@@ -1104,6 +1104,33 @@ const message = {
             validateImageAvailabilityHelper: '保存前に最小画像を1枚生成するため、料金が発生する場合があります',
         },
         model: {
+            poolEditHelp: 'オンラインで取得するか手動で追加できます。すべてのモデルを編集できます。',
+            poolUnavailable:
+                'このプロバイダー種別と API はオンライン取得に対応していません。モデル ID を手動で追加してください。',
+            poolEmpty: 'モデルがありません。オンラインで取得するか手動で追加してください。',
+            poolOverwrite: '取得に成功すると、手動で追加・編集した内容を含む一覧全体が置き換わります。続行しますか？',
+            poolFetchEmpty: 'モデルが返されませんでした。一覧は保持されています。再試行するか手動で追加してください。',
+            poolFetchFailed:
+                '取得に失敗しました。一覧は保持されています。URL、API キー、ネットワークを確認して再試行するか、手動で編集してください。',
+            poolSaveHelp: '保存後に反映されます。使用中のモデルは削除できません。',
+
+            accountType: 'アカウント種別',
+            accountTypes: {
+                default: '既定',
+                payAsYouGo: '従量課金',
+                chinaApi: '中国 API',
+                globalApi: '国際 API',
+                chinaCodingPlan: '中国 Coding Plan',
+                globalCodingPlan: '国際 Coding Plan',
+                chinaTokenPlan: '中国 Token Plan',
+                globalTokenPlan: '国際 Token Plan',
+                speech: '音声サービス',
+                codingPlan: 'Coding Plan',
+                tokenPlan: 'Token Plan',
+                agentPlan: 'Agent Plan',
+                go: 'Go',
+                zen: 'Zen',
+            },
             externalInspect: '確認して取得',
             externalHealthPassed: 'ヘルスチェック成功',
             externalHealthFailed: 'ヘルスチェック失敗',
@@ -1311,6 +1338,10 @@ const message = {
             container_conn_helper: 'コンテナ間のアクセスまたは接続にこのアドレスを使用',
             from_remote: 'このモデルは1Panelを介してダウンロードされておらず、関連するプルログはありません。',
             no_logs: 'このモデルのプルログは削除されており、関連するログを表示できません。',
+            composeFile: 'オーケストレーションファイル',
+            imageCategory: 'イメージの種類',
+            standardImage: '標準イメージ',
+            customImage: 'カスタムイメージ',
             vllmVersionHelper: {
                 ascend: 'Ascend A2 シリーズ向けの Ascend 公式標準版です。',
                 ascendA3: 'Ascend A3 シリーズ向けの Ascend 公式 A3 版です。',

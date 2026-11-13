@@ -302,7 +302,7 @@ const message = {
             simplePassword:
                 '이 필드는 "_"로 시작할 수 없으며, 영어, 숫자 및 "_" 문자로 구성되어야 하며 길이는 1-30 자여야 합니다.',
             dbName: '이 필드는 "_"로 시작할 수 없으며, 영어, 숫자 및 "_" 문자로 구성되어야 하며 길이는 1-64 자여야 합니다.',
-            imageName: '특수 문자로 시작하지 않고, 영어, 숫자, :@/.-_ 지원, 길이 1-256',
+            imageName: "특수 문자로 시작하지 않고, 영어, 숫자, :{'@'}/.-_ 지원, 길이 1-256",
             composeName: '특수 문자로 시작할 수 없으며, 소문자, 숫자, "-", "_"를 지원하며 길이는 1-256 자여야 합니다.',
             volumeName: '이 필드는 영어, 숫자, ".", "-", "_" 문자로 구성되어야 하며 길이는 2-30 자여야 합니다.',
             supervisorName:
@@ -1096,6 +1096,32 @@ const message = {
             validateImageAvailabilityHelper: '저장 전에 최소 이미지 한 장을 생성하며 비용이 발생할 수 있습니다',
         },
         model: {
+            poolEditHelp: '온라인으로 가져오거나 직접 추가하세요. 모든 모델을 수정할 수 있습니다.',
+            poolUnavailable: '이 공급자 유형과 API는 온라인 가져오기를 지원하지 않습니다. 모델 ID를 직접 추가하세요.',
+            poolEmpty: '모델이 없습니다. 온라인으로 가져오거나 직접 추가하세요.',
+            poolOverwrite: '가져오기에 성공하면 수동 추가 및 수정 사항을 포함한 전체 목록이 교체됩니다. 계속할까요?',
+            poolFetchEmpty: '모델이 반환되지 않았습니다. 기존 목록은 유지됩니다. 다시 시도하거나 직접 추가하세요.',
+            poolFetchFailed:
+                '가져오기에 실패했습니다. 기존 목록은 유지됩니다. URL, API 키, 네트워크를 확인한 후 다시 시도하거나 직접 수정하세요.',
+            poolSaveHelp: '저장 후 적용됩니다. 사용 중인 모델은 삭제할 수 없습니다.',
+
+            accountType: '계정 유형',
+            accountTypes: {
+                default: '기본',
+                payAsYouGo: '종량제',
+                chinaApi: '중국 API',
+                globalApi: '글로벌 API',
+                chinaCodingPlan: '중국 Coding Plan',
+                globalCodingPlan: '글로벌 Coding Plan',
+                chinaTokenPlan: '중국 Token Plan',
+                globalTokenPlan: '글로벌 Token Plan',
+                speech: '음성 서비스',
+                codingPlan: 'Coding Plan',
+                tokenPlan: 'Token Plan',
+                agentPlan: 'Agent Plan',
+                go: 'Go',
+                zen: 'Zen',
+            },
             externalInspect: '확인 및 가져오기',
             externalHealthPassed: '상태 확인 성공',
             externalHealthFailed: '상태 확인 실패',
@@ -1299,6 +1325,10 @@ const message = {
             container_conn_helper: '컨테이너 간 접근 또는 연결에 이 주소를 사용',
             from_remote: '이 모델은 1Panel을 통해 다운로드되지 않았으며 관련 풀 로그가 없습니다.',
             no_logs: '이 모델의 풀 로그가 삭제되어 관련 로그를 볼 수 없습니다.',
+            composeFile: '컴포즈 파일',
+            imageCategory: '이미지 유형',
+            standardImage: '표준 이미지',
+            customImage: '맞춤 이미지',
             vllmVersionHelper: {
                 ascend: 'Ascend A2 시리즈 장치용 Ascend 공식 표준 버전입니다.',
                 ascendA3: 'Ascend A3 시리즈 장치용 Ascend 공식 A3 버전입니다.',

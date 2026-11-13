@@ -308,7 +308,7 @@ const message = {
                 'Bu alan alt çizgi karakteriyle başlamamalı ve İngilizce, rakam, ve "_" karakterlerinden oluşmalı, uzunluk 1-30 olmalıdır.',
             dbName: 'Bu alan alt çizgi karakteriyle başlamamalı ve İngilizce, rakam, ve "_" karakterlerinden oluşmalı, uzunluk 1-64 olmalıdır.',
             imageName:
-                'Bu alan İngilizce, rakam, ":", "@", "/", ".", "-", ve "_" karakterlerinden oluşmalı, uzunluk 1-256 olmalıdır.',
+                `Bu alan İngilizce, rakam, ":", "{'@'}", "/", ".", "-", ve "_" karakterlerinden oluşmalı, uzunluk 1-256 olmalıdır.`,
             volumeName: 'Bu alan İngilizce, rakam, ".", "-", ve "_" karakterlerinden oluşmalı, uzunluk 2-30 olmalıdır.',
             supervisorName:
                 'Bu alan özel olmayan karakterlerle başlamalı ve İngilizce, rakam, "-", ve "_" karakterlerinden oluşmalı, uzunluk 1-128 olmalıdır.',
@@ -1128,6 +1128,34 @@ const message = {
             validateImageAvailabilityHelper: 'Kaydetmeden önce bir küçük görsel üretir ve ücret doğurabilir',
         },
         model: {
+            poolEditHelp: 'Modelleri çevrimiçi alın veya elle ekleyin. Tüm modeller düzenlenebilir.',
+            poolUnavailable:
+                'Bu sağlayıcı türü ve API çevrimiçi model almayı desteklemiyor. Model kimliklerini elle ekleyin.',
+            poolEmpty: 'Model yok. Çevrimiçi alın veya elle ekleyin.',
+            poolOverwrite:
+                'Başarılı bir alma işlemi, elle eklenenler ve düzenlenenler dahil tüm listeyi değiştirecek. Devam edilsin mi?',
+            poolFetchEmpty: 'Model alınamadı. Liste korundu. Yeniden deneyin veya elle ekleyin.',
+            poolFetchFailed:
+                'Alma işlemi başarısız. Liste korundu. URL, API anahtarı ve ağı kontrol edin ya da elle düzenleyin.',
+            poolSaveHelp: 'Değişiklikler kaydedilince uygulanır. Kullanımdaki modeller kaldırılamaz.',
+
+            accountType: 'Hesap türü',
+            accountTypes: {
+                default: 'Varsayılan',
+                payAsYouGo: 'Kullandıkça öde',
+                chinaApi: 'Çin API',
+                globalApi: 'Küresel API',
+                chinaCodingPlan: 'Çin Coding Plan',
+                globalCodingPlan: 'Küresel Coding Plan',
+                chinaTokenPlan: 'Çin Token Plan',
+                globalTokenPlan: 'Küresel Token Plan',
+                speech: 'Konuşma hizmetleri',
+                codingPlan: 'Coding Plan',
+                tokenPlan: 'Token Plan',
+                agentPlan: 'Agent Plan',
+                go: 'Go',
+                zen: 'Zen',
+            },
             externalInspect: 'Kontrol et ve getir',
             externalHealthPassed: 'Sağlık kontrolü başarılı',
             externalHealthFailed: 'Sağlık kontrolü başarısız',
@@ -1338,6 +1366,10 @@ const message = {
             container_conn_helper: 'Konteynerler arası erişim veya bağlantı için bu adresi kullanın',
             from_remote: 'Bu model 1Panel aracılığıyla indirilmedi, ilgili çekme logları yok.',
             no_logs: 'Bu modelin çekme logları silindi ve görüntülenemiyor.',
+            composeFile: 'Düzenleme Dosyası',
+            imageCategory: 'İmaj türü',
+            standardImage: 'Standart imaj',
+            customImage: 'Özelleştirilmiş imaj',
             vllmVersionHelper: {
                 ascend: 'Ascend A2 serisi cihazlar için resmi Ascend standart sürümü.',
                 ascendA3: 'Ascend A3 serisi cihazlar için resmi Ascend A3 sürümü.',

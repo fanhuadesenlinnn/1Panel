@@ -32,6 +32,8 @@ export namespace Website {
     }
 
     export interface WebsiteDTO extends Website {
+        status: string;
+        expireDate: string;
         errorLogPath: string;
         accessLogPath: string;
         sitePath: string;
@@ -441,6 +443,7 @@ export namespace Website {
     }
 
     export interface ProxyConfig {
+        serviceStatus?: 'healthy' | 'unhealthy' | 'stopped' | 'unknown';
         id: number;
         operate: string;
         enable: boolean;

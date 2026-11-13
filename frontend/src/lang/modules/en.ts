@@ -305,7 +305,7 @@ const message = {
                 'This field mustn\'t start with underscore character and must consist of English, numbers, and "_" characters with a length of 1-30.',
             dbName: 'This field mustn\'t start with underscore character and must consist of English, numbers, and "_" characters with a length of 1-64.',
             imageName:
-                'This field must consist of English, numbers, ":", "@", "/", ".", "-", and "_" characters with a length of 1-256.',
+                `This field must consist of English, numbers, ":", "{'@'}", "/", ".", "-", and "_" characters with a length of 1-256.`,
             volumeName:
                 'This field must consist of English, numbers, ".", "-", and "_" characters with a length of 2-30.',
             supervisorName:
@@ -1119,6 +1119,33 @@ const message = {
             validateImageAvailabilityHelper: 'Generates one minimal image before saving and may incur charges',
         },
         model: {
+            poolEditHelp: 'Fetch online or add manually. Every model in this list is editable.',
+            poolUnavailable: 'Online discovery is unavailable for this provider type and API. Add model IDs manually.',
+            poolEmpty: 'No models yet. Fetch online or add a model manually.',
+            poolOverwrite:
+                'A successful fetch will replace the entire list, including manual additions and edits. Continue?',
+            poolFetchEmpty: 'No models returned. Your list is unchanged. Retry or add models manually.',
+            poolFetchFailed:
+                'Fetch failed. Your list is unchanged. Check the URL, API key and network, then retry or edit manually.',
+            poolSaveHelp: 'Changes take effect when saved. Models currently in use cannot be removed.',
+
+            accountType: 'Account type',
+            accountTypes: {
+                default: 'Default',
+                payAsYouGo: 'Pay as you go',
+                chinaApi: 'China API',
+                globalApi: 'Global API',
+                chinaCodingPlan: 'China Coding Plan',
+                globalCodingPlan: 'Global Coding Plan',
+                chinaTokenPlan: 'China Token Plan',
+                globalTokenPlan: 'Global Token Plan',
+                speech: 'Speech services',
+                codingPlan: 'Coding Plan',
+                tokenPlan: 'Token Plan',
+                agentPlan: 'Agent Plan',
+                go: 'Go',
+                zen: 'Zen',
+            },
             externalInspect: 'Check and fetch',
             externalHealthPassed: 'Health check passed',
             externalHealthFailed: 'Health check failed',
@@ -1330,6 +1357,10 @@ const message = {
             container_conn_helper: 'Use this address for inter-container access or connection',
             from_remote: 'This model was not downloaded via 1Panel, no related pull logs.',
             no_logs: 'The pull logs for this model have been deleted and cannot be viewed.',
+            composeFile: 'Compose File',
+            imageCategory: 'Image type',
+            standardImage: 'Standard image',
+            customImage: 'Custom image',
             vllmVersionHelper: {
                 ascend: 'Official Ascend standard version for Ascend A2 series devices.',
                 ascendA3: 'Official Ascend A3 version for Ascend A3 series devices.',

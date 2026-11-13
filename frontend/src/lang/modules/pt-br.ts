@@ -304,7 +304,7 @@ const message = {
             simplePassword:
                 'Este campo não deve começar com "_" e deve conter letras, números e "_" com comprimento de 1-30.',
             dbName: 'Este campo não deve começar com "_" e deve conter letras, números e "_" com comprimento de 1-64.',
-            imageName: 'Suporta não começar com caracteres especiais, inglês, números, :@/.-_, comprimento 1-256',
+            imageName: "Suporta não começar com caracteres especiais, inglês, números, :{'@'}/.-_, comprimento 1-256",
             composeName:
                 'Deve começar com caracteres não especiais, conter letras minúsculas, números, "-" e "_" com comprimento de 1-256.',
             volumeName: 'Este campo deve conter letras, números, ".", "-", e "_" com comprimento de 2-30.',
@@ -1125,6 +1125,34 @@ const message = {
             validateImageAvailabilityHelper: 'Gera uma imagem mínima antes de salvar e pode gerar custos',
         },
         model: {
+            poolEditHelp: 'Busque modelos online ou adicione manualmente. Todos podem ser editados.',
+            poolUnavailable:
+                'Este tipo de provedor e API não permite buscar modelos online. Adicione os IDs manualmente.',
+            poolEmpty: 'Nenhum modelo. Busque online ou adicione manualmente.',
+            poolOverwrite:
+                'Uma busca bem-sucedida substituirá toda a lista, incluindo adições e edições manuais. Continuar?',
+            poolFetchEmpty: 'Nenhum modelo retornado. A lista foi mantida. Tente novamente ou adicione manualmente.',
+            poolFetchFailed:
+                'Falha na busca. A lista foi mantida. Verifique a URL, a chave API e a rede ou edite manualmente.',
+            poolSaveHelp: 'As alterações entram em vigor ao salvar. Modelos em uso não podem ser removidos.',
+
+            accountType: 'Tipo de conta',
+            accountTypes: {
+                default: 'Padrão',
+                payAsYouGo: 'Pagamento por uso',
+                chinaApi: 'API da China',
+                globalApi: 'API global',
+                chinaCodingPlan: 'Coding Plan da China',
+                globalCodingPlan: 'Coding Plan global',
+                chinaTokenPlan: 'Token Plan da China',
+                globalTokenPlan: 'Token Plan global',
+                speech: 'Serviços de voz',
+                codingPlan: 'Coding Plan',
+                tokenPlan: 'Token Plan',
+                agentPlan: 'Agent Plan',
+                go: 'Go',
+                zen: 'Zen',
+            },
             externalInspect: 'Verificar e obter',
             externalHealthPassed: 'Verificação de integridade aprovada',
             externalHealthFailed: 'Falha na verificação de integridade',
@@ -1338,6 +1366,10 @@ const message = {
             container_conn_helper: 'Use este endereço para acesso ou conexão entre contêineres',
             from_remote: 'Este modelo não foi baixado pelo 1Panel; não há logs de download relacionados.',
             no_logs: 'Os logs de download deste modelo foram excluídos e não podem ser visualizados.',
+            composeFile: 'Arquivo de Orquestração',
+            imageCategory: 'Tipo de imagem',
+            standardImage: 'Imagem padrão',
+            customImage: 'Imagem personalizada',
             vllmVersionHelper: {
                 ascend: 'Versão padrão oficial do Ascend para dispositivos da série Ascend A2.',
                 ascendA3: 'Versão oficial Ascend A3 para dispositivos da série Ascend A3.',
