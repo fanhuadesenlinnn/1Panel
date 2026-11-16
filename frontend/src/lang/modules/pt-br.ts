@@ -2515,10 +2515,7 @@ const message = {
         goImages: 'Ir ao gerenciamento de imagens',
         goModels: 'Ir aos downloads de modelos',
         tokenizerHelp:
-            'Selecione um tokenizador do diretório de tokenizadores para codificar o texto de teste e contar tokens.',
-        tokenizerEmpty:
-            'Não há modelos disponíveis. Baixe um modelo com arquivos de tokenizador nos downloads de modelos.',
-        tokenizerEmptyWithDownload: 'Não há tokenizadores disponíveis. Abra {download} para baixar um.',
+            'Selecione um tokenizador ou modelo no nó principal para codificar o texto de teste e contar tokens.',
         tokenizerInvalid: 'Este tokenizador está indisponível. Selecione outro ou baixe novamente.',
         schemeHelp:
             'Os planos de teste definem os parâmetros de solicitação, a concorrência e as regras de execução. Prepare pelo menos um plano disponível.',
