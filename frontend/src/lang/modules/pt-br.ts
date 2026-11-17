@@ -1308,6 +1308,7 @@ const message = {
                 'O formulário foi alterado. Gerar o Compose novamente substituirá as edições manuais. Continuar?',
             deploymentNameHelper:
                 'Nome da instância, usado no diretório de instalação e fixo após a criação. Defina um alias para alterar o nome exibido.',
+            deploymentAlias: 'Alias da instância',
             deploymentAliasHelper:
                 'Apelido opcional para a lista. Deixe vazio para exibir o nome da instância. Alterar o apelido não reinicia o serviço.',
             deploymentContainerNameHelper:
@@ -1371,6 +1372,7 @@ const message = {
             standardImage: 'Imagem padrão',
             customImage: 'Imagem personalizada',
             vllmVersionHelper: {
+                qwen38: 'Versão personalizada para dois dispositivos NVIDIA GB10, otimizada para Qwen3.8-Flash-Next-NVFP4.',
                 ascend: 'Versão padrão oficial do Ascend para dispositivos da série Ascend A2.',
                 ascendA3: 'Versão oficial Ascend A3 para dispositivos da série Ascend A3.',
                 ascendA5: 'Versão oficial Ascend A5 para dispositivos 950DT.',
@@ -1383,9 +1385,6 @@ const message = {
                 dspark4:
                     'Versão personalizada para quatro dispositivos NVIDIA GB10, otimizada para DeepSeek-V4.1-Flash.',
             },
-            vllmDeployProfile: 'Modelo de implantação',
-            vllmProfileFlash0731: 'DeepSeek V4 Flash 0731',
-            vllmProfileVisionExp: 'DeepSeek V4 Flash Vision Exp',
             syncModelAccount: 'Sincronizar com serviço de modelo',
             modelAccountAddressHelper:
                 'Use o endereço do contêiner para agentes; 127.0.0.1, IP do sistema ou endereço personalizado para AI Gateway ou serviços externos.',
@@ -1394,6 +1393,8 @@ const message = {
             downloader: 'Download de modelos',
             modelDirectoryHelper:
                 'Por padrão, a lista exibe os modelos baixados no diretório configurado em Preparação de modelos > Configurações.',
+            vllmGB10Qwen38ModelHelper:
+                'Somente o modelo Qwen3.8-Flash-Next-NVFP4 é compatível. Os dois dispositivos precisam do modelo completo no mesmo caminho.',
             vllmGB10DualNodeModelHelper:
                 'Somente DeepSeek-V4-Flash-0731 / DeepSeek-V4-Flash-Vision-Exp é compatível. Os dois dispositivos precisam do modelo completo no mesmo caminho.',
             vllmGB10FourNodeModelHelper:

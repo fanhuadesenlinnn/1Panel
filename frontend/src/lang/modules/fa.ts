@@ -1282,6 +1282,7 @@ const message = {
                 'فرم تغییر کرده است. تولید مجدد Compose ویرایش‌های دستی را بازنویسی می‌کند. ادامه می‌دهید؟',
             deploymentNameHelper:
                 'نام نمونهٔ برنامه برای پوشهٔ نصب استفاده می\u200cشود و پس از ایجاد قابل تغییر نیست. برای تغییر نام نمایشی، نام مستعار تعیین کنید.',
+            deploymentAlias: 'نام مستعار نمونه',
             deploymentAliasHelper:
                 'نام مستعار اختیاری برای نمایش در فهرست. اگر خالی باشد، نام نمونه نمایش داده می‌شود. تغییر نام مستعار سرویس را مجدداً راه‌اندازی نمی‌کند.',
             deploymentContainerNameHelper:
@@ -1342,6 +1343,7 @@ const message = {
             standardImage: 'ایمیج استاندارد',
             customImage: 'ایمیج سفارشی',
             vllmVersionHelper: {
+                qwen38: 'نسخه سفارشی برای دو دستگاه NVIDIA GB10، بهینه‌شده برای Qwen3.8-Flash-Next-NVFP4.',
                 ascend: 'نسخه استاندارد رسمی Ascend برای دستگاه‌های سری Ascend A2.',
                 ascendA3: 'نسخه رسمی Ascend A3 برای دستگاه‌های سری Ascend A3.',
                 ascendA5: 'نسخه رسمی Ascend A5 برای دستگاه‌های 950DT.',
@@ -1352,9 +1354,6 @@ const message = {
                 dspark: 'نسخه سفارشی برای دو دستگاه NVIDIA GB10، بهینه‌شده برای DeepSeek-V4-Flash. ایمیج توسط 1Panel نگهداری می‌شود.',
                 dspark4: 'نسخه سفارشی برای چهار دستگاه NVIDIA GB10، بهینه‌شده برای DeepSeek-V4.1-Flash.',
             },
-            vllmDeployProfile: 'مدل استقرار',
-            vllmProfileFlash0731: 'DeepSeek V4 Flash 0731',
-            vllmProfileVisionExp: 'DeepSeek V4 Flash Vision Exp',
             syncModelAccount: 'همگام‌سازی با سرویس مدل',
             modelAccountAddressHelper:
                 'آدرس کانتینر برای کانتینرهای عامل است؛ 127.0.0.1، IP سیستم یا آدرس سفارشی برای دروازه AI یا خدمات خارجی است.',
@@ -1363,6 +1362,8 @@ const message = {
             downloader: 'دانلود مدل',
             modelDirectoryHelper:
                 'فهرست مدل‌ها به‌طور پیش‌فرض مدل‌های دانلودشده در پوشه تنظیم‌شده در «آماده‌سازی مدل > تنظیمات» را نمایش می‌دهد.',
+            vllmGB10Qwen38ModelHelper:
+                'فقط مدل Qwen3.8-Flash-Next-NVFP4 پشتیبانی می‌شود. مدل کامل باید در هر دو دستگاه در مسیر یکسان قرار داشته باشد.',
             vllmGB10DualNodeModelHelper:
                 'فقط DeepSeek-V4-Flash-0731 / DeepSeek-V4-Flash-Vision-Exp پشتیبانی می‌شود. هر دو دستگاه باید مدل کامل را در مسیر یکسان داشته باشند.',
             vllmGB10FourNodeModelHelper:
