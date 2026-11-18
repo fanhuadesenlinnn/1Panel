@@ -621,6 +621,7 @@ const message = {
             'Esta porta é a porta exposta do container. Você precisa salvar a modificação separadamente e reiniciar o container!',
         loadFromRemote: 'Sincronizar',
         userBind: 'Vincular usuário',
+        connectionUser: 'Usuário de conexão',
         userAuthorization: 'Autorização de usuário',
         noUserAuthorization: 'Não autorizar',
         authorizedDatabaseCount: '{0} banco(s) de dados autorizado(s)',
@@ -631,10 +632,13 @@ const message = {
         revokeAuthorization: 'Revogar autorização',
         revokeAuthorizationHelper: 'Revogar o acesso do usuário {0} ao banco de dados {1}?',
         supplementPassword: 'Adicionar senha',
-        supplementPasswordHelper: 'Apenas salva a senha existente no 1Panel; não altera a senha no MySQL.',
+        supplementPasswordHelper:
+            'Salva apenas a senha existente no 1Panel, sem alterar a senha do usuário do banco de dados.',
         noUserBind: 'Sem vínculo',
-        pgBindHelper:
-            'Esta operação cria um novo usuário e o vincula ao banco de dados alvo. A seleção de usuários já existentes no banco de dados não é suportada.',
+        pgAuthorizationHelper:
+            'Superusuários acessam todos os bancos desta instância sem vínculo. Para usuários comuns, são gerenciadas apenas permissões de banco, sem permissões de tabelas.',
+        pgRevokeAuthorizationHelper:
+            'Revogar a autorização não exclui o usuário. O acesso por PUBLIC ou outros papéis pode permanecer.',
         pgSuperUser: 'Superusuário',
         loadFromRemoteHelper:
             'Isso sincronizará bancos de dados, usuários e autorizações do servidor com o 1Panel. Deseja continuar?',
@@ -3611,6 +3615,10 @@ const message = {
         compressSuccess: 'Compactado com sucesso',
         deCompressSuccess: 'Descompactado com sucesso',
         deCompressDst: 'Caminho de descompactação',
+        decompressConflictPolicy: 'Arquivos existentes',
+        keepExisting: 'Manter arquivos existentes',
+        decompressConflictHelper:
+            'Ao manter os arquivos existentes, as entradas em conflito são ignoradas. Diretórios com o mesmo nome continuam sendo mesclados.',
         linkType: 'Tipo de link',
         softLink: 'Link simbólico',
         hardLink: 'Link físico',
@@ -5005,6 +5013,8 @@ const message = {
         batchInput: 'Entrada em Lote',
         domainNotFQDN: 'Este domínio pode não estar acessível na rede pública',
         domainInvalid: 'Formato de domínio inválido',
+        allowFirewall: 'Permitir no firewall',
+        allowFirewallHelp: 'Abre esta porta TCP após criar o site para todos os domínios que a utilizam.',
         domainBatchHelper:
             'Um domínio por linha, formato: domínio:porta@ssl\nExemplo: example.com:443@ssl ou example.com',
         generateDomain: 'Gerar',
@@ -8405,6 +8415,11 @@ const message = {
             createFromTemplate: 'Criar a partir de modelo',
             template: 'Modelo',
             templateName: 'Nome do modelo',
+            dataDisks: 'Discos de dados',
+            dataDiskHelper:
+                'Os discos de dados são criados vazios. Selecione um pool de armazenamento para cada disco; o tipo de barramento é o mesmo do disco do sistema. É possível adicionar até 9 discos.',
+            templateSystemDiskHelper:
+                'Os modelos copiam apenas o disco do sistema, sem o conteúdo dos discos de dados. Ao criar uma VM a partir de um modelo, você pode adicionar discos vazios. Verifique as montagens em /etc/fstab e as dependências de caminhos de bancos de dados e aplicativos. Os UUIDs podem mudar; o painel não altera automaticamente a configuração do sistema convidado.',
             convertToTemplate: 'Converter em modelo',
             sourceVM: 'VM de origem',
             templateSize: 'Tamanho do modelo',
@@ -8522,7 +8537,7 @@ const message = {
             currentSnapshot: 'Atual',
             snapshotEmpty: 'Nenhum snapshot',
             snapshotHelper:
-                'Um snapshot salva o estado atual da VM como ponto de restauração. As alterações posteriores são registradas em um arquivo delta sem modificar o disco original. Restaurar um snapshot devolve a VM a esse estado.',
+                'Os snapshots salvam e restauram todos os discos gerenciados graváveis em conjunto, sem incluir a memória. Desligue a VM antes de restaurar; o conjunto de discos deve corresponder ao snapshot. Discos graváveis compartilhados ou incompatíveis impedem a criação.',
             snapshotOperationHelper:
                 'O snapshot atual não pode ser excluído. Snapshots só podem ser restaurados quando a máquina virtual estiver desligada.',
             snapshotRecoverConfirm:

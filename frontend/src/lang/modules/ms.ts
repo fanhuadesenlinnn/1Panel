@@ -628,6 +628,7 @@ const message = {
             'Port ini adalah port yang didedahkan oleh kontena. Anda perlu menyimpan pengubahsuaian secara berasingan dan memulakan semula kontena!',
         loadFromRemote: 'Selaras',
         userBind: 'Kaitkan pengguna',
+        connectionUser: 'Pengguna sambungan',
         userAuthorization: 'Kebenaran pengguna',
         noUserAuthorization: 'Jangan beri kebenaran',
         authorizedDatabaseCount: '{0} pangkalan data dibenarkan',
@@ -638,10 +639,13 @@ const message = {
         revokeAuthorization: 'Tarik balik kebenaran',
         revokeAuthorizationHelper: 'Tarik balik akses pengguna {0} kepada pangkalan data {1}?',
         supplementPassword: 'Tambah kata laluan',
-        supplementPasswordHelper: 'Hanya menyimpan kata laluan sedia ada ke 1Panel dan tidak mengubahnya dalam MySQL.',
+        supplementPasswordHelper:
+            'Hanya menyimpan kata laluan sedia ada dalam 1Panel tanpa menukar kata laluan pengguna pangkalan data.',
         noUserBind: 'Tiada kaitan',
-        pgBindHelper:
-            'Operasi ini digunakan untuk mencipta pengguna baharu dan mengaitkannya dengan pangkalan data sasaran. Pada masa ini, memilih pengguna yang sudah wujud dalam pangkalan data tidak disokong.',
+        pgAuthorizationHelper:
+            'Pengguna super boleh mengakses semua pangkalan data dalam tika ini tanpa pautan. Pengguna biasa hanya mengurus kebenaran pangkalan data, bukan kebenaran jadual.',
+        pgRevokeAuthorizationHelper:
+            'Pembatalan kebenaran tidak memadamkan pengguna. Akses melalui PUBLIC atau peranan lain mungkin kekal.',
         pgSuperUser: 'Pengguna Super',
         loadFromRemoteHelper:
             'Ini akan menyelaraskan pangkalan data, pengguna dan kebenaran dari pelayan ke 1Panel. Teruskan?',
@@ -3602,6 +3606,10 @@ const message = {
         compressSuccess: 'Berjaya dimampatkan',
         deCompressSuccess: 'Berjaya dinyahmampatkan',
         deCompressDst: 'Laluan nyahmampatan',
+        decompressConflictPolicy: 'Fail sedia ada',
+        keepExisting: 'Kekalkan fail sedia ada',
+        decompressConflictHelper:
+            'Mengekalkan fail sedia ada akan melangkau entri yang bercanggah. Direktori dengan nama yang sama masih digabungkan.',
         linkType: 'Jenis pautan',
         softLink: 'Pautan lembut',
         hardLink: 'Pautan keras',
@@ -4978,6 +4986,8 @@ const message = {
         batchInput: 'Input Kelompok',
         domainNotFQDN: 'Domain ini mungkin tidak boleh diakses di rangkaian awam',
         domainInvalid: 'Format domain tidak sah',
+        allowFirewall: 'Benarkan dalam tembok api',
+        allowFirewallHelp: 'Buka port TCP ini selepas laman dicipta untuk semua domain yang menggunakannya.',
         domainBatchHelper:
             'Satu domain per baris, format: domain:port@ssl\nContoh: example.com:443@ssl atau example.com',
         generateDomain: 'Hasilkan',
@@ -8345,6 +8355,11 @@ const message = {
             createFromTemplate: 'Cipta daripada templat',
             template: 'Templat',
             templateName: 'Nama templat',
+            dataDisks: 'Cakera data',
+            dataDiskHelper:
+                'Cakera data dicipta kosong. Pilih kumpulan storan bagi setiap cakera; jenis bas adalah sama dengan cakera sistem. Sehingga 9 cakera boleh ditambah.',
+            templateSystemDiskHelper:
+                'Templat hanya menyalin cakera sistem tanpa kandungan cakera data. Cakera data kosong boleh ditambah semasa mencipta VM daripada templat. Semak pelekap /etc/fstab serta laluan pangkalan data dan aplikasi yang bergantung pada cakera data. UUID cakera baharu mungkin berbeza; panel tidak mengubah konfigurasi tetamu secara automatik.',
             convertToTemplate: 'Tukar kepada templat',
             sourceVM: 'VM sumber',
             templateSize: 'Saiz templat',
@@ -8461,7 +8476,7 @@ const message = {
             currentSnapshot: 'Semasa',
             snapshotEmpty: 'Tiada syot kilat',
             snapshotHelper:
-                'Syot kilat menyimpan keadaan semasa VM sebagai titik pemulihan. Perubahan data seterusnya direkodkan dalam fail delta tanpa mengubah cakera asal. Memulihkan syot kilat mengembalikan VM ke keadaan tersebut.',
+                'Petikan menyimpan dan memulihkan semua cakera terurus yang boleh ditulis bersama-sama, tanpa memori. Matikan VM sebelum pemulihan; set cakera mesti sepadan dengan petikan. Cakera boleh tulis yang dikongsi atau tidak disokong menghalang penciptaan petikan.',
             snapshotOperationHelper:
                 'Syot kilat semasa tidak boleh dipadam. Syot kilat hanya boleh dipulihkan apabila mesin maya dimatikan.',
             snapshotRecoverConfirm:

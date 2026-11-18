@@ -615,6 +615,7 @@ const message = {
         loadFromRemote: '동기화',
         userBind: '사용자 바인딩',
         noUserBind: '바인딩 없음',
+        connectionUser: '연결 사용자',
         userAuthorization: '사용자 권한',
         noUserAuthorization: '권한 부여 안 함',
         authorizedDatabaseCount: '데이터베이스 {0}개 권한 보유',
@@ -625,9 +626,12 @@ const message = {
         revokeAuthorization: '권한 취소',
         revokeAuthorizationHelper: '사용자 {0}의 데이터베이스 {1} 접근 권한을 취소하시겠습니까?',
         supplementPassword: '비밀번호 추가',
-        supplementPasswordHelper: '기존 비밀번호를 1Panel에만 저장하며 MySQL 비밀번호는 변경하지 않습니다.',
-        pgBindHelper:
-            '이 작업은 새 사용자를 생성하여 대상 데이터베이스에 바인딩하는 데 사용됩니다. 현재 데이터베이스에 이미 존재하는 사용자 선택은 지원되지 않습니다.',
+        supplementPasswordHelper:
+            '기존 비밀번호를 1Panel에 저장하기만 하며 데이터베이스 사용자 비밀번호는 변경하지 않습니다.',
+        pgAuthorizationHelper:
+            '슈퍼유저는 연결 설정 없이 이 인스턴스의 모든 데이터베이스에 접근합니다. 일반 사용자는 데이터베이스 권한만 관리하며 테이블 권한은 포함하지 않습니다.',
+        pgRevokeAuthorizationHelper:
+            '권한을 철회해도 사용자는 삭제되지 않습니다. PUBLIC 또는 다른 역할을 통한 접근 권한은 남을 수 있습니다.',
         pgSuperUser: '슈퍼 사용자',
         loadFromRemoteHelper: '서버의 데이터베이스, 사용자 및 권한 정보를 1Panel로 동기화합니다. 계속하시겠습니까?',
         passwordHelper: '확인 불가, 수정하려면 클릭',
@@ -3478,6 +3482,10 @@ const message = {
         compressSuccess: '압축 성공',
         deCompressSuccess: '압축 해제 성공',
         deCompressDst: '압축 해제 경로',
+        decompressConflictPolicy: '기존 파일 처리',
+        keepExisting: '기존 파일 유지',
+        decompressConflictHelper:
+            '기존 파일을 유지하면 충돌하는 항목을 건너뜁니다. 이름이 같은 디렉터리는 계속 병합됩니다.',
         linkType: '링크 유형',
         softLink: '소프트 링크',
         hardLink: '하드 링크',
@@ -4799,6 +4807,8 @@ const message = {
         batchInput: '일괄 입력',
         domainNotFQDN: '이 도메인은 공용 네트워크에서 액세스할 수 없을 수 있습니다',
         domainInvalid: '도메인 형식이 올바르지 않습니다',
+        allowFirewall: '방화벽에서 허용',
+        allowFirewallHelp: '사이트 생성 후 이 TCP 포트를 사용하는 모든 도메인에 대해 포트를 엽니다.',
         domainBatchHelper: '한 줄에 하나의 도메인, 형식: domain:port@ssl\n예: example.com:443@ssl 또는 example.com',
         generateDomain: '생성',
         global: '글로벌',
@@ -8042,6 +8052,11 @@ const message = {
             createFromTemplate: '템플릿에서 생성',
             template: '템플릿',
             templateName: '템플릿 이름',
+            dataDisks: '데이터 디스크',
+            dataDiskHelper:
+                '데이터 디스크는 빈 디스크로 생성됩니다. 디스크마다 스토리지 풀을 선택할 수 있으며 버스 유형은 시스템 디스크와 동일합니다. 최대 9개까지 추가할 수 있습니다.',
+            templateSystemDiskHelper:
+                '템플릿은 시스템 디스크만 복사하며 데이터 디스크 내용은 포함하지 않습니다. 템플릿으로 생성할 때 빈 데이터 디스크를 추가할 수 있습니다. /etc/fstab 마운트와 데이터베이스 및 앱 경로의 데이터 디스크 의존성을 확인하세요. 새 디스크의 UUID가 다를 수 있으며 게스트 설정은 자동 변경되지 않습니다.',
             convertToTemplate: '템플릿으로 변환',
             sourceVM: '원본 VM',
             templateSize: '템플릿 크기',
@@ -8158,7 +8173,7 @@ const message = {
             currentSnapshot: '현재',
             snapshotEmpty: '스냅샷 없음',
             snapshotHelper:
-                '스냅샷은 현재 VM 상태를 복원 지점으로 저장합니다. 이후 데이터 변경은 원본 디스크를 변경하지 않고 델타 파일에 기록됩니다. 스냅샷을 복구하면 VM이 해당 시점의 상태로 돌아갑니다.',
+                '스냅샷은 관리되는 모든 쓰기 가능한 디스크를 함께 저장하고 복원하며 메모리는 포함하지 않습니다. 복원 전 VM을 종료해야 하며 디스크 구성이 스냅샷과 일치해야 합니다. 공유 또는 미지원 쓰기 가능 디스크가 있으면 생성할 수 없습니다.',
             snapshotOperationHelper:
                 '현재 스냅샷은 삭제할 수 없습니다. 가상 머신이 종료된 경우에만 스냅샷을 복구할 수 있습니다.',
             snapshotRecoverConfirm:

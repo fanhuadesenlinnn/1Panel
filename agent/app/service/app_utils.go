@@ -28,6 +28,7 @@ import (
 	"github.com/1Panel-dev/1Panel/agent/constant"
 	"github.com/1Panel-dev/1Panel/agent/global"
 	"github.com/1Panel-dev/1Panel/agent/i18n"
+	vllmTools "github.com/1Panel-dev/1Panel/agent/utils/ai_tools/vllm"
 	"github.com/1Panel-dev/1Panel/agent/utils/appicon"
 	"github.com/1Panel-dev/1Panel/agent/utils/cmd"
 	"github.com/1Panel-dev/1Panel/agent/utils/common"
@@ -46,6 +47,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/subosito/gotenv"
 	"gopkg.in/yaml.v3"
+	"gorm.io/gorm"
 )
 
 type DatabaseOp string
@@ -268,14 +270,14 @@ func createLink(ctx context.Context, installTask *task.Task, app model.App, appI
 			if dbConfig.DbName != "" && dbConfig.DbUser != "" && dbConfig.Password != "" {
 				switch database.Type {
 				case constant.AppPostgresql, constant.AppPostgres, constant.AppPostgresqlCluster:
-					oldPostgresqlDb, _ := postgresqlRepo.Get(repo.WithByName(dbConfig.DbName), repo.WithByFrom(constant.ResourceLocal))
-					if oldPostgresqlDb.ID == 0 {
-						oldPostgresqlDb, _ = postgresqlRepo.Get(repo.WithByName(dbConfig.DbName), postgresqlRepo.WithByPostgresqlName(dbConfig.DatabaseName), repo.WithByFrom(constant.AppResourceRemote))
+					oldPostgresqlDb, err := postgresqlRepo.Get(repo.WithByName(dbConfig.DbName), postgresqlRepo.WithByPostgresqlName(database.Name), repo.WithByFrom(database.From))
+					if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+						return err
 					}
 					resourceId = oldPostgresqlDb.ID
 					if oldPostgresqlDb.ID > 0 {
-						if oldPostgresqlDb.Username != dbConfig.DbUser || oldPostgresqlDb.Password != dbConfig.Password {
-							return buserr.New("ErrDbUserNotValid")
+						if err := ensureAppPostgresqlDBUser(database, dbConfig); err != nil {
+							return err
 						}
 					} else {
 						var createPostgresql dto.PostgresqlDBCreate
@@ -463,6 +465,9 @@ func deleteAppInstall(deleteReq request.AppInstallDelete) error {
 		case constant.AppMongodb:
 			_ = mongodbRepo.Delete(ctx, mongodbRepo.WithByMongodbName(install.Name))
 		case constant.AppPostgresql, constant.AppPostgresqlCluster:
+			if err := databaseUserRepo.DeleteBy(ctx, repo.WithByType("postgresql"), databaseUserRepo.WithByDatabase(install.Name)); err != nil {
+				return err
+			}
 			_ = postgresqlRepo.Delete(ctx, postgresqlRepo.WithByPostgresqlName(install.Name))
 		}
 
@@ -617,6 +622,32 @@ func ensureAppMysqlDBUser(database model.Database, dbConfig dto.AppDatabase) err
 		Username: dbConfig.DbUser,
 		Host:     host,
 	})
+}
+
+func ensureAppPostgresqlDBUser(database model.Database, dbConfig dto.AppDatabase) error {
+	pgService := NewIPostgresqlService()
+	users, err := pgService.ListUsers(dto.PostgresqlUserSearch{Database: database.Name})
+	if err != nil {
+		return err
+	}
+	for _, user := range users {
+		if user.Username != dbConfig.DbUser {
+			continue
+		}
+		if user.Password == "" || user.Password != dbConfig.Password {
+			return buserr.New("ErrDbUserNotValid")
+		}
+		if user.SuperUser {
+			return nil
+		}
+		for _, name := range user.Databases {
+			if name == dbConfig.DbName {
+				return nil
+			}
+		}
+		return pgService.GrantUser(dto.PostgresqlUserGrant{Database: database.Name, Name: dbConfig.DbName, Username: dbConfig.DbUser})
+	}
+	return buserr.New("ErrDbUserNotValid")
 }
 
 func deleteLink(del dto.DelAppLink) error {
@@ -1102,6 +1133,9 @@ func runScript(task *task.Task, appInstall *model.AppInstall, operate string) er
 	timeout := 10 * time.Minute
 	if operate == "start" || operate == "restart" {
 		timeout = time.Hour
+		if appInstall.App.Key == "vllm" && vllmTools.IsGB10Version(appInstall.Version) {
+			timeout = 2 * time.Hour
+		}
 	}
 	cmdMgr := cmd.NewCommandMgr(cmd.WithTimeout(timeout), cmd.WithWorkDir(workDir), cmd.WithTask(*task))
 	if err := cmdMgr.Run("bash", scriptPath); err != nil {

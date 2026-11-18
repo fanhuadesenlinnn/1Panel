@@ -622,6 +622,7 @@ const message = {
         loadFromRemote: '同期',
         userBind: 'バインドユーザー',
         noUserBind: '未バインド',
+        connectionUser: '接続ユーザー',
         userAuthorization: 'ユーザー権限',
         noUserAuthorization: '権限を付与しない',
         authorizedDatabaseCount: '{0} データベースに権限付与済み',
@@ -632,9 +633,12 @@ const message = {
         revokeAuthorization: '権限を取り消す',
         revokeAuthorizationHelper: 'ユーザー {0} のデータベース {1} へのアクセス権を取り消しますか？',
         supplementPassword: 'パスワードを登録',
-        supplementPasswordHelper: '既存のパスワードを 1Panel に保存するだけで、MySQL のパスワードは変更しません。',
-        pgBindHelper:
-            'この操作は、新しいユーザーを作成し、ターゲットデータベースにバインドするために使用されます。現在、データベースに既存のユーザーを選択することはサポートされていません。',
+        supplementPasswordHelper:
+            '既存のパスワードを 1Panel に保存するだけで、データベースユーザーのパスワードは変更しません。',
+        pgAuthorizationHelper:
+            'スーパーユーザーは紐付けなしでこのインスタンスの全データベースにアクセスできます。一般ユーザーはデータベース単位の権限のみ管理し、テーブル権限は含みません。',
+        pgRevokeAuthorizationHelper:
+            '権限を取り消してもユーザーは削除されません。PUBLIC や他のロール経由のアクセスが残る場合があります。',
         pgSuperUser: 'スーパーユーザー',
         loadFromRemoteHelper: 'サーバー上のデータベース、ユーザー、権限情報を 1Panel に同期します。続行しますか？',
         passwordHelper: '取得できません、クリックして修正',
@@ -3532,6 +3536,10 @@ const message = {
         compressSuccess: '正常に圧縮されました',
         deCompressSuccess: '減圧は成功しました',
         deCompressDst: 'パスを減圧します',
+        decompressConflictPolicy: '同名ファイルの処理',
+        keepExisting: '既存ファイルを保持',
+        decompressConflictHelper:
+            '既存ファイルを保持する場合は競合する項目をスキップします。同名のディレクトリは引き続きマージされます。',
         linkType: 'リンクタイプ',
         softLink: 'ソフトリンク',
         hardLink: 'ハードリンク',
@@ -4887,6 +4895,8 @@ const message = {
         batchInput: 'バッチ入力',
         domainNotFQDN: 'このドメインはパブリックネットワークからアクセスできない可能性があります',
         domainInvalid: 'ドメイン形式が正しくありません',
+        allowFirewall: 'ファイアウォールで許可',
+        allowFirewallHelp: 'サイト作成後、この TCP ポートを使用するすべてのドメインに対してポートを開放します。',
         domainBatchHelper: '1行に1ドメイン、形式: domain:port@ssl\n例: example.com:443@ssl または example.com',
         generateDomain: '生成',
         global: 'グローバル',
@@ -8207,6 +8217,11 @@ const message = {
             createFromTemplate: 'テンプレートから作成',
             template: 'テンプレート',
             templateName: 'テンプレート名',
+            dataDisks: 'データディスク',
+            dataDiskHelper:
+                'データディスクは空の状態で作成されます。各ディスクのストレージプールを選択でき、バスの種類はシステムディスクと共通です。最大 9 台追加できます。',
+            templateSystemDiskHelper:
+                'テンプレートにはシステムディスクのみがコピーされ、データディスクの内容は含まれません。テンプレートからの作成時に空のデータディスクを追加できます。/etc/fstab のマウント設定やデータベース、アプリのパス依存を確認してください。新しいディスクの UUID は異なる場合があります。ゲスト設定は自動変更されません。',
             convertToTemplate: 'テンプレートに変換',
             sourceVM: '元の VM',
             templateSize: 'テンプレートサイズ',
@@ -8326,7 +8341,7 @@ const message = {
             currentSnapshot: '現在',
             snapshotEmpty: 'スナップショットがありません',
             snapshotHelper:
-                'スナップショットは現在の VM 状態を復元ポイントとして保存します。以降のデータ変更は元のディスクを変更せず差分ファイルに記録されます。復元すると VM はその時点の状態に戻ります。',
+                'スナップショットは管理対象の書き込み可能な全ディスクを一括保存・復元します。メモリは含みません。復元には停止が必要で、ディスク構成がスナップショットと一致する必要があります。共有または非対応の書き込み可能ディスクがある場合は作成できません。',
             snapshotOperationHelper:
                 '現在のスナップショットは削除できません。スナップショットを復元できるのは仮想マシンが停止している場合のみです。',
             snapshotRecoverConfirm:

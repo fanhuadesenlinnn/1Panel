@@ -621,6 +621,7 @@ const message = {
             'This port is the exposed port of the container. You need to save the modification separately and restart the container!',
         loadFromRemote: 'Sync from server',
         userBind: 'Bind user',
+        connectionUser: 'Connection user',
         userAuthorization: 'User authorization',
         noUserAuthorization: 'Do not authorize',
         authorizedDatabaseCount: '{0} authorized database(s)',
@@ -631,10 +632,13 @@ const message = {
         revokeAuthorization: 'Revoke authorization',
         revokeAuthorizationHelper: "Revoke user {0}'s access to database {1}?",
         supplementPassword: 'Add password',
-        supplementPasswordHelper: 'This only saves the existing password to 1Panel and does not change it in MySQL.',
+        supplementPasswordHelper:
+            'This only saves the existing password to 1Panel and does not change the database user password.',
         noUserBind: 'No binding',
-        pgBindHelper:
-            'This operation is used to create a new user and bind it to the target database. Currently, selecting users already existing in the database is not supported.',
+        pgAuthorizationHelper:
+            'Superusers can access all databases in this instance without binding. Ordinary users receive database-level grants only, without table permissions.',
+        pgRevokeAuthorizationHelper:
+            'Revoking authorization does not delete the user. Access through PUBLIC or other roles may remain.',
         pgSuperUser: 'Superuser',
         loadFromRemoteHelper: 'Sync databases, users, and authorizations from the server to 1Panel. Continue?',
         passwordHelper: 'Not available, click to update',
@@ -3552,6 +3556,10 @@ const message = {
         compressSuccess: 'Compressed successfully',
         deCompressSuccess: 'Decompress succeeded',
         deCompressDst: 'Decompress path',
+        decompressConflictPolicy: 'Existing files',
+        keepExisting: 'Keep existing files',
+        decompressConflictHelper:
+            'Keeping existing files skips conflicting entries. Directories with the same name are still merged.',
         linkType: 'Link type',
         softLink: 'Soft link',
         hardLink: 'Hard link',
@@ -4907,6 +4915,8 @@ const message = {
         batchInput: 'Batch Input',
         domainNotFQDN: 'This domain may not be accessible on the public network',
         domainInvalid: 'Invalid domain format',
+        allowFirewall: 'Allow in firewall',
+        allowFirewallHelp: 'Open this TCP port after site creation for all domains using it.',
         domainBatchHelper: 'One domain per line, format: domain:port@ssl\nExample: example.com:443@ssl or example.com',
         generateDomain: 'Generate',
         global: 'Global',
@@ -8218,6 +8228,11 @@ const message = {
             createFromTemplate: 'Create from template',
             template: 'Template',
             templateName: 'Template Name',
+            dataDisks: 'Data disks',
+            dataDiskHelper:
+                'Data disks are created empty. Select a storage pool for each disk; the bus type is shared with the system disk. Up to 9 data disks can be added.',
+            templateSystemDiskHelper:
+                'Templates copy only the system disk, excluding data disk contents. You can add empty data disks when creating a VM from a template. Check /etc/fstab mounts and database or application paths that depend on data disks. New disk UUIDs may differ; the panel does not modify guest configuration automatically.',
             convertToTemplate: 'Convert to Template',
             sourceVM: 'Source VM',
             templateSize: 'Template Size',
@@ -8335,7 +8350,7 @@ const message = {
             currentSnapshot: 'Current',
             snapshotEmpty: 'No snapshots',
             snapshotHelper:
-                'A snapshot saves the current VM state as a restore point. Subsequent data changes are recorded in a delta file without changing the original disk. Restoring a snapshot returns the VM to that point in time.',
+                'Snapshots capture and restore all managed writable disks together, excluding memory. Shut down the VM before restoring; its disk set must match the snapshot. Shared or unsupported writable disks prevent snapshot creation.',
             snapshotOperationHelper:
                 'The current snapshot cannot be deleted. Snapshots can be recovered only when the virtual machine is shut off.',
             snapshotRecoverConfirm:

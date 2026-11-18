@@ -622,6 +622,7 @@ const message = {
             'Bu port konteynerin açığa çıkan portudur. Değişikliği ayrı olarak kaydetmeniz ve konteyneri yeniden başlatmanız gerekir!',
         loadFromRemote: 'Sunucudan senkronize et',
         userBind: 'Kullanıcı bağla',
+        connectionUser: 'Bağlantı kullanıcısı',
         userAuthorization: 'Kullanıcı yetkilendirmesi',
         noUserAuthorization: 'Yetki verme',
         authorizedDatabaseCount: '{0} veritabanı yetkisi',
@@ -632,10 +633,13 @@ const message = {
         revokeAuthorization: 'Yetkiyi kaldır',
         revokeAuthorizationHelper: '{0} kullanıcısının {1} veritabanına erişimi kaldırılsın mı?',
         supplementPassword: 'Parola ekle',
-        supplementPasswordHelper: 'Yalnızca mevcut parolayı 1Panel içine kaydeder; MySQL parolasını değiştirmez.',
+        supplementPasswordHelper:
+            'Yalnızca mevcut parolayı 1Panel içine kaydeder; veritabanı kullanıcısının parolasını değiştirmez.',
         noUserBind: 'Bağlantı yok',
-        pgBindHelper:
-            'Bu işlem yeni bir kullanıcı oluşturmak ve hedef veritabanına bağlamak için kullanılır. Şu anda veritabanında mevcut olan kullanıcıları seçmek desteklenmiyor.',
+        pgAuthorizationHelper:
+            'Süper kullanıcılar bu örnekteki tüm veritabanlarına bağlama gerekmeden erişir. Normal kullanıcılar için yalnızca veritabanı izinleri yönetilir, tablo izinleri dahil değildir.',
+        pgRevokeAuthorizationHelper:
+            'Yetkinin iptal edilmesi kullanıcıyı silmez. PUBLIC veya diğer roller üzerinden erişim devam edebilir.',
         pgSuperUser: 'Süper Kullanıcı',
         loadFromRemoteHelper:
             'Sunucudaki veritabanlarını, kullanıcıları ve yetkilendirmeleri 1Panel ile eşitler. Devam edilsin mi?',
@@ -3592,6 +3596,10 @@ const message = {
         compressSuccess: 'Başarıyla sıkıştırıldı',
         deCompressSuccess: 'Sıkıştırma başarıyla açıldı',
         deCompressDst: 'Sıkıştırma açma yolu',
+        decompressConflictPolicy: 'Mevcut dosyalar',
+        keepExisting: 'Mevcut dosyaları koru',
+        decompressConflictHelper:
+            'Mevcut dosyalar korunurken çakışan öğeler atlanır. Aynı adlı dizinler birleştirilmeye devam eder.',
         linkType: 'Bağlantı türü',
         softLink: 'Yumuşak bağlantı',
         hardLink: 'Sert bağlantı',
@@ -4983,6 +4991,8 @@ const message = {
         batchInput: 'Toplu Giriş',
         domainNotFQDN: 'Bu alan adı genel ağda erişilebilir olmayabilir',
         domainInvalid: 'Geçersiz alan adı biçimi',
+        allowFirewall: 'Güvenlik duvarında izin ver',
+        allowFirewallHelp: 'Site oluşturulduktan sonra bu TCP bağlantı noktasını kullanan tüm alan adları için açar.',
         domainBatchHelper:
             'Bir satırda bir alan adı, format: domain:port@ssl\nÖrnek: example.com:443@ssl veya example.com',
         generateDomain: 'Oluştur',
@@ -8353,6 +8363,11 @@ const message = {
             createFromTemplate: 'Şablondan oluştur',
             template: 'Şablon',
             templateName: 'Şablon adı',
+            dataDisks: 'Veri diskleri',
+            dataDiskHelper:
+                'Veri diskleri boş oluşturulur. Her disk için bir depolama havuzu seçilebilir; veri yolu türü sistem diskiyle aynıdır. En fazla 9 disk eklenebilir.',
+            templateSystemDiskHelper:
+                'Şablonlar yalnızca sistem diskini kopyalar; veri disklerinin içeriği dahil edilmez. Şablondan VM oluştururken boş veri diskleri ekleyebilirsiniz. /etc/fstab bağlamalarını ve veri disklerine bağımlı veritabanı veya uygulama yollarını kontrol edin. Yeni disklerin UUID değerleri farklı olabilir; panel konuk yapılandırmasını otomatik değiştirmez.',
             convertToTemplate: 'Şablona dönüştür',
             sourceVM: 'Kaynak VM',
             templateSize: 'Şablon boyutu',
@@ -8471,7 +8486,7 @@ const message = {
             currentSnapshot: 'Geçerli',
             snapshotEmpty: 'Anlık görüntü yok',
             snapshotHelper:
-                'Anlık görüntü, geçerli VM durumunu geri yükleme noktası olarak kaydeder. Sonraki veri değişiklikleri özgün diski değiştirmeden bir fark dosyasına kaydedilir. Anlık görüntünün geri yüklenmesi VM’yi bu duruma döndürür.',
+                'Anlık görüntüler, yönetilen tüm yazılabilir diskleri birlikte kaydeder ve geri yükler; bellek dahil değildir. Geri yüklemeden önce VM kapatılmalı ve disk kümesi anlık görüntüyle eşleşmelidir. Paylaşılan veya desteklenmeyen yazılabilir diskler oluşturmayı engeller.',
             snapshotOperationHelper:
                 'Geçerli anlık görüntü silinemez. Anlık görüntüler yalnızca sanal makine kapalıyken geri yüklenebilir.',
             snapshotRecoverConfirm:

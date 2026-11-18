@@ -623,6 +623,7 @@ const message = {
         loadFromRemote: 'Sincronizar desde el servidor',
         userBind: 'Vincular usuario',
         noUserBind: 'Sin vinculación',
+        connectionUser: 'Usuario de conexión',
         userAuthorization: 'Autorización de usuario',
         noUserAuthorization: 'No autorizar',
         authorizedDatabaseCount: '{0} base(s) de datos autorizada(s)',
@@ -633,9 +634,12 @@ const message = {
         revokeAuthorization: 'Revocar autorización',
         revokeAuthorizationHelper: '¿Revocar el acceso del usuario {0} a la base de datos {1}?',
         supplementPassword: 'Añadir contraseña',
-        supplementPasswordHelper: 'Solo guarda la contraseña existente en 1Panel; no cambia la contraseña en MySQL.',
-        pgBindHelper:
-            'Esta operación se utiliza para crear un nuevo usuario y vincularlo a la base de datos destino. Actualmente no se admite seleccionar usuarios ya existentes en la base de datos.',
+        supplementPasswordHelper:
+            'Solo guarda la contraseña existente en 1Panel, sin cambiar la contraseña del usuario de la base de datos.',
+        pgAuthorizationHelper:
+            'Los superusuarios acceden a todas las bases de datos de esta instancia sin vinculación. Para usuarios normales solo se gestionan permisos de base de datos, no de tablas.',
+        pgRevokeAuthorizationHelper:
+            'Revocar la autorización no elimina al usuario. Puede conservar el acceso mediante PUBLIC u otros roles.',
         pgSuperUser: 'Superusuario',
         loadFromRemoteHelper:
             'Esto sincronizará las bases de datos, los usuarios y las autorizaciones del servidor con 1Panel. ¿Desea continuar?',
@@ -3613,6 +3617,10 @@ const message = {
         compressSuccess: 'Compresión completada correctamente',
         deCompressSuccess: 'Descompresión completada correctamente',
         deCompressDst: 'Ruta de descompresión',
+        decompressConflictPolicy: 'Archivos existentes',
+        keepExisting: 'Conservar archivos existentes',
+        decompressConflictHelper:
+            'Al conservar los archivos existentes, se omiten las entradas en conflicto. Los directorios con el mismo nombre se siguen combinando.',
         linkType: 'Tipo de enlace',
         softLink: 'Enlace simbólico',
         hardLink: 'Enlace físico',
@@ -4986,6 +4994,8 @@ const message = {
         batchInput: 'Entrada por Lotes',
         domainNotFQDN: 'Este dominio puede no ser accesible en la red pública',
         domainInvalid: 'Formato de dominio inválido',
+        allowFirewall: 'Permitir en el cortafuegos',
+        allowFirewallHelp: 'Abre este puerto TCP al crear el sitio para todos los dominios que lo usan.',
         domainBatchHelper:
             'Un dominio por línea, formato: dominio:puerto@ssl\nEjemplo: example.com:443@ssl o example.com',
         generateDomain: 'Generar',
@@ -8373,6 +8383,11 @@ const message = {
             createFromTemplate: 'Crear desde plantilla',
             template: 'Plantilla',
             templateName: 'Nombre de la plantilla',
+            dataDisks: 'Discos de datos',
+            dataDiskHelper:
+                'Los discos de datos se crean vacíos. Puede elegir un grupo de almacenamiento para cada disco; el tipo de bus es el mismo que el del disco del sistema. Se pueden añadir hasta 9 discos.',
+            templateSystemDiskHelper:
+                'Las plantillas copian solo el disco del sistema, sin los datos de otros discos. Al crear una VM desde una plantilla puede añadir discos de datos vacíos. Revise los montajes de /etc/fstab y las rutas de bases de datos o aplicaciones que dependan de esos discos. Los UUID pueden cambiar; el panel no modifica automáticamente la configuración del invitado.',
             convertToTemplate: 'Convertir en plantilla',
             sourceVM: 'VM de origen',
             templateSize: 'Tamaño de la plantilla',
@@ -8493,7 +8508,7 @@ const message = {
             currentSnapshot: 'Actual',
             snapshotEmpty: 'No hay instantáneas',
             snapshotHelper:
-                'Una instantánea guarda el estado actual de la VM como punto de restauración. Los cambios posteriores se registran en un archivo delta sin modificar el disco original. Al restaurarla, la VM vuelve a ese momento.',
+                'Las instantáneas guardan y restauran juntos todos los discos administrados con escritura, sin incluir la memoria. Apague la VM antes de restaurar; los discos deben coincidir con la instantánea. Los discos compartidos o no compatibles con escritura impiden crear instantáneas.',
             snapshotOperationHelper:
                 'La instantánea actual no se puede eliminar. Las instantáneas solo se pueden restaurar cuando la máquina virtual está apagada.',
             snapshotRecoverConfirm:
